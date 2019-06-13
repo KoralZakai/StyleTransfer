@@ -144,7 +144,6 @@ class Transfer_image(QWidget):
         self.firstsub_Layout = QtWidgets.QHBoxLayout(self.firstsub_Frame)
         self.firstsub_Layout.setAlignment(Qt.AlignCenter)
 
-
         # The sub window
         self.sub_Frame = QtWidgets.QFrame(self.main_frame)
         self.sub_Frame.setFixedWidth(self.width)
@@ -155,13 +154,12 @@ class Transfer_image(QWidget):
         self.sub_Frame.setFixedWidth(self.width)
         self.sub_Layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
 
-
         Btn_Content = QtWidgets.QPushButton("Upload Content image ", self)
         Btn_Content.setObjectName("contentButtons")
         Btn_Content.clicked.connect(self.setContentImage)
         self.firstsub_Layout.addWidget(Btn_Content)
 
-        Btn_style = QtWidgets.QPushButton("Upload Style IMage", self)
+        Btn_style = QtWidgets.QPushButton("Upload Style image", self)
         Btn_style.setObjectName("StyleButtons")
         Btn_style.clicked.connect(self.setStyleImage)
         self.firstsub_Layout.addWidget(Btn_style)
@@ -170,7 +168,6 @@ class Transfer_image(QWidget):
         Btn_style.setObjectName("GeneratorBottun")
         generatebutton.clicked.connect(self.lunch_thread)
         self.sub_Layout.addWidget(generatebutton)
-
 
 
     def setupUi(self, MainWindow):
@@ -436,7 +433,6 @@ class Transfer_image(QWidget):
         self.actionExit2.setText(_translate("MainWindow", "Exit"))
 
 
-
     # createNewScreen function control of what shows in the create new screen.
     def createNewScreen(self):
         global flag3
@@ -608,8 +604,7 @@ class Transfer_image(QWidget):
                         'block2_conv1',
                         'block3_conv1',
                         'block4_conv1',
-                        'block5_conv1'
-                        ]
+                        'block5_conv1']
 
         num_content_layers = len(content_layers)
         num_style_layers = len(style_layers)
@@ -626,10 +621,10 @@ class Transfer_image(QWidget):
             img = np.expand_dims(img, axis=0)
             return img
 
-        # load_and_process_img is charge on load the image into the vgg19 network.
+        # load_and_process_img is charge on load the image into the vgg16 network.
         def load_and_process_img(path_to_img):
             img = load_img(path_to_img)
-            img = tf.keras.applications.vgg19.preprocess_input(img)
+            img = tf.keras.applications.vgg16.preprocess_input(img)
             return img
 
         def deprocess_img(processed_img):
@@ -649,13 +644,13 @@ class Transfer_image(QWidget):
             x = np.clip(x, 0, 255).astype('uint8')
             return x
 
-        # get_model function load the VGG19 model and access the intermediate layers.
+        # get_model function load the VGG16 model and access the intermediate layers.
         # Returns: a Keras model that takes image inputs and outputs the style and content intermediate layers.
         def get_model():
             import ssl
             ssl._create_default_https_context = ssl._create_unverified_context
             # We load pretrained VGG Network, trained on imagenet data
-            vgg = tf.keras.applications.vgg19.VGG19(include_top=False, weights='imagenet')
+            vgg = tf.keras.applications.vgg16.VGG16(include_top=False, weights='imagenet')
             vgg.trainable = False
             # Get output layers corresponding to style and content layers
             style_outputs = [vgg.get_layer(name).output for name in style_layers]
@@ -690,7 +685,7 @@ class Transfer_image(QWidget):
             the outputs of the intermediate layers.
             Returns the style and the content features representation."""
         def get_feature_representations(model, content_path, style_path):
-            # Load our images into the VGG19 Network
+            # Load our images into the VGG16 Network
             content_image = load_and_process_img(content_path)
             style_image = load_and_process_img(style_path)
 
