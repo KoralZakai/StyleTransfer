@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource prefix="/Pictures">
+	<file alias="logo.png">Pictures/logo.png</file>
+	<file alias="home.png">Pictures/home.png</file>
+	<file alias="help.png">Pictures/help.png</file>
+</qresource>	
+</RCC>
