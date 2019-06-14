@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1306c76b-2666-4dd8-a16a-280ae8f78c69" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNNGui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNNGui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/css.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/css.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/css/StyleSheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/css/StyleSheet.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/design.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/design.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN shahar.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,10 +14,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNNGui.py">
+        <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="131" column="49" selection-start-line="131" selection-start-column="49" selection-end-line="131" selection-end-column="49" />
+              <caret line="131" column="26" selection-start-line="131" selection-start-column="26" selection-end-line="131" selection-end-column="26" />
               <folding>
                 <element signature="e#106#148#0" expanded="true" />
                 <element signature="e#5938#6517#0" />
@@ -47,7 +44,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
+        <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN shahar.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="96">
               <caret line="414" column="24" selection-start-line="414" selection-start-column="13" selection-end-line="414" selection-end-column="24" />
@@ -204,7 +201,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\MayLev\PycharmProjects\StyleTransfer\Image-Style-Transfer\Image Style Transfer Using CNN shahar.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -225,7 +222,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNNGui.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\MayLev\PycharmProjects\StyleTransfer\Image-Style-Transfer\Image Style Transfer Using CNN.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -324,19 +321,25 @@
       <option name="project" value="LOCAL" />
       <updated>1560525739298</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="gui add content+ style buttons, not working!">
+      <created>1560528546531</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1560528546531</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21056548" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21056548" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3289689" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -381,7 +384,8 @@
     <MESSAGE value="add gui" />
     <MESSAGE value="add gui main screen" />
     <MESSAGE value="change gui main screen + add output screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="change gui main screen + add output screen" />
+    <MESSAGE value="gui add content+ style buttons, not working!" />
+    <option name="LAST_COMMIT_MESSAGE" value="gui add content+ style buttons, not working!" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/css/help2.png">
@@ -485,7 +489,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
+    <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN shahar.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
           <caret line="414" column="24" selection-start-line="414" selection-start-column="13" selection-end-line="414" selection-end-column="24" />
@@ -502,10 +506,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNNGui.py">
+    <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="131" column="49" selection-start-line="131" selection-start-column="49" selection-end-line="131" selection-end-column="49" />
+          <caret line="131" column="26" selection-start-line="131" selection-start-column="26" selection-end-line="131" selection-end-column="26" />
           <folding>
             <element signature="e#106#148#0" expanded="true" />
             <element signature="e#5938#6517#0" />
