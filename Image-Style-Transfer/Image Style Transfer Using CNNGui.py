@@ -33,9 +33,9 @@ count=0
 global iter
 iter = 0
 
-class Gui_output_image_window(QWidget):
+class Transfer_Image_Gui(QWidget):
     def __init__(self, parent=None):
-        super(Gui_output_image_window, self).__init__(parent)
+        super(Transfer_Image_Gui, self).__init__(parent)
         self.show
         # init the initial parameters of this GUI
         user32 = ctypes.windll.user32
@@ -86,6 +86,164 @@ class Gui_output_image_window(QWidget):
         homeBtn.clicked.connect(self.showHome)
         self.Iconsub_Layout.addWidget(homeBtn)
 
+        # The style + conntent buttons sub frame
+        self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
+        self.main_layout.addWidget(self.Buttonsub_Frame)
+        self.Buttonsub_Layout = QtWidgets.QHBoxLayout(self.Buttonsub_Frame)
+        self.Buttonsub_Frame.setFixedWidth(self.width)
+        self.Buttonsub_Layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
+
+        # upload content button
+        contentBtn = QtWidgets.QPushButton("Upload content image", self)
+        contentBtn.setObjectName("MainGuiButtons")
+        contentBtn.clicked.connect(self.setContentImage)
+        contentBtn.setStyleSheet("QPushButton {width: 250px;} ")
+        self.Buttonsub_Layout.addWidget(contentBtn)
+
+        # upload style
+        StyleBtn = QtWidgets.QPushButton("Upload style Image", self)
+        StyleBtn.setObjectName("MainGuiButtons")
+        StyleBtn.clicked.connect(self.setStyleImage)
+        StyleBtn.setStyleSheet("QPushButton {width: 250px;} ")
+        self.Buttonsub_Layout.addWidget(StyleBtn)
+
+        # The style + conntent photos sub frame
+        self.Photosub_Frame = QtWidgets.QFrame(self.main_frame)
+        self.main_layout.addWidget(self.Photosub_Frame)
+        self.Photosub_Layout = QtWidgets.QHBoxLayout(self.Photosub_Frame)
+        self.Photosub_Frame.setFixedWidth(self.width)
+        self.Photosub_Layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
+
+        styleframe = QtWidgets.QLabel()
+        styleframe.setGeometry(QtCore.QRect(350, 90, 251, 191))
+        styleframe.setFrameShape(QtWidgets.QFrame.NoFrame)
+        styleframe.setText("")
+        styleframe.setPixmap(QtGui.QPixmap(":Pictures/logo.png"))
+        styleframe.setScaledContents(True)
+        styleframe.setObjectName("styleframe")
+        self.Photosub_Layout.addWidget(styleframe)
+
+        contentframe = QtWidgets.QLabel()
+        contentframe.setGeometry(QtCore.QRect(350, 90, 251, 191))
+        contentframe.setFrameShape(QtWidgets.QFrame.NoFrame)
+        contentframe.setText("")
+        contentframe.setPixmap(QtGui.QPixmap(":Pictures/logo.png"))
+        contentframe.setScaledContents(True)
+        contentframe.setObjectName("contentframe")
+        self.Photosub_Layout.addWidget(contentframe)
+
+        # Footer layout
+        creditsLbl = QtWidgets.QLabel('Created By Koral Zakai & May Steinfeld, '
+                                      'Supervisor: Zeev Vladimir Volkovich, '
+                                      '03/06/2019')
+        creditsLbl.setAlignment(Qt.AlignCenter)
+        self.main_layout.addWidget(creditsLbl)
+
+        # show the window
+        self.showMaximized()
+
+    # Opens home window
+    def showHome(self):
+        """
+        close current window and return to home page
+        """
+        self.parent().show()
+        self.parent().main_frame.setVisible(True)
+        self.close()
+        """saveimage function control the saving of the output image."""
+
+    """setContentImage function control on choosing the content image."""
+
+    def setContentImage(self):
+        fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
+                                                             "Image Files (*.png *.jpg *.jpeg *.bmp)")
+        if fileName:
+            global content_path
+            content_path = fileName[0]
+            pixmap = QtGui.QPixmap(fileName[0])
+            pixmap = pixmap.scaled(290, 290, QtCore.Qt.KeepAspectRatio)
+            self.contentframe.setPixmap(pixmap)
+            self.contentframe.setAlignment(QtCore.Qt.AlignCenter)
+            global flag1
+            flag1 = 1
+            global flag2
+
+    """setStyleImage function control on choosing the style image."""
+    def setStyleImage(self):
+        fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
+                                                             "Image Files (*.png *.jpg *.jpeg *.bmp)")
+        if fileName:
+            global style_path
+            style_path = fileName[0]
+            pixmap = QtGui.QPixmap(fileName[0])
+            pixmap = pixmap.scaled(290, 290, QtCore.Qt.KeepAspectRatio)
+            self.styleframe.setPixmap(pixmap)
+            self.styleframe.setAlignment(QtCore.Qt.AlignCenter)
+            global flag2
+            flag2 = 1
+            global flag1
+
+    def saveimage(self):
+        global outputImage
+        fileName, _ = QtWidgets.QFileDialog.getSaveFileName(None, "Select Image", "",
+                                                            "Image Files (*.jpg *.png *.jpeg *.bmp)")
+        if (fileName):
+            outputImage.save(fileName)
+
+
+class Gui_output_image_window(QWidget):
+    def __init__(self, parent=None):
+        super(Gui_output_image_window, self).__init__(parent)
+        self.show
+        # init the initial parameters of this GUI
+        user32 = ctypes.windll.user32
+        user32.SetProcessDPIAware()
+        [w, h] = [user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)]
+        self.title = 'Style Maker'
+        self.width = w
+        self.height = h
+        self.initUI()
+
+    def initUI(self):
+        file = QFile(':css/StyleSheet.css')
+        file.open(QFile.ReadOnly)
+        stream = QTextStream(file)
+        text = stream.readAll()
+        self.setStyleSheet(text)
+        self.setWindowTitle(self.title)
+        self.setWindowIcon(QIcon(":Pictures/logo.png"))
+        self.setGeometry(0, 0, self.width, self.height - 60)
+
+        # Creating main container-frame, parent it to QWindow
+        self.main_frame = QtWidgets.QFrame(self)
+        self.main_frame.setObjectName("MainFrame")
+        self.main_frame.setFixedWidth(self.width)
+        self.main_frame.setFixedHeight(self.height)
+        self.main_layout = QtWidgets.QVBoxLayout(self.main_frame)
+
+        # the Icons sub frame
+        self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
+        self.Iconsub_Frame.setFixedHeight(75)
+        self.main_layout.addWidget(self.Iconsub_Frame)
+        self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
+        self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
+
+        # help button
+        helpBtn = QtWidgets.QPushButton("", self)
+        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;} ")
+        helpBtn.setFixedWidth(68)
+        helpBtn.setFixedHeight(68)
+        helpBtn.clicked.connect(Main_Window.showHelp)
+        self.Iconsub_Layout.addWidget(helpBtn)
+
+        # home button
+        homeBtn = QtWidgets.QPushButton("", self)
+        homeBtn.setStyleSheet("QPushButton {background: url(:Pictures/home.png) no-repeat transparent;} ")
+        homeBtn.setFixedWidth(68)
+        homeBtn.setFixedHeight(68)
+        homeBtn.clicked.connect(Transfer_Image_Gui.showHome)
+        self.Iconsub_Layout.addWidget(homeBtn)
+
         # The Output + Button save sub frame
         self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
         self.main_layout.addWidget(self.Buttonsub_Frame)
@@ -122,15 +280,6 @@ class Gui_output_image_window(QWidget):
 
         # show the window
         self.showMaximized()
-
-    # Opens home window
-    def showHome(self):
-        """
-        close current window and return to home page
-        """
-        self.parent().show()
-        self.parent().main_frame.setVisible(True)
-        self.close()
 
     """saveimage function control the saving of the output image."""
     def saveimage(self):
@@ -225,7 +374,7 @@ class Main_Window(QWidget):
         self.showMaximized()
 
     def openTransferImageGui(self):
-        transferImage = Gui_output_image_window(self)
+        transferImage = Transfer_Image_Gui(self)
         transferImage.show()
         self.main_frame.setVisible(False)
 
@@ -249,48 +398,6 @@ class Main_Window(QWidget):
     """onCountChanged function control on updating the progrssBar."""
     def onCountChanged(self, value):
         self.progressBar.setValue(value)
-
-    """setContentImage function control on choosing the content image."""
-    def setContentImage(self):
-        fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
-                                                             "Image Files (*.png *.jpg *.jpeg *.bmp)")
-        if fileName:
-            global content_path
-            content_path = fileName[0]
-            pixmap = QtGui.QPixmap(fileName[0])
-            pixmap = pixmap.scaled(290, 290, QtCore.Qt.KeepAspectRatio)
-            self.contentframe.setPixmap(pixmap)
-            self.contentframe.setAlignment(QtCore.Qt.AlignCenter)
-            global flag1
-            flag1 =1
-            global flag2
-            if (flag1==1 and flag2==1):
-                self.outputframe.show()
-                self.warninglabel.hide()
-                self.generatebutton.show()
-                self.pluslabel.show()
-                self.equalabel.show()
-
-    """setStyleImage function control on choosing the style image."""
-    def setStyleImage(self):
-        fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
-                                                             "Image Files (*.png *.jpg *.jpeg *.bmp)")
-        if fileName:
-            global style_path
-            style_path = fileName[0]
-            pixmap = QtGui.QPixmap(fileName[0])
-            pixmap = pixmap.scaled(290, 290, QtCore.Qt.KeepAspectRatio)
-            self.styleframe.setPixmap(pixmap)
-            self.styleframe.setAlignment(QtCore.Qt.AlignCenter)
-            global flag2
-            flag2 = 1
-            global flag1
-            if (flag2==1 and flag1==1):
-                self.outputframe.show()
-                self.warninglabel.hide()
-                self.generatebutton.show()
-                self.pluslabel.show()
-                self.equalabel.show()
 
     """Generate function is start when the Generate button pushed. it start the main algorithm."""
     def Generate(self):
