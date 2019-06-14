@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1306c76b-2666-4dd8-a16a-280ae8f78c69" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN shahar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,12 +16,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="131" column="26" selection-start-line="131" selection-start-column="26" selection-end-line="131" selection-end-column="26" />
+            <state relative-caret-position="212">
+              <caret line="171" column="43" lean-forward="true" selection-start-line="171" selection-start-column="43" selection-end-line="171" selection-end-column="43" />
               <folding>
                 <element signature="e#106#148#0" expanded="true" />
-                <element signature="e#5938#6517#0" />
-                <element signature="e#6908#7479#0" />
+                <element signature="e#798#4940#0" />
+                <element signature="e#5410#25798#0" />
                 <element signature="e#567#919#0" />
                 <element signature="e#15958#15990#0" />
                 <element signature="e#9710#11074#0" />
@@ -46,12 +46,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN shahar.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="414" column="24" selection-start-line="414" selection-start-column="13" selection-end-line="414" selection-end-column="24" />
+            <state relative-caret-position="182">
+              <caret line="371" column="37" lean-forward="true" selection-start-line="366" selection-start-column="9" selection-end-line="371" selection-end-column="37" />
               <folding>
                 <element signature="e#106#148#0" expanded="true" />
-                <element signature="e#16105#16923#0" />
-                <element signature="e#17032#17843#0" />
                 <element signature="e#21971#22319#0" />
                 <element signature="e#22637#23238#0" />
                 <element signature="e#24366#24421#0" />
@@ -93,7 +91,9 @@
       <find>BlackLabel</find>
       <find>logo</find>
       <find>styleframe</find>
+      <find>setco</find>
       <find>outputframe</find>
+      <find>setstyle</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -103,12 +103,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using Convolutional Neural Network.py" />
-        <option value="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" />
         <option value="$PROJECT_DIR$/Image Style Transfer Using CNNGui.py" />
         <option value="$PROJECT_DIR$/Image-Style-Transfer/css.qrc" />
         <option value="$PROJECT_DIR$/Image-Style-Transfer/design.qrc" />
         <option value="$PROJECT_DIR$/Image-Style-Transfer/css/StyleSheet.css" />
         <option value="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNNGui.py" />
+        <option value="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" />
       </list>
     </option>
   </component>
@@ -328,18 +328,26 @@
       <option name="project" value="LOCAL" />
       <updated>1560528546531</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="gui add content+ style buttons, not working!">
+      <created>1560528629545</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1560528629545</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21056548" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21056548" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3289689" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3289689" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -491,12 +499,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN shahar.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="414" column="24" selection-start-line="414" selection-start-column="13" selection-end-line="414" selection-end-column="24" />
+        <state relative-caret-position="182">
+          <caret line="371" column="37" lean-forward="true" selection-start-line="366" selection-start-column="9" selection-end-line="371" selection-end-column="37" />
           <folding>
             <element signature="e#106#148#0" expanded="true" />
-            <element signature="e#16105#16923#0" />
-            <element signature="e#17032#17843#0" />
             <element signature="e#21971#22319#0" />
             <element signature="e#22637#23238#0" />
             <element signature="e#24366#24421#0" />
@@ -508,12 +514,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="131" column="26" selection-start-line="131" selection-start-column="26" selection-end-line="131" selection-end-column="26" />
+        <state relative-caret-position="212">
+          <caret line="171" column="43" lean-forward="true" selection-start-line="171" selection-start-column="43" selection-end-line="171" selection-end-column="43" />
           <folding>
             <element signature="e#106#148#0" expanded="true" />
-            <element signature="e#5938#6517#0" />
-            <element signature="e#6908#7479#0" />
+            <element signature="e#798#4940#0" />
+            <element signature="e#5410#25798#0" />
             <element signature="e#567#919#0" />
             <element signature="e#15958#15990#0" />
             <element signature="e#9710#11074#0" />

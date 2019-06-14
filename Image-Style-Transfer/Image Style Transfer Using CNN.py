@@ -153,7 +153,6 @@ class Transfer_Image_Gui(QWidget):
         """saveimage function control the saving of the output image."""
 
     """setContentImage function control on choosing the content image."""
-
     def setContentImage(self):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
                                                              "Image Files (*.png *.jpg *.jpeg *.bmp)")
@@ -167,6 +166,12 @@ class Transfer_Image_Gui(QWidget):
             global flag1
             flag1 = 1
             global flag2
+            if (flag1 == 1 and flag2 == 1):
+                self.outputframe.show()
+               # self.warninglabel.hide()
+                #self.generatebutton.show()
+                #self.pluslabel.show()
+                #self.equalabel.show()
 
     """setStyleImage function control on choosing the style image."""
     def setStyleImage(self):
@@ -182,6 +187,12 @@ class Transfer_Image_Gui(QWidget):
             global flag2
             flag2 = 1
             global flag1
+            if (flag2 == 1 and flag1 == 1):
+                self.outputframe.show()
+                #self.warninglabel.hide()
+                #self.generatebutton.show()
+               # self.pluslabel.show()
+               # self.equalabel.show()
 
     def saveimage(self):
         global outputImage
@@ -189,7 +200,6 @@ class Transfer_Image_Gui(QWidget):
                                                             "Image Files (*.jpg *.png *.jpeg *.bmp)")
         if (fileName):
             outputImage.save(fileName)
-
 
 class Gui_output_image_window(QWidget):
     def __init__(self, parent=None):
