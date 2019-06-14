@@ -66,76 +66,69 @@ class Main_Window(QWidget):
         self.main_frame.setObjectName("MainFrame")
         self.main_frame.setFixedWidth(self.width)
         self.main_frame.setFixedHeight(self.height)
-
-        # the first sub window
         self.main_layout = QtWidgets.QVBoxLayout(self.main_frame)
-        self.firstsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.firstsub_Frame.setFixedWidth(self.width)
-        self.firstsub_Frame.setFixedHeight(400)
-        self.main_layout.addWidget(self.firstsub_Frame)
-        self.firstsub_Layout = QtWidgets.QHBoxLayout(self.firstsub_Frame)
-        self.firstsub_Layout.setAlignment(Qt.AlignCenter)
 
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setStyleSheet("QPushButton {background: url(:css/help.png) no-repeat transparent;} ")
-        helpBtn.setFixedWidth(110)
-        helpBtn.setFixedHeight(110)
+        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;} ")
+        helpBtn.setFixedWidth(70)
+        helpBtn.setFixedHeight(70)
         helpBtn.clicked.connect(self.showHelp)
+        self.main_layout.addWidget(helpBtn)
 
-        # The second sub window
-        self.secondsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.main_layout.addWidget(self.secondsub_Frame)
-        self.secondsub_Layout = QtWidgets.QHBoxLayout(self.secondsub_Frame)
-        self.secondsub_Frame.setFixedWidth(self.width)
-        self.secondsub_Layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
+        # the Icon sub frame
+        self.Logosub_Frame = QtWidgets.QFrame(self.main_frame)
+        self.Logosub_Frame.setFixedWidth(self.width)
+        self.main_layout.addWidget(self.Logosub_Frame)
+        self.Logosub_Layout = QtWidgets.QHBoxLayout(self.Logosub_Frame)
+        self.Logosub_Layout.setAlignment(Qt.AlignCenter)
 
-        # Setting up the fields
-
+        # Setting up the logo
         logo = QtWidgets.QLabel('', self)
         pixmap = QPixmap(":Pictures/logo.png")
+        pixmap = pixmap.scaled(260, 260)
         logo.setPixmap(pixmap)
-        self.firstsub_Layout.addWidget(logo)
+        self.Logosub_Layout.addWidget(logo)
         logo.setAlignment(Qt.AlignCenter)
 
-        # Admin button
-        adminBtn = QtWidgets.QPushButton("Settings", self)
-        adminBtn.setObjectName("MainGuiButtons")
-        adminBtn.clicked.connect(self.openAdminGui)
+        # The Button sub frame
+        self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
+        self.main_layout.addWidget(self.Buttonsub_Frame)
+        self.Buttonsub_Layout = QtWidgets.QHBoxLayout(self.Buttonsub_Frame)
+        self.Buttonsub_Frame.setFixedWidth(self.width)
+        self.Buttonsub_Layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
 
-        # User button
-        userBtn = QtWidgets.QPushButton("Analyse", self)
-        userBtn.setObjectName("MainGuiButtons")
-        userBtn.clicked.connect(self.openUserGui)
-
-        self.secondsub_Layout.addWidget(adminBtn)
-        self.secondsub_Layout.addWidget(userBtn)
+        # start to create style button
+        StartCreateNewBtn = QtWidgets.QPushButton("Style your image", self)
+        StartCreateNewBtn.setObjectName("MainGuiButtons")
+        StartCreateNewBtn.clicked.connect(self.openCrateNewGui)
+        self.Buttonsub_Layout.addWidget(StartCreateNewBtn)
 
         # Footer layout
-
-        creditsLbl = QtWidgets.QLabel('Created By Koral Zakai & May Steinfeld\n'
-                                      'Supervisor: Zeev Vladimir Volkovich\n'
-                                      '22/05/2019')
+        creditsLbl = QtWidgets.QLabel('Created By Koral Zakai & May Steinfeld, '
+                                      'Supervisor: Zeev Vladimir Volkovich, '
+                                      '03/06/2019')
+        creditsLbl.setStyleSheet("#BlackLabel")
         creditsLbl.setAlignment(Qt.AlignCenter)
         self.main_layout.addWidget(creditsLbl)
 
         # show the window
         self.showMaximized()
 
-    def openAdminGui(self):
+    def openCrateNewGui(self):
         #adminGui = Gui_Admin(self)
         #adminGui.show()
         self.main_frame.setVisible(False)
 
-    def openUserGui(self):
-        #userGui = Gui_User(self)
-        #userGui.show()
-        self.main_frame.setVisible(False)
-
         # Opens help window
-
     def showHelp(self):
-        pass
+        #pass
+        import os
+        filename = 'Help.pdf'
+        try:
+            os.startfile(filename)
+        except:
+            return
         # helpWindow = Help_Window(':Pictures/helpmain2.png')
 
 """Ui_MainWindow is the main class of the UI,
