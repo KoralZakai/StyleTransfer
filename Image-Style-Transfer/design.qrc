@@ -4,5 +4,6 @@
 	<file alias="logo.png">Pictures/logo.png</file>
 	<file alias="home.png">Pictures/home.png</file>
 	<file alias="help.png">Pictures/help.png</file>
+	<file alias="qm.png">Pictures/qm.png</file>
 </qresource>	
 </RCC>
