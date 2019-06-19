@@ -130,6 +130,7 @@ class Main_Window(QWidget):
 
     def showHelp(self):
         #pass
+
         import os
         filename = 'Help.pdf'
         try:
@@ -203,7 +204,7 @@ class Transfer_Image_Gui(QWidget):
 
         self.details_Frame = QtWidgets.QFrame(self.main_frame)
         self.details_Frame.setFixedWidth(self.width)
-        self.details_Frame.setFixedHeight(600)
+        self.details_Frame.setFixedHeight(550)
         self.main_layout.addWidget(self.details_Frame)
         self.details_Layout = QtWidgets.QHBoxLayout(self.details_Frame)
         self.details_Layout.setAlignment(Qt.AlignCenter)
@@ -215,8 +216,13 @@ class Transfer_Image_Gui(QWidget):
         self.secondsub_Layout = QtWidgets.QHBoxLayout(self.secondsub_Frame)
         self.secondsub_Layout.setAlignment(Qt.AlignCenter)
 
+        iterText = QtWidgets.QLabel('Number of iterations: ')
+        iterText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
+        iterText.setAlignment(Qt.AlignCenter)
+        self.details_Layout.addWidget(iterText)
+
         self.comboBox = QtWidgets.QComboBox(self.main_frame)
-        self.comboBox.setGeometry(QtCore.QRect(200, 330, 121, 31))
+        self.comboBox.setGeometry(QtCore.QRect(self.width/4, self.height/4, 121, 31))
         self.comboBox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
         #self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("100")
@@ -224,16 +230,20 @@ class Transfer_Image_Gui(QWidget):
         self.comboBox.addItem("1000")
         self.comboBox.show()
         self.details_Layout.addWidget(self.comboBox)
-        comboBoxIterString = self.comboBox.currentText()
+
+        resText = QtWidgets.QLabel('  Generated image size: ')
+        resText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
+        resText.setAlignment(Qt.AlignCenter)
+        self.details_Layout.addWidget(resText)
 
         self.resolutionbox = QtWidgets.QComboBox(self.main_frame)
-        self.resolutionbox.setGeometry(QtCore.QRect(700, 330, 121, 31))
+        #x, y, w,h
+        self.resolutionbox.setGeometry(QtCore.QRect(self.width/4 +200,self.height/4 , 121, 31))
         self.resolutionbox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
         #self.resolutionbox.setObjectName("resbox")
         self.resolutionbox.addItem("Small")
         self.resolutionbox.addItem("Medium")
         self.resolutionbox.addItem("Large")
-        self.resolutionbox.addItem("XL")
         self.details_Layout.addWidget(self.resolutionbox)
 
         # The sub window
@@ -246,14 +256,14 @@ class Transfer_Image_Gui(QWidget):
         QtCore.QMetaObject.connectSlotsByName(main)
 
         self.contentframe = QtWidgets.QLabel(self.main_frame)
-        self.contentframe.setGeometry(QtCore.QRect(700, 300, 251, 191))
+        self.contentframe.setGeometry(QtCore.QRect(self.width*3.5/10, self.height*2/7, 251, 191))
         self.contentframe.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.contentframe.setScaledContents(True)
         self.contentframe.setObjectName("contentframe")
         self.contentframe.hide()
 
         self.styleframe = QtWidgets.QLabel(self.main_frame)
-        self.styleframe.setGeometry(QtCore.QRect(1000, 300, 251, 191))
+        self.styleframe.setGeometry(QtCore.QRect(self.width*5.4/10, self.height*2/7, 251, 191))
         self.styleframe.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.styleframe.setText("")
         self.styleframe.setScaledContents(True)
@@ -274,10 +284,11 @@ class Transfer_Image_Gui(QWidget):
         self.firstsub_Layout.addWidget(StyleBtn)
         self.styleframe.show()
 
-        generateBtn = QtWidgets.QPushButton("generate", self)
-        generateBtn.setObjectName("MainGuiButtons")
-        generateBtn.clicked.connect(self.lunch_thread)
-        self.secondsub_Layout.addWidget(generateBtn)
+        self.generateBtn = QtWidgets.QPushButton("generate", self)
+        self.generateBtn.setObjectName("MainGuiButtons")
+        self.generateBtn.clicked.connect(self.lunch_thread)
+        self.secondsub_Layout.addWidget(self.generateBtn)
+        self.generateBtn.setEnabled(False);
 
         self.show()
 
@@ -316,8 +327,9 @@ class Transfer_Image_Gui(QWidget):
             global flag1
             flag1 = 1
             global flag2
-            #if (flag1 == 1 and flag2 == 1):
-                #self.outputframe.show()
+            if (flag1 == 1 and flag2 == 1):
+                self.generateBtn.setEnabled(True)
+
             # self.warninglabel.hide()
             # self.generatebutton.show()
             # self.pluslabel.show()
@@ -338,8 +350,8 @@ class Transfer_Image_Gui(QWidget):
             global flag2
             flag2 = 1
             global flag1
-            #if (flag2 == 1 and flag1 == 1):
-                #self.outputframe.show()
+            if (flag2 == 1 and flag1 == 1):
+                self.generateBtn.setEnabled(True)
                 # self.warninglabel.hide()
                 # self.generatebutton.show()
             # self.pluslabel.show()
@@ -420,12 +432,13 @@ class Gui_output_image_window(QWidget):
         self.Iconsub_Layout.addWidget(helpBtn)
 
         # home button
-        homeBtn = QtWidgets.QPushButton("", self)
-        homeBtn.setStyleSheet("QPushButton {background: url(:Pictures/home.png) no-repeat transparent;} ")
-        homeBtn.setFixedWidth(68)
-        homeBtn.setFixedHeight(68)
-        homeBtn.clicked.connect(self.showHome)
-        self.Iconsub_Layout.addWidget(homeBtn)
+        self.homeBtn = QtWidgets.QPushButton("", self)
+        self.homeBtn.setStyleSheet("QPushButton {background: url(:Pictures/home.png) no-repeat transparent;} ")
+        self.homeBtn.setFixedWidth(68)
+        self.homeBtn.setFixedHeight(68)
+        self.homeBtn.clicked.connect(self.showHome)
+        self.Iconsub_Layout.addWidget(self.homeBtn)
+        self.homeBtn.setEnabled(False);
 
         # The Output + Button save sub frame
         self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
@@ -449,7 +462,7 @@ class Gui_output_image_window(QWidget):
         self.outputframe.hide()
 
         self.progressBar = QtWidgets.QProgressBar(self.main_frame)
-        self.progressBar.setGeometry(QtCore.QRect(750, 700, 491, 31))
+        self.progressBar.setGeometry(QtCore.QRect(self.width/3, self.height*2/3, self.width/3, 31))
         self.progressBar.setProperty("value", 24)
         self.progressBar.setObjectName("progressBar")
         self.progressBar.hide()
@@ -492,6 +505,9 @@ class Gui_output_image_window(QWidget):
 
     """onCountChanged function control on updating the progrssBar."""
     def onCountChanged(self, value):
+        if(value==100):
+            self.homeBtn.setEnabled(True)
+            self.help
         self.progressBar.setValue(value)
 
     """Generate function is start when the Generate button pushed. it start the main algorithm."""
@@ -538,8 +554,6 @@ class Gui_output_image_window(QWidget):
             resolution = 512
         elif self.resolutionString  == 'Large':#'1024 Px':
             resolution = 1024
-        else:
-            resolution = 2048
 
         # outputImage get the result from the MainFunc.
         outputImage = self.MainFunc(content_path, style_path, iter, resolution)

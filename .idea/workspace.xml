@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1306c76b-2666-4dd8-a16a-280ae8f78c69" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/css.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/css.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,8 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="776" column="35" selection-start-line="776" selection-start-column="20" selection-end-line="776" selection-end-column="35" />
+            <state relative-caret-position="22">
+              <caret line="233" column="46" selection-start-line="233" selection-start-column="46" selection-end-line="233" selection-end-column="46" />
               <folding>
                 <element signature="e#105#132#0" expanded="true" />
               </folding>
@@ -49,10 +51,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>resbox</find>
-      <find>actionCreate_New</find>
-      <find>actionAbout</find>
-      <find>showHome</find>
       <find>output</find>
       <find>showhome</find>
       <find>saveimage</find>
@@ -63,7 +61,6 @@
       <find>save</find>
       <find>progressBar</find>
       <find>SaveOutputImageBtn</find>
-      <find>comboBox</find>
       <find>global</find>
       <find>global comb</find>
       <find>comboBoxString</find>
@@ -79,6 +76,11 @@
       <find>vgg</find>
       <find>get_model</find>
       <find>model</find>
+      <find>progress</find>
+      <find>onCountChanged</find>
+      <find>onCountChange</find>
+      <find>comboBox</find>
+      <find>combo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -354,25 +356,32 @@
       <option name="project" value="LOCAL" />
       <updated>1560619975158</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="gui add content+ style buttons, not working!">
+      <created>1560688231048</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1560688231048</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0882353" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15580286" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26642984" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39786857" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28241563" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3250444" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32405892" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3232682" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3285968" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -432,19 +441,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py</url>
-          <line>286</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN shahar.py</url>
           <line>420</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py</url>
-          <line>544</line>
-          <option name="timeStamp" value="50" />
+          <line>133</line>
+          <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -550,6 +554,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/tensorflow/python/keras/applications/vgg16.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/design.qrc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
@@ -560,17 +571,17 @@
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/design.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/tensorflow/python/keras/applications/vgg16.py">
+    <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/compile.batch">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="4" />
+        <state>
+          <caret column="7" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="776" column="35" selection-start-line="776" selection-start-column="20" selection-end-line="776" selection-end-column="35" />
+        <state relative-caret-position="22">
+          <caret line="233" column="46" selection-start-line="233" selection-start-column="46" selection-end-line="233" selection-end-column="46" />
           <folding>
             <element signature="e#105#132#0" expanded="true" />
           </folding>
