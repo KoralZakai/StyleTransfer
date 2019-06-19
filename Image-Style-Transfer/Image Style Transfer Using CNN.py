@@ -32,8 +32,6 @@ global count
 count=0
 global iter
 iter = 0
-global comboBoxIterString
-global comboBoxResolutionString
 
 """Main_Window is the main class of the UI,
 all UI parameters and code functions defined here."""
@@ -166,7 +164,7 @@ class Transfer_Image_Gui(QWidget):
         # home and help buttons
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(80)
+        self.Iconsub_Frame.setFixedHeight(85)
         self.main_layout.addWidget(self.Iconsub_Frame)
         self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
         self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
@@ -209,14 +207,14 @@ class Transfer_Image_Gui(QWidget):
         self.secondsub_Layout.setAlignment(Qt.AlignCenter)
 
         iterText = QtWidgets.QLabel('Number of iterations:')
-        #iterText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
+        iterText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
         iterText.setAlignment(Qt.AlignCenter)
         self.details_Layout.addWidget(iterText)
 
         self.comboBox = QtWidgets.QComboBox(self.main_frame)
         self.comboBox.setGeometry(QtCore.QRect(self.width/4, self.height/4, 121, 31))
-        #self.comboBox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
-        #self.comboBox.setObjectName("comboBox")
+        self.comboBox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
+        self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("100")
         self.comboBox.addItem("500")
         self.comboBox.addItem("1000")
@@ -224,15 +222,15 @@ class Transfer_Image_Gui(QWidget):
         self.details_Layout.addWidget(self.comboBox)
 
         resText = QtWidgets.QLabel('Generated image resolution:')
-        #resText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
+        resText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
         resText.setAlignment(Qt.AlignCenter)
         self.details_Layout.addWidget(resText)
 
         self.resolutionbox = QtWidgets.QComboBox(self.main_frame)
         #x, y, w,h
         self.resolutionbox.setGeometry(QtCore.QRect(self.width/4 +200,self.height/4 , 121, 31))
-        #self.resolutionbox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
-        #self.resolutionbox.setObjectName("resbox")
+        self.resolutionbox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
+        self.resolutionbox.setObjectName("resbox")
         self.resolutionbox.addItem("Small- 256 px")
         self.resolutionbox.addItem("Medium- 512 px")
         self.resolutionbox.addItem("Large- 1024 px")
@@ -247,7 +245,6 @@ class Transfer_Image_Gui(QWidget):
         #x, y, w,h
         self.modelBox.setGeometry(QtCore.QRect(self.width/4 +200,self.height/4 , 121, 31))
         self.modelBox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
-        #self.resolutionbox.setObjectName("resbox")
         self.modelBox.addItem("Vgg16")
         self.modelBox.addItem("Vgg19")
         self.details_Layout.addWidget(self.modelBox)
@@ -393,7 +390,7 @@ class Gui_output_image_window(QWidget):
 
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(75)
+        self.Iconsub_Frame.setFixedHeight(80)
         self.main_layout.addWidget(self.Iconsub_Frame)
         self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
         self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
@@ -514,11 +511,11 @@ class Gui_output_image_window(QWidget):
 
         # resulotion control the output image resulotion, the user choose it.
         resolution = 0
-        if self.resolutionString == 'Small':#'256 Px':
+        if self.resolutionString == 'Small- 256 px':#'256 Px':
             resolution = 256
-        elif self.resolutionString == 'Medium':#'512 Px':
+        elif self.resolutionString == 'Medium- 512 px':#'512 Px':
             resolution = 512
-        elif self.resolutionString  == 'Large':#'1024 Px':
+        elif self.resolutionString  == 'Large- 1024 px':#'1024 Px':
             resolution = 1024
 
         global modelTyle
