@@ -4,7 +4,6 @@
     <list default="true" id="1306c76b-2666-4dd8-a16a-280ae8f78c69" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/css.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/css.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="233" column="46" selection-start-line="233" selection-start-column="46" selection-end-line="233" selection-end-column="46" />
+            <state relative-caret-position="109">
+              <caret line="575" column="41" lean-forward="true" selection-start-line="575" selection-start-column="41" selection-end-line="575" selection-end-column="41" />
               <folding>
                 <element signature="e#105#132#0" expanded="true" />
               </folding>
@@ -51,9 +50,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>output</find>
-      <find>showhome</find>
-      <find>saveimage</find>
       <find>showHelp</find>
       <find>lunch_thread</find>
       <find>MainFunc</find>
@@ -68,19 +64,22 @@
       <find>openShowOutputGui</find>
       <find>Gui_output_image_window</find>
       <find>savebutton</find>
-      <find>setCombo</find>
       <find>small</find>
       <find>actionHome</find>
       <find>progr</find>
       <find>prog</find>
-      <find>vgg</find>
       <find>get_model</find>
       <find>model</find>
       <find>progress</find>
       <find>onCountChanged</find>
       <find>onCountChange</find>
       <find>comboBox</find>
+      <find>output</find>
+      <find>help</find>
       <find>combo</find>
+      <find>setCombo</find>
+      <find>resolutionString</find>
+      <find>vgg</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -126,23 +125,6 @@
             <path>
               <item name="StyleTransfer" type="b2602c69:ProjectViewProjectNode" />
               <item name="StyleTransfer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StyleTransfer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StyleTransfer" type="462c0819:PsiDirectoryNode" />
-              <item name="Image-Style-Transfer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StyleTransfer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StyleTransfer" type="462c0819:PsiDirectoryNode" />
-              <item name="Image-Style-Transfer" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StyleTransfer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StyleTransfer" type="462c0819:PsiDirectoryNode" />
-              <item name="Image-Style-Transfer" type="462c0819:PsiDirectoryNode" />
-              <item name="Pictures" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -363,7 +345,14 @@
       <option name="project" value="LOCAL" />
       <updated>1560688231048</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fixed lables possiton and disable generate and home buttons">
+      <created>1560857347464</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1560857347464</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -435,7 +424,8 @@
     <MESSAGE value="add gui main screen" />
     <MESSAGE value="change gui main screen + add output screen" />
     <MESSAGE value="gui add content+ style buttons, not working!" />
-    <option name="LAST_COMMIT_MESSAGE" value="gui add content+ style buttons, not working!" />
+    <MESSAGE value="fixed lables possiton and disable generate and home buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed lables possiton and disable generate and home buttons" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -580,8 +570,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="233" column="46" selection-start-line="233" selection-start-column="46" selection-end-line="233" selection-end-column="46" />
+        <state relative-caret-position="109">
+          <caret line="575" column="41" lean-forward="true" selection-start-line="575" selection-start-column="41" selection-end-line="575" selection-end-column="41" />
           <folding>
             <element signature="e#105#132#0" expanded="true" />
           </folding>

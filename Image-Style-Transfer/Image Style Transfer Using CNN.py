@@ -71,7 +71,7 @@ class Main_Window(QWidget):
 
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(75)
+        self.Iconsub_Frame.setFixedHeight(80)
         self.main_layout.addWidget(self.Iconsub_Frame)
         self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
         self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
@@ -174,7 +174,7 @@ class Transfer_Image_Gui(QWidget):
         # home and help bottuns
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(75)
+        self.Iconsub_Frame.setFixedHeight(80)
         self.main_layout.addWidget(self.Iconsub_Frame)
         self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
         self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
@@ -246,6 +246,20 @@ class Transfer_Image_Gui(QWidget):
         self.resolutionbox.addItem("Large")
         self.details_Layout.addWidget(self.resolutionbox)
 
+        modelText = QtWidgets.QLabel('  Choose model: ')
+        modelText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
+        modelText.setAlignment(Qt.AlignCenter)
+        self.details_Layout.addWidget(modelText)
+
+        self.modelBox = QtWidgets.QComboBox(self.main_frame)
+        #x, y, w,h
+        self.modelBox.setGeometry(QtCore.QRect(self.width/4 +200,self.height/4 , 121, 31))
+        self.modelBox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
+        #self.resolutionbox.setObjectName("resbox")
+        self.modelBox.addItem("Vgg16")
+        self.modelBox.addItem("Vgg19")
+        self.details_Layout.addWidget(self.modelBox)
+
         # The sub window
         self.styleframe = QtWidgets.QFrame(self.main_frame)
         self.main_layout.addWidget(self.styleframe)
@@ -295,7 +309,7 @@ class Transfer_Image_Gui(QWidget):
     """lunch_thread control the start of the second thread that running the MainFunc."""
     def lunch_thread(self):
         outputWindow = Gui_output_image_window(self)
-        outputWindow.setCombo(self.comboBox.currentText(), self.resolutionbox.currentText() )
+        outputWindow.setCombo(self.comboBox.currentText(), self.resolutionbox.currentText() , self.modelBox.currentText())
 
         outputWindow.show()
         self.main_frame.setVisible(False)
@@ -454,7 +468,7 @@ class Gui_output_image_window(QWidget):
         self.Buttonsub_Layout.addWidget(self.savebutton)
 
         self.outputframe = QtWidgets.QLabel(self.main_frame)
-        self.outputframe.setGeometry(QtCore.QRect(800, 300, 251, 191))
+        self.outputframe.setGeometry(QtCore.QRect(850, 300, 251, 191))
         self.outputframe.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.outputframe.setText("")
         self.outputframe.setScaledContents(True)
@@ -479,9 +493,10 @@ class Gui_output_image_window(QWidget):
 
     """saveimage function control the saving of the output image."""
 
-    def setCombo(self, iterString, resString):
+    def setCombo(self, iterString, resString, modelString):
         self.comboString = iterString
         self.resolutionString  = resString
+        self.modelString = modelString
         t = threading.Thread(target=self.Generate)
         t.start()
 
@@ -555,8 +570,14 @@ class Gui_output_image_window(QWidget):
         elif self.resolutionString  == 'Large':#'1024 Px':
             resolution = 1024
 
+        global modelTyle
+        if self.modelString == 'Vgg16':
+            modelTyle = 16
+        elif self.modelString == 'Vgg19':
+            modelTyle = 19
+
         # outputImage get the result from the MainFunc.
-        outputImage = self.MainFunc(content_path, style_path, iter, resolution)
+        outputImage = self.MainFunc(content_path, style_path, iter, resolution, modelTyle)
         pixmap = QtGui.QPixmap(outputImage.toqpixmap())
         pixmap = pixmap.scaled(290, 290, QtCore.Qt.KeepAspectRatio)
         self.outputframe.setPixmap(pixmap)
@@ -582,7 +603,7 @@ class Gui_output_image_window(QWidget):
             exit(1)
 
     """MainFunc is the main function that running the main algorithm"""
-    def MainFunc(self, content_path, style_path, iter, resolution):
+    def MainFunc(self, content_path, style_path, iter, resolution, modelType):
         import numpy as np
         from PIL import Image
         import tensorflow as tf
@@ -628,7 +649,10 @@ class Gui_output_image_window(QWidget):
         # load_and_process_img is charge on load the image into the vgg16 network.
         def load_and_process_img(path_to_img):
             img = load_img(path_to_img)
-            img = tf.keras.applications.vgg16.preprocess_input(img)
+            if modelType == 16:
+                img = tf.keras.applications.vgg16.preprocess_input(img)
+            elif modelType == 19:
+                img = tf.keras.applications.vgg19.preprocess_input(img)
             return img
 
         def deprocess_img(processed_img):
@@ -654,7 +678,10 @@ class Gui_output_image_window(QWidget):
             import ssl
             ssl._create_default_https_context = ssl._create_unverified_context
             # We load pretrained VGG Network, trained on imagenet data
-            vgg = tf.keras.applications.vgg16.VGG16(include_top=False, weights='imagenet')
+            if modelType == 16:
+                vgg = tf.keras.applications.vgg16.VGG16(include_top=False, weights='imagenet')
+            elif modelType == 19:
+                vgg = tf.keras.applications.vgg19.VGG19(include_top=False, weights='imagenet')
             vgg.trainable = False
             # Get output layers corresponding to style and content layers
             style_outputs = [vgg.get_layer(name).output for name in style_layers]
