@@ -1,6 +1,5 @@
 """Image Style Transfer Using Convolutional Neural Network
 code Written in python, Ui made with PyQt5"""
-from tokenize import String
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
@@ -23,20 +22,18 @@ global outputImage
 global pixmap
 global exitflag
 exitflag=0
-global flag1
-flag1=0
-global flag2
-flag2=0
-global flag3
-flag3=0
+global flagContent
+flagContent=0
+global flagStyle
+flagStyle=0
+global flagFinishGenerate
+flagFinishGenerate=0
 global count
 count=0
 global iter
 iter = 0
 global comboBoxIterString
 global comboBoxResolutionString
-
-
 
 """Main_Window is the main class of the UI,
 all UI parameters and code functions defined here."""
@@ -127,22 +124,17 @@ class Main_Window(QWidget):
         transferImage.show()
         self.main_frame.setVisible(False)
 
-
     def showHelp(self):
-        #pass
-
         import os
         filename = 'Help.pdf'
         try:
             os.startfile(filename)
         except:
             return
-        # helpWindow = Help_Window(':Pictures/helpmain2.png')
 
 class Transfer_Image_Gui(QWidget):
     def __init__(self, parent=None):
         super(Transfer_Image_Gui, self).__init__(parent)
-
 
         # init the initial parameters of this GUI
         user32 = ctypes.windll.user32
@@ -171,7 +163,7 @@ class Transfer_Image_Gui(QWidget):
         # the first sub window
         self.main_layout = QtWidgets.QVBoxLayout(self.main_frame)
 
-        # home and help bottuns
+        # home and help buttons
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
         self.Iconsub_Frame.setFixedHeight(80)
@@ -216,14 +208,14 @@ class Transfer_Image_Gui(QWidget):
         self.secondsub_Layout = QtWidgets.QHBoxLayout(self.secondsub_Frame)
         self.secondsub_Layout.setAlignment(Qt.AlignCenter)
 
-        iterText = QtWidgets.QLabel('Number of iterations: ')
-        iterText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
+        iterText = QtWidgets.QLabel('Number of iterations:')
+        #iterText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
         iterText.setAlignment(Qt.AlignCenter)
         self.details_Layout.addWidget(iterText)
 
         self.comboBox = QtWidgets.QComboBox(self.main_frame)
         self.comboBox.setGeometry(QtCore.QRect(self.width/4, self.height/4, 121, 31))
-        self.comboBox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
+        #self.comboBox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
         #self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("100")
         self.comboBox.addItem("500")
@@ -231,19 +223,19 @@ class Transfer_Image_Gui(QWidget):
         self.comboBox.show()
         self.details_Layout.addWidget(self.comboBox)
 
-        resText = QtWidgets.QLabel('  Generated image size: ')
-        resText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
+        resText = QtWidgets.QLabel('Generated image resolution:')
+        #resText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
         resText.setAlignment(Qt.AlignCenter)
         self.details_Layout.addWidget(resText)
 
         self.resolutionbox = QtWidgets.QComboBox(self.main_frame)
         #x, y, w,h
         self.resolutionbox.setGeometry(QtCore.QRect(self.width/4 +200,self.height/4 , 121, 31))
-        self.resolutionbox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
+        #self.resolutionbox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
         #self.resolutionbox.setObjectName("resbox")
-        self.resolutionbox.addItem("Small")
-        self.resolutionbox.addItem("Medium")
-        self.resolutionbox.addItem("Large")
+        self.resolutionbox.addItem("Small- 256 px")
+        self.resolutionbox.addItem("Medium- 512 px")
+        self.resolutionbox.addItem("Large- 1024 px")
         self.details_Layout.addWidget(self.resolutionbox)
 
         modelText = QtWidgets.QLabel('  Choose model: ')
@@ -304,7 +296,15 @@ class Transfer_Image_Gui(QWidget):
         self.secondsub_Layout.addWidget(self.generateBtn)
         self.generateBtn.setEnabled(False);
 
-        self.show()
+        # Footer layout
+        creditsLbl = QtWidgets.QLabel('Created By Koral Zakai & May Steinfeld, '
+                                      'Supervisor: Zeev Vladimir Volkovich, '
+                                      '03/06/2019')
+        creditsLbl.setAlignment(Qt.AlignCenter)
+        self.main_layout.addWidget(creditsLbl)
+
+        # show the window
+        self.showMaximized()
 
     """lunch_thread control the start of the second thread that running the MainFunc."""
     def lunch_thread(self):
@@ -313,7 +313,6 @@ class Transfer_Image_Gui(QWidget):
 
         outputWindow.show()
         self.main_frame.setVisible(False)
-
 
     # Opens home window
     def showHome(self):
@@ -324,10 +323,7 @@ class Transfer_Image_Gui(QWidget):
         home.show()
         self.main_frame.setVisible(False)
 
-        """saveimage function control the saving of the output image."""
-
     """setContentImage function control on choosing the content image."""
-
     def setContentImage(self):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
                                                              "Image Files (*.png *.jpg *.jpeg *.bmp)")
@@ -338,19 +334,15 @@ class Transfer_Image_Gui(QWidget):
             pixmap = pixmap.scaled(290, 290, QtCore.Qt.KeepAspectRatio)
             self.contentframe.setPixmap(pixmap)
             self.contentframe.setAlignment(QtCore.Qt.AlignCenter)
-            global flag1
-            flag1 = 1
-            global flag2
-            if (flag1 == 1 and flag2 == 1):
+            global flagContent
+            flagContent = 1
+            global flagStyle
+            if (flagContent == 1 and flagStyle == 1):
                 self.generateBtn.setEnabled(True)
-
             # self.warninglabel.hide()
             # self.generatebutton.show()
-            # self.pluslabel.show()
-            # self.equalabel.show()
 
     """setStyleImage function control on choosing the style image."""
-
     def setStyleImage(self):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
                                                              "Image Files (*.png *.jpg *.jpeg *.bmp)")
@@ -361,45 +353,14 @@ class Transfer_Image_Gui(QWidget):
             pixmap = pixmap.scaled(290, 290, QtCore.Qt.KeepAspectRatio)
             self.styleframe.setPixmap(pixmap)
             self.styleframe.setAlignment(QtCore.Qt.AlignCenter)
-            global flag2
-            flag2 = 1
-            global flag1
-            if (flag2 == 1 and flag1 == 1):
+            global flagStyle
+            flagStyle = 1
+            global flagContent
+            if (flagStyle == 1 and flagContent == 1):
                 self.generateBtn.setEnabled(True)
                 # self.warninglabel.hide()
                 # self.generatebutton.show()
-            # self.pluslabel.show()
-            # self.equalabel.show()
 
-    def saveimage(self):
-        global outputImage
-        fileName, _ = QtWidgets.QFileDialog.getSaveFileName(None, "Select Image", "",
-                                                            "Image Files (*.jpg *.png *.jpeg *.bmp)")
-        if (fileName):
-            outputImage.save(fileName)
-
-
-        #opens output image window + save button
-
-    #def openShowOutputGui(self):
-     #   outputImageGui = Gui_output_image_window(self,self.comboBox.currentText())
-      #  outputImageGui.show()
-       # self.main_frame.setVisible(False)
-
-    # Opens help window
-
-    def showHelp(self):
-        #pass
-        import os
-        filename = 'Help.pdf'
-        try:
-            os.startfile(filename)
-        except:
-            return
-        # helpWindow = Help_Window(':Pictures/helpmain2.png')
-
-
-###
 class Gui_output_image_window(QWidget):
     def __init__(self , parent=None):
         super(Gui_output_image_window, self).__init__(parent)
@@ -450,7 +411,7 @@ class Gui_output_image_window(QWidget):
         self.homeBtn.setStyleSheet("QPushButton {background: url(:Pictures/home.png) no-repeat transparent;} ")
         self.homeBtn.setFixedWidth(68)
         self.homeBtn.setFixedHeight(68)
-        self.homeBtn.clicked.connect(self.showHome)
+        self.homeBtn.clicked.connect(Transfer_Image_Gui.showHome)
         self.Iconsub_Layout.addWidget(self.homeBtn)
         self.homeBtn.setEnabled(False);
 
@@ -477,7 +438,8 @@ class Gui_output_image_window(QWidget):
 
         self.progressBar = QtWidgets.QProgressBar(self.main_frame)
         self.progressBar.setGeometry(QtCore.QRect(self.width/3, self.height*2/3, self.width/3, 31))
-        self.progressBar.setProperty("value", 24)
+        self.progressBar.setProperty("value",0)
+        self.progressBar.setMaximum(100)
         self.progressBar.setObjectName("progressBar")
         self.progressBar.hide()
 
@@ -500,23 +462,13 @@ class Gui_output_image_window(QWidget):
         t = threading.Thread(target=self.Generate)
         t.start()
 
-
+    """saveimage function control the saving of the output image."""
     def saveimage(self):
         global outputImage
         fileName, _ = QtWidgets.QFileDialog.getSaveFileName(None, "Select Image", "",
                                                             "Image Files (*.jpg *.png *.jpeg *.bmp)")
         if (fileName):
             outputImage.save(fileName)
-
-    # Opens home window
-    def showHome(self):
-        """
-        close current window and return to home page
-        """
-        home = Main_Window(self)
-        home.show()
-        self.main_frame.setVisible(False)
-
 
     """onCountChanged function control on updating the progrssBar."""
     def onCountChanged(self, value):
@@ -530,17 +482,16 @@ class Gui_output_image_window(QWidget):
         global outputImage
         global exitflag
         exitflag=1
-        global flag1
-        global flag2
-        #if (flag1 == 0 or flag2 == 0):
+        global flagContent
+        global flagStyle
+        #if (flagContent == 0 or flagStyle == 0):
             #self.warninglabel.show()
             #return
         #self.actionHome.setEnabled(False)
         #self.actionCreate_New.setEnabled(False)
         #self.actionAbout.setEnabled(False)
 
-
-        self.outputframe.setPixmap(QtGui.QPixmap(":Pictures/qm.png"))
+        self.outputframe.setPixmap(QtGui.QPixmap(":Pictures/gift.png"))
         self.outputframe.show()
 
         self.savebutton.raise_()
@@ -585,15 +536,11 @@ class Gui_output_image_window(QWidget):
         self.outputframe.show()
         self.savebutton.show()
 
-        global flag3
-        flag3 = 1
+        global flagFinishGenerate
+        flagFinishGenerate = 1
         #self.actionHome.setEnabled(True)
         #self.actionCreate_New.setEnabled(True)
         #self.actionAbout.setEnabled(True)
-
-
-
-
 
     """exit function control on exit the application."""
     def exit(self):
