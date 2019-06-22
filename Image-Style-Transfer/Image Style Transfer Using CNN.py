@@ -66,7 +66,7 @@ class Main_Window(QWidget):
 
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(80)
+        self.Iconsub_Frame.setFixedHeight(75)
         self.main_layout.addWidget(self.Iconsub_Frame)
         self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
         self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
@@ -164,7 +164,7 @@ class Transfer_Image_Gui(QWidget):
         # home and help buttons
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(85)
+        self.Iconsub_Frame.setFixedHeight(75)
         self.main_layout.addWidget(self.Iconsub_Frame)
         self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
         self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
@@ -185,120 +185,97 @@ class Transfer_Image_Gui(QWidget):
         homeBtn.clicked.connect(self.showHome)
         self.Iconsub_Layout.addWidget(homeBtn)
 
-        self.firstsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.firstsub_Frame.setFixedWidth(self.width)
-        self.firstsub_Frame.setFixedHeight(200)
-        self.main_layout.addWidget(self.firstsub_Frame)
-        self.firstsub_Layout = QtWidgets.QHBoxLayout(self.firstsub_Frame)
-        self.firstsub_Layout.setAlignment(Qt.AlignCenter)
-
-        self.details_Frame = QtWidgets.QFrame(self.main_frame)
-        self.details_Frame.setFixedWidth(self.width)
-        self.details_Frame.setFixedHeight(550)
-        self.main_layout.addWidget(self.details_Frame)
-        self.details_Layout = QtWidgets.QHBoxLayout(self.details_Frame)
-        self.details_Layout.setAlignment(Qt.AlignCenter)
-
-        self.secondsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.secondsub_Frame.setFixedWidth(self.width)
-        self.secondsub_Frame.setFixedHeight(400)
-        self.main_layout.addWidget(self.secondsub_Frame)
-        self.secondsub_Layout = QtWidgets.QHBoxLayout(self.secondsub_Frame)
-        self.secondsub_Layout.setAlignment(Qt.AlignCenter)
-
-        iterText = QtWidgets.QLabel('Number of iterations:')
-        iterText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
-        iterText.setAlignment(Qt.AlignCenter)
-        self.details_Layout.addWidget(iterText)
-
-        self.comboBox = QtWidgets.QComboBox(self.main_frame)
-        self.comboBox.setGeometry(QtCore.QRect(self.width/4, self.height/4, 121, 31))
-        self.comboBox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
-        self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItem("100")
-        self.comboBox.addItem("500")
-        self.comboBox.addItem("1000")
-        self.comboBox.show()
-        self.details_Layout.addWidget(self.comboBox)
-
-        resText = QtWidgets.QLabel('Generated image resolution:')
-        resText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
-        resText.setAlignment(Qt.AlignCenter)
-        self.details_Layout.addWidget(resText)
-
-        self.resolutionbox = QtWidgets.QComboBox(self.main_frame)
-        #x, y, w,h
-        self.resolutionbox.setGeometry(QtCore.QRect(self.width/4 +200,self.height/4 , 121, 31))
-        self.resolutionbox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
-        self.resolutionbox.setObjectName("resbox")
-        self.resolutionbox.addItem("Small- 256 px")
-        self.resolutionbox.addItem("Medium- 512 px")
-        self.resolutionbox.addItem("Large- 1024 px")
-        self.details_Layout.addWidget(self.resolutionbox)
-
-        modelText = QtWidgets.QLabel('  Choose model: ')
-        modelText.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
-        modelText.setAlignment(Qt.AlignCenter)
-        self.details_Layout.addWidget(modelText)
-
-        self.modelBox = QtWidgets.QComboBox(self.main_frame)
-        #x, y, w,h
-        self.modelBox.setGeometry(QtCore.QRect(self.width/4 +200,self.height/4 , 121, 31))
-        self.modelBox.setStyleSheet("font: 75 14pt \"MS Shell Dlg 2\";")
-        self.modelBox.addItem("Vgg16")
-        self.modelBox.addItem("Vgg19")
-        self.details_Layout.addWidget(self.modelBox)
-
-        # The sub window
-        self.styleframe = QtWidgets.QFrame(self.main_frame)
-        self.main_layout.addWidget(self.styleframe)
-        self.sub_Layout = QtWidgets.QHBoxLayout(self.styleframe)
-        self.styleframe.setFixedWidth(self.width)
-        self.sub_Layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
+        self.buttonsSub_Frame = QtWidgets.QFrame(self.main_frame)
+        self.buttonsSub_Frame.setFixedWidth(self.width)
+        #self.buttonsSub_Frame.setFixedHeight(200)
+        self.main_layout.addWidget(self.buttonsSub_Frame)
+        self.buttonsSub_Layout = QtWidgets.QHBoxLayout(self.buttonsSub_Frame)
+        self.buttonsSub_Layout.setAlignment(Qt.AlignCenter|Qt.AlignTop)
 
         QtCore.QMetaObject.connectSlotsByName(main)
-
-        self.contentframe = QtWidgets.QLabel(self.main_frame)
-        self.contentframe.setGeometry(QtCore.QRect(self.width*3.5/10, self.height*2/7, 251, 191))
-        self.contentframe.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.contentframe.setScaledContents(True)
-        self.contentframe.setObjectName("contentframe")
-        self.contentframe.hide()
-
-        self.styleframe = QtWidgets.QLabel(self.main_frame)
-        self.styleframe.setGeometry(QtCore.QRect(self.width*5.4/10, self.height*2/7, 251, 191))
-        self.styleframe.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.styleframe.setText("")
-        self.styleframe.setScaledContents(True)
-        self.styleframe.setObjectName("styleframe")
-        self.styleframe.hide()
 
         # upload content button
         contentBtn = QtWidgets.QPushButton("Upload content image", self)
         contentBtn.setObjectName("MainGuiButtons")
         contentBtn.clicked.connect(self.setContentImage)
-        self.firstsub_Layout.addWidget(contentBtn)
-        self.contentframe.show()
+        self.buttonsSub_Layout.addWidget(contentBtn)
+        #self.contentframe.show()
 
         # upload style
         StyleBtn = QtWidgets.QPushButton("Upload style Image", self)
         StyleBtn.setObjectName("MainGuiButtons")
         StyleBtn.clicked.connect(self.setStyleImage)
-        self.firstsub_Layout.addWidget(StyleBtn)
-        self.styleframe.show()
+        self.buttonsSub_Layout.addWidget(StyleBtn)
+        #self.styleframe.show()
+
+        # The photos sub frame
+        self.photosSubframe = QtWidgets.QFrame(self.main_frame)
+        self.photosSubframe.setFixedWidth(self.width)
+        self.photosSubframe.setFixedHeight(10)
+        self.main_layout.addWidget(self.photosSubframe)
+        self.photosSub_Layout = QtWidgets.QHBoxLayout(self.photosSubframe)
+        self.photosSub_Layout.setAlignment(Qt.AlignCenter)
+
+        self.contentframe = QtWidgets.QLabel(self.main_frame)
+        self.contentframe.setGeometry(QtCore.QRect(self.width * 3.2 / 10, self.height * 1.7 / 7, 251, 191))
+        self.contentframe.setFrameShape(QtWidgets.QFrame.NoFrame)
+        pixmap = QPixmap(":Pictures/imageNeedUpload.png")
+        pixmap = pixmap.scaled(256, 256)
+        self.contentframe.setPixmap(pixmap)
+        self.contentframe.setText("")
+        self.contentframe.setScaledContents(True)
+        self.contentframe.setObjectName("contentframe")
+        # self.contentframe.hide()
+
+        self.styleframe = QtWidgets.QLabel(self.main_frame)
+        self.styleframe.setGeometry(QtCore.QRect(self.width * 5.1 / 10, self.height * 1.7 / 7, 251, 191))
+        self.styleframe.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.styleframe.setPixmap(pixmap)
+        self.styleframe.setText("")
+        self.styleframe.setScaledContents(True)
+        self.styleframe.setObjectName("styleframe")
+        # self.styleframe.hide()
+
+        self.details_Frame = QtWidgets.QFrame(self.main_frame)
+        self.details_Frame.setFixedWidth(self.width)
+        self.main_layout.addWidget(self.details_Frame)
+        self.details_Layout = QtWidgets.QHBoxLayout(self.details_Frame)
+        self.details_Layout.setAlignment(Qt.AlignCenter)
+
+        iterText = QtWidgets.QLabel('Number of iterations:')
+        self.details_Layout.addWidget(iterText)
+        self.iterationbox = QtWidgets.QComboBox(self.main_frame)
+        self.iterationbox.addItem("100")
+        self.iterationbox.addItem("500")
+        self.iterationbox.addItem("1000")
+        self.details_Layout.addWidget(self.iterationbox)
+
+        resText = QtWidgets.QLabel('    Image resolution:')
+        self.details_Layout.addWidget(resText)
+        self.resolutionbox = QtWidgets.QComboBox(self.main_frame)
+        self.resolutionbox.addItem("Small- 256 px")
+        self.resolutionbox.addItem("Medium- 512 px")
+        self.resolutionbox.addItem("Large- 1024 px")
+        self.details_Layout.addWidget(self.resolutionbox)
+
+        modelText = QtWidgets.QLabel('  Choose model:')
+        self.details_Layout.addWidget(modelText)
+        self.modelBox = QtWidgets.QComboBox(self.main_frame)
+        self.modelBox.addItem("Vgg16")
+        self.modelBox.addItem("Vgg19")
+        self.details_Layout.addWidget(self.modelBox)
+
+        self.generateBtnSub_Frame = QtWidgets.QFrame(self.main_frame)
+        self.generateBtnSub_Frame.setFixedWidth(self.width)
+        self.main_layout.addWidget(self.generateBtnSub_Frame)
+        self.generateBtnSub_Layout = QtWidgets.QHBoxLayout(self.generateBtnSub_Frame)
+        self.generateBtnSub_Layout.setAlignment(Qt.AlignCenter)
 
         self.generateBtn = QtWidgets.QPushButton("generate", self)
         self.generateBtn.setObjectName("MainGuiButtons")
         self.generateBtn.clicked.connect(self.lunch_thread)
-        self.secondsub_Layout.addWidget(self.generateBtn)
-        self.generateBtn.setEnabled(False);
-
-        # Footer layout
-        creditsLbl = QtWidgets.QLabel('Created By Koral Zakai & May Steinfeld, '
-                                      'Supervisor: Zeev Vladimir Volkovich, '
-                                      '03/06/2019')
-        creditsLbl.setAlignment(Qt.AlignCenter)
-        self.main_layout.addWidget(creditsLbl)
+        self.generateBtnSub_Layout.addWidget(self.generateBtn)
+        self.generateBtn.setEnabled(False)
 
         # show the window
         self.showMaximized()
@@ -306,8 +283,7 @@ class Transfer_Image_Gui(QWidget):
     """lunch_thread control the start of the second thread that running the MainFunc."""
     def lunch_thread(self):
         outputWindow = Gui_output_image_window(self)
-        outputWindow.setCombo(self.comboBox.currentText(), self.resolutionbox.currentText() , self.modelBox.currentText())
-
+        outputWindow.setCombo(self.iterationbox.currentText(), self.resolutionbox.currentText() , self.modelBox.currentText())
         outputWindow.show()
         self.main_frame.setVisible(False)
 
@@ -328,7 +304,7 @@ class Transfer_Image_Gui(QWidget):
             global content_path
             content_path = fileName[0]
             pixmap = QtGui.QPixmap(fileName[0])
-            pixmap = pixmap.scaled(290, 290, QtCore.Qt.KeepAspectRatio)
+            pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
             self.contentframe.setPixmap(pixmap)
             self.contentframe.setAlignment(QtCore.Qt.AlignCenter)
             global flagContent
@@ -347,7 +323,7 @@ class Transfer_Image_Gui(QWidget):
             global style_path
             style_path = fileName[0]
             pixmap = QtGui.QPixmap(fileName[0])
-            pixmap = pixmap.scaled(290, 290, QtCore.Qt.KeepAspectRatio)
+            pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
             self.styleframe.setPixmap(pixmap)
             self.styleframe.setAlignment(QtCore.Qt.AlignCenter)
             global flagStyle
@@ -390,7 +366,7 @@ class Gui_output_image_window(QWidget):
 
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(80)
+        self.Iconsub_Frame.setFixedHeight(75)
         self.main_layout.addWidget(self.Iconsub_Frame)
         self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
         self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
@@ -412,7 +388,7 @@ class Gui_output_image_window(QWidget):
         self.Iconsub_Layout.addWidget(self.homeBtn)
         self.homeBtn.setEnabled(False);
 
-        # The Output + Button save sub frame
+        # The Button save + output image sub frame
         self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
         self.main_layout.addWidget(self.Buttonsub_Frame)
         self.Buttonsub_Layout = QtWidgets.QVBoxLayout(self.Buttonsub_Frame)
@@ -426,31 +402,37 @@ class Gui_output_image_window(QWidget):
         self.Buttonsub_Layout.addWidget(self.savebutton)
 
         self.outputframe = QtWidgets.QLabel(self.main_frame)
-        self.outputframe.setGeometry(QtCore.QRect(850, 300, 251, 191))
+        #self.outputframe.setGeometry(QtCore.QRect(850, 300, 251, 191))
         self.outputframe.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.outputframe.setText("")
+        pixmap = QPixmap(":Pictures/gift.png")
+        pixmap = pixmap.scaled(256, 256)
+        self.outputframe.setPixmap(pixmap)
         self.outputframe.setScaledContents(True)
         self.outputframe.setObjectName("outputframe")
-        self.outputframe.hide()
+        self.outputframe.setAlignment(Qt.AlignCenter)
+        self.Buttonsub_Layout.addWidget(self.outputframe)
+        #self.outputframe.hide()
+
+        # The progressBar sub frame
+        self.progressBarsub_Frame = QtWidgets.QFrame(self.main_frame)
+        self.main_layout.addWidget(self.progressBarsub_Frame)
+        self.progressBarsub_Frame.setFixedWidth(self.width)
+        self.progressBarsub_Layout = QtWidgets.QHBoxLayout(self.progressBarsub_Frame)
+        self.progressBarsub_Layout.setAlignment(Qt.AlignCenter)
 
         self.progressBar = QtWidgets.QProgressBar(self.main_frame)
-        self.progressBar.setGeometry(QtCore.QRect(self.width/3, self.height*2/3, self.width/3, 31))
+        #self.progressBar.setGeometry(QtCore.QRect(0, 0, 256, 31))
+        self.progressBar.setFixedWidth(self.width/3)
         self.progressBar.setProperty("value",0)
         self.progressBar.setMaximum(100)
+        self.progressBar.setAlignment(Qt.AlignCenter)
         self.progressBar.setObjectName("progressBar")
-        self.progressBar.hide()
-
-        # Footer layout
-        creditsLbl = QtWidgets.QLabel('Created By Koral Zakai & May Steinfeld, '
-                                      'Supervisor: Zeev Vladimir Volkovich, '
-                                      '03/06/2019')
-        creditsLbl.setAlignment(Qt.AlignCenter)
-        self.main_layout.addWidget(creditsLbl)
+        self.progressBarsub_Layout.addWidget(self.progressBar)
+        #self.progressBar.hide()
 
         # show the window
         self.showMaximized()
-
-    """saveimage function control the saving of the output image."""
 
     def setCombo(self, iterString, resString, modelString):
         self.comboString = iterString
@@ -469,9 +451,8 @@ class Gui_output_image_window(QWidget):
 
     """onCountChanged function control on updating the progrssBar."""
     def onCountChanged(self, value):
-        if(value==100):
-            self.homeBtn.setEnabled(True)
-            self.help
+        #if(value==100):
+        #   self.homeBtn.setEnabled(True)
         self.progressBar.setValue(value)
 
     """Generate function is start when the Generate button pushed. it start the main algorithm."""
@@ -488,17 +469,18 @@ class Gui_output_image_window(QWidget):
         #self.actionCreate_New.setEnabled(False)
         #self.actionAbout.setEnabled(False)
 
-        self.outputframe.setPixmap(QtGui.QPixmap(":Pictures/gift.png"))
-        self.outputframe.show()
+        #self.outputframe.setPixmap(QtGui.QPixmap(":Pictures/gift.png"))
+        #self.outputframe.show()
 
-        self.savebutton.raise_()
+        #self.savebutton.raise_()
         self.savebutton.hide()
 
-        self.progressBar.raise_()
-        self.outputframe.raise_()
+        #self.progressBar.raise_()
+        #self.outputframe.raise_()
 
-        self.progressBar.setValue(0)
-        self.progressBar.show()
+        #self.progressBar.setValue(0)
+        #self.progressBar.show()
+
         # iter control the number of iteration the algorithm run, the user choose it.
         global iter
         iter=0
@@ -518,16 +500,16 @@ class Gui_output_image_window(QWidget):
         elif self.resolutionString  == 'Large- 1024 px':#'1024 Px':
             resolution = 1024
 
-        global modelTyle
+        global modelType
         if self.modelString == 'Vgg16':
-            modelTyle = 16
+            modelType = 16
         elif self.modelString == 'Vgg19':
-            modelTyle = 19
+            modelType = 19
 
         # outputImage get the result from the MainFunc.
-        outputImage = self.MainFunc(content_path, style_path, iter, resolution, modelTyle)
+        outputImage = self.MainFunc(content_path, style_path, iter, resolution, modelType)
         pixmap = QtGui.QPixmap(outputImage.toqpixmap())
-        pixmap = pixmap.scaled(290, 290, QtCore.Qt.KeepAspectRatio)
+        pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
         self.outputframe.setPixmap(pixmap)
         self.outputframe.setAlignment(QtCore.Qt.AlignCenter)
         self.outputframe.show()
@@ -535,7 +517,7 @@ class Gui_output_image_window(QWidget):
 
         global flagFinishGenerate
         flagFinishGenerate = 1
-        #self.actionHome.setEnabled(True)
+        self.homeBtn.setEnabled(True)
         #self.actionCreate_New.setEnabled(True)
         #self.actionAbout.setEnabled(True)
 
@@ -781,8 +763,9 @@ class External(QThread):
     def run(self):
         global count
         global iter
-        ii =((count + 1) / iter) * 100
-        self.countChanged.emit(ii)
+        progressVal =((count + 1) / iter) * 100
+        self.countChanged.emit(progressVal)
+    #exit(1)
 
 if __name__ == "__main__":
     import sys
