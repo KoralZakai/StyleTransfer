@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1306c76b-2666-4dd8-a16a-280ae8f78c69" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/StyleTransfer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/StyleTransfer.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +15,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="65">
-              <caret line="392" column="44" selection-start-line="392" selection-start-column="44" selection-end-line="392" selection-end-column="44" />
+            <state relative-caret-position="308">
+              <caret line="29" column="20" lean-forward="true" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/css.qrc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -36,7 +43,7 @@
         <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/PIL/Image.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="118">
-              <caret line="1818" selection-start-line="1818" selection-end-line="1818" />
+              <caret line="1988" selection-start-line="1988" selection-end-line="1988" />
             </state>
           </provider>
         </entry>
@@ -66,36 +73,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>progressBar</find>
-      <find>SaveOutputImageBtn</find>
-      <find>global</find>
-      <find>global comb</find>
-      <find>comboBoxString</find>
-      <find>comboBoxIterString</find>
-      <find>openShowOutputGui</find>
-      <find>Gui_output_image_window</find>
+      <find>generateBtn</find>
+      <find>generat</find>
+      <find>run_style_transfer</find>
+      <find>load_and_process_img</find>
+      <find>contentfr</find>
+      <find>contentfram</find>
+      <find>setContentImage2</find>
+      <find>contentframe2</find>
+      <find>flagContent</find>
+      <find>content_path</find>
       <find>savebutton</find>
-      <find>setCombo</find>
-      <find>small</find>
-      <find>actionHome</find>
-      <find>progr</find>
-      <find>prog</find>
-      <find>vgg</find>
-      <find>get_model</find>
-      <find>model</find>
-      <find>progress</find>
-      <find>onCountChanged</find>
-      <find>onCountChange</find>
-      <find>combo</find>
-      <find>flag1</find>
-      <find>flag2</find>
-      <find>flag3</find>
-      <find>smal</find>
-      <find>comboBox</find>
-      <find>help</find>
-      <find>resolution</find>
-      <find>helpBtn</find>
-      <find>showHelp</find>
+      <find>gene</find>
+      <find>generate</find>
+      <find>gram_style_features</find>
+      <find>main_</find>
+      <find>gram</find>
+      <find>gram_matrix</find>
+      <find>mainF</find>
+      <find>outputImage</find>
+      <find>content12</find>
+      <find>content2</find>
+      <find>content_path2</find>
+      <find>output</find>
+      <find>round</find>
+      <find>koral</find>
+      <find>100</find>
+      <find>try</find>
+      <find>save</find>
+      <find>10</find>
+      <find>round_</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -125,10 +132,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="697" />
-    <option name="height" value="735" />
+    <option name="x" value="-12" />
+    <option name="width" value="981" />
+    <option name="height" value="1032" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -156,7 +162,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Image-Style-Transfer" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Feed-Forward-Style-Transfer" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -312,26 +318,33 @@
       <option name="project" value="LOCAL" />
       <updated>1560974432778</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Merge branch 'master' of https://github.com/KoralZakai/StyleTransfer&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Image-Style-Transfer/Image Style Transfer Using CNN.py&#10;&#10;fixed resolution from combobox bug. + merge">
+      <created>1560975746079</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1560975746079</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15580286" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09538951" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28063944" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3250444" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49920508" visible="true" weight="0.23268206" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.30195382" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3232682" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.3285968" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5007949" side_tool="true" visible="true" weight="0.23268206" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -386,7 +399,8 @@
     <MESSAGE value="gui add content+ style buttons, not working!" />
     <MESSAGE value="Change some style" />
     <MESSAGE value="Merge branch 'master' of https://github.com/KoralZakai/StyleTransfer&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Image-Style-Transfer/Image Style Transfer Using CNN.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/KoralZakai/StyleTransfer&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Image-Style-Transfer/Image Style Transfer Using CNN.py" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/KoralZakai/StyleTransfer&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Image-Style-Transfer/Image Style Transfer Using CNN.py&#10;&#10;fixed resolution from combobox bug. + merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/KoralZakai/StyleTransfer&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Image-Style-Transfer/Image Style Transfer Using CNN.py&#10;&#10;fixed resolution from combobox bug. + merge" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -395,6 +409,26 @@
           <url>file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN shahar.py</url>
           <line>420</line>
           <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py</url>
+          <line>567</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py</url>
+          <line>691</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py</url>
+          <line>548</line>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py</url>
+          <line>528</line>
+          <option name="timeStamp" value="69" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -481,20 +515,10 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/tensorflow/python/keras/applications/vgg16.py" />
-    <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/design.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/compile.batch">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/css.qrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -505,10 +529,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/PIL/Image.py">
+    <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/design.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/css.qrc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="1818" selection-start-line="1818" selection-end-line="1818" />
+        <state relative-caret-position="132">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -519,10 +546,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/PIL/Image.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="1988" selection-start-line="1988" selection-end-line="1988" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="392" column="44" selection-start-line="392" selection-start-column="44" selection-end-line="392" selection-end-column="44" />
+        <state relative-caret-position="308">
+          <caret line="29" column="20" lean-forward="true" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
         </state>
       </provider>
     </entry>
