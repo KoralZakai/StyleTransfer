@@ -242,12 +242,12 @@ class Transfer_Image_Gui(QWidget):
         self.details_Layout = QtWidgets.QHBoxLayout(self.details_Frame)
         self.details_Layout.setAlignment(Qt.AlignCenter)
 
-        iterText = QtWidgets.QLabel('Number of iterations:')
+        iterText = QtWidgets.QLabel('Image quality:')
         self.details_Layout.addWidget(iterText)
         self.iterationbox = QtWidgets.QComboBox(self.main_frame)
-        self.iterationbox.addItem("100")
-        self.iterationbox.addItem("500")
-        self.iterationbox.addItem("1000")
+        self.iterationbox.addItem("Low")
+        self.iterationbox.addItem("Medium")
+        self.iterationbox.addItem("High")
         self.details_Layout.addWidget(self.iterationbox)
 
         resText = QtWidgets.QLabel('    Image resolution:')
@@ -484,20 +484,20 @@ class Gui_output_image_window(QWidget):
         # iter control the number of iteration the algorithm run, the user choose it.
         global iter
         iter=0
-        if self.comboString == '100': #'Low':
+        if self.comboString == 'Low':
             iter=100
-        elif self.comboString == '500': #'Medium':
+        elif self.comboString == 'Medium':
             iter=500
         else:
             iter=1000
 
         # resulotion control the output image resulotion, the user choose it.
         resolution = 0
-        if self.resolutionString == 'Small- 256 px':#'256 Px':
+        if self.resolutionString == 'Small- 256 px':
             resolution = 256
-        elif self.resolutionString == 'Medium- 512 px':#'512 Px':
+        elif self.resolutionString == 'Medium- 512 px':
             resolution = 512
-        elif self.resolutionString  == 'Large- 1024 px':#'1024 Px':
+        elif self.resolutionString  == 'Large- 1024 px':
             resolution = 1024
 
         global modelType

@@ -3,7 +3,6 @@ code Written in python, Ui made with PyQt5"""
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
-import logo
 import threading
 
 import skimage
