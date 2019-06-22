@@ -8,7 +8,6 @@ from PyQt5.QtCore import QThread, pyqtSignal, QFile, QTextStream
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QWidget
 
-import logo
 import threading
 
 # global variables created to control the UI and code parameters.

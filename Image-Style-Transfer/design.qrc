@@ -5,5 +5,6 @@
 	<file alias="home.png">Pictures/home.png</file>
 	<file alias="help.png">Pictures/help.png</file>
 	<file alias="gift.png">Pictures/gift.png</file>
+	<file alias="imageNeedUpload.png">Pictures/imageNeedUpload.png</file>
 </qresource>	
 </RCC>

@@ -5,7 +5,6 @@ import skimage.io
 import skimage.transform
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
-import logo
 import threading
 from keras.preprocessing import image
 import tensorflow as tf
