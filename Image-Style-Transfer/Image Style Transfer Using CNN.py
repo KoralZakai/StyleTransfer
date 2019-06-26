@@ -17,7 +17,9 @@ import os
 
 # global variables created to control the UI and code parameters.
 global content_path
+content_path = None
 global style_path
+style_path= None
 global outputImage
 global pixmap
 global exitflag
@@ -45,6 +47,7 @@ class Main_Window(QWidget):
         self.title = 'Style Maker'
         self.width = w
         self.height = h
+
         self.initUI()
 
     def initUI(self):
@@ -66,7 +69,7 @@ class Main_Window(QWidget):
 
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(75)
+        self.Iconsub_Frame.setFixedHeight(80)
         self.main_layout.addWidget(self.Iconsub_Frame)
         self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
         self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
@@ -144,6 +147,11 @@ class Transfer_Image_Gui(QWidget):
         self.initUI2()
 
     def initUI2(self):
+        global flagContent
+        flagContent= 0
+        global flagStyle
+        flagStyle= 0
+
         file = QFile(':css/StyleSheet.css')
         file.open(QFile.ReadOnly)
         stream = QTextStream(file)
@@ -236,8 +244,21 @@ class Transfer_Image_Gui(QWidget):
         self.styleframe.setObjectName("styleframe")
         # self.styleframe.hide()
 
+        self.error_Frame = QtWidgets.QFrame(self.main_frame)
+        self.error_Frame.setFixedWidth(self.width)
+        self.error_Frame.setFixedHeight(500)
+        self.main_layout.addWidget(self.error_Frame)
+        self.error_Layout = QtWidgets.QHBoxLayout(self.error_Frame)
+        self.error_Layout.setAlignment(Qt.AlignCenter)
+
+        self.non_content_image_error_text = QtWidgets.QLabel('You should upload two pictures first')
+        self.non_content_image_error_text.setStyleSheet('color:red')
+        self.error_Layout.addWidget(self.non_content_image_error_text)
+        self.non_content_image_error_text.hide()
+
         self.details_Frame = QtWidgets.QFrame(self.main_frame)
         self.details_Frame.setFixedWidth(self.width)
+        #self.error_Frame.setFixedHeight(350)
         self.main_layout.addWidget(self.details_Frame)
         self.details_Layout = QtWidgets.QHBoxLayout(self.details_Frame)
         self.details_Layout.setAlignment(Qt.AlignCenter)
@@ -267,6 +288,7 @@ class Transfer_Image_Gui(QWidget):
 
         self.generateBtnSub_Frame = QtWidgets.QFrame(self.main_frame)
         self.generateBtnSub_Frame.setFixedWidth(self.width)
+        self.generateBtnSub_Frame.setFixedHeight(400)
         self.main_layout.addWidget(self.generateBtnSub_Frame)
         self.generateBtnSub_Layout = QtWidgets.QHBoxLayout(self.generateBtnSub_Frame)
         self.generateBtnSub_Layout.setAlignment(Qt.AlignCenter)
@@ -275,17 +297,22 @@ class Transfer_Image_Gui(QWidget):
         self.generateBtn.setObjectName("MainGuiButtons")
         self.generateBtn.clicked.connect(self.lunch_thread)
         self.generateBtnSub_Layout.addWidget(self.generateBtn)
-        self.generateBtn.setEnabled(False)
+        self.generateBtn.setEnabled(True)
 
         # show the window
         self.showMaximized()
 
     """lunch_thread control the start of the second thread that running the MainFunc."""
     def lunch_thread(self):
-        outputWindow = Gui_output_image_window(self)
-        outputWindow.setCombo(self.iterationbox.currentText(), self.resolutionbox.currentText() , self.modelBox.currentText())
-        outputWindow.show()
-        self.main_frame.setVisible(False)
+        if flagStyle == 0 or flagContent == 0:
+            self.non_content_image_error_text.show()
+        else:
+            self.non_content_image_error_text.hide()
+            outputWindow = Gui_output_image_window(self)
+            outputWindow.setCombo(self.iterationbox.currentText(), self.resolutionbox.currentText() , self.modelBox.currentText())
+            outputWindow.show()
+            self.main_frame.setVisible(False)
+
 
     # Opens home window
     def showHome(self):
@@ -301,7 +328,7 @@ class Transfer_Image_Gui(QWidget):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
                                                              "Image Files (*.png *.jpg *.jpeg *.bmp)")
         if fileName:
-            global content_path
+            #content_path = None
             content_path = fileName[0]
             pixmap = QtGui.QPixmap(fileName[0])
             pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
@@ -311,16 +338,14 @@ class Transfer_Image_Gui(QWidget):
             flagContent = 1
             global flagStyle
             if (flagContent == 1 and flagStyle == 1):
-                self.generateBtn.setEnabled(True)
-            # self.warninglabel.hide()
-            # self.generatebutton.show()
+                self.non_content_image_error_text.hide()
 
     """setStyleImage function control on choosing the style image."""
     def setStyleImage(self):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
                                                              "Image Files (*.png *.jpg *.jpeg *.bmp)")
         if fileName:
-            global style_path
+            #style_path = None
             style_path = fileName[0]
             pixmap = QtGui.QPixmap(fileName[0])
             pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
@@ -330,9 +355,7 @@ class Transfer_Image_Gui(QWidget):
             flagStyle = 1
             global flagContent
             if (flagStyle == 1 and flagContent == 1):
-                self.generateBtn.setEnabled(True)
-                # self.warninglabel.hide()
-                # self.generatebutton.show()
+                self.non_content_image_error_text.hide()
 
 class Gui_output_image_window(QWidget):
     def __init__(self , parent=None):
@@ -536,6 +559,7 @@ class Gui_output_image_window(QWidget):
             self.exit()
         else:
             exit(1)
+
 
     """MainFunc is the main function that running the main algorithm"""
     def MainFunc(self, content_path, style_path, iter, resolution, modelType):
@@ -765,6 +789,9 @@ class Gui_output_image_window(QWidget):
         im = Image.fromarray(best)
         return im
 
+def myExitHandler(self):
+    exit(1)
+
 """External class control the thread running the ProgressBar."""
 class External(QThread):
     countChanged = pyqtSignal(int)
@@ -780,4 +807,5 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     main = Main_Window()
+    app.aboutToQuit.connect(myExitHandler)  # myExitHandler is a callable
     sys.exit(app.exec_())
