@@ -291,13 +291,13 @@ class TransferImageGui(QWidget):
         # show the window
         self.showMaximized()
 
-    """lunch_thread control the start of the second thread that running the MainFunc."""
+    """lunch_thread control the start of the second thread that running the MainFunc- StyleMakerFunc."""
     def lunch_thread(self):
         if flagStyle == 1 and flagContent == 1:
             outputWindow = OutputImageGui(self)
-            outputWindow.setCombo(self.iterationbox.currentText(), self.resolutionbox.currentText() , self.modelBox.currentText())
-           # t = threading.Thread(target=outputWindow.Generate)
-            #t.start()
+            outputWindow.getComboBoxValues(self.iterationbox.currentText(), self.resolutionbox.currentText() , self.modelBox.currentText())
+            t = threading.Thread(target=outputWindow.Generate)
+            t.start()
             outputWindow.show()
             self.main_frame.setVisible(False)
 
@@ -399,7 +399,7 @@ class OutputImageGui(QWidget):
         self.homeBtn.clicked.connect(self.showHome)
         self.Iconsub_Layout.addWidget(self.homeBtn)
         self.homeBtn.setEnabled(False)
-        self.homeBtn.setToolTip('Still in Generate process')
+        self.homeBtn.setToolTip('Still in generate process')
 
         # The Button save + output image sub frame
         self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
@@ -447,12 +447,10 @@ class OutputImageGui(QWidget):
         # show the window
         self.showMaximized()
 
-    def setCombo(self, iterString, resString, modelString):
+    def getComboBoxValues(self, iterString, resString, modelString):
         self.comboString = iterString
         self.resolutionString  = resString
         self.modelString = modelString
-        t = threading.Thread(target=self.Generate)
-        t.start()
 
     """saveimage function control the saving of the output image."""
     def saveimage(self):
@@ -528,8 +526,8 @@ class OutputImageGui(QWidget):
         elif self.modelString == 'Vgg19':
             modelType = 19
 
-        # outputImage get the result from the MainFunc.
-        outputImage = self.MainFunc(content_path, style_path, iter, resolution, modelType)
+        # outputImage get the result from the StyleMakerFunc.
+        outputImage = self.StyleMakerFunc(content_path, style_path, iter, resolution, modelType)
         pixmap = QtGui.QPixmap(outputImage.toqpixmap())
         pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
         self.outputframe.setPixmap(pixmap)
@@ -541,8 +539,6 @@ class OutputImageGui(QWidget):
         flagFinishGenerate = 1
         self.homeBtn.setEnabled(True)
         self.homeBtn.setToolTip(None)
-        #self.actionCreate_New.setEnabled(True)
-        #self.actionAbout.setEnabled(True)
 
     """exit function control on exit the application."""
     def exit(self):
@@ -552,8 +548,8 @@ class OutputImageGui(QWidget):
             exit(1)
 
 
-    """MainFunc is the main function that running the main algorithm"""
-    def MainFunc(self, content_path, style_path, iter, resolution, modelType):
+    """StyleMakerFunc is the main function that running the main algorithm"""
+    def StyleMakerFunc(self, content_path, style_path, iter, resolution, modelType):
         import numpy as np
         from PIL import Image
         import tensorflow as tf
@@ -596,7 +592,7 @@ class OutputImageGui(QWidget):
             img = np.expand_dims(img, axis=0)
             return img
 
-        # load_and_process_img is charge on load the image into the vgg16 network.
+        # load_and_process_img is charge on load the image into the vgg network.
         def load_and_process_img(path_to_img):
             img = load_img(path_to_img)
             if modelType == 16:
@@ -643,7 +639,7 @@ class OutputImageGui(QWidget):
         # get_content_loss function calculate the content loss that is the
         # Mean Squared Error between the two feature representations matrices.
         def get_content_loss(base_content, target):
-            return tf.reduce_mean(tf.square(base_content - target))
+            return tf.reduce_mean(0.5*tf.square(base_content - target))
 
         # Calculate the gram matrix for the style representation.
         def gram_matrix(input_tensor):
@@ -666,7 +662,7 @@ class OutputImageGui(QWidget):
             the outputs of the intermediate layers.
             Returns the style and the content features representation."""
         def get_feature_representations(model, content_path, style_path):
-            # Load our images into the VGG16 Network
+            # Load our images into the VGG Network
             content_image = load_and_process_img(content_path)
             style_image = load_and_process_img(style_path)
 
