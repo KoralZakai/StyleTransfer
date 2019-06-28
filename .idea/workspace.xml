@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1306c76b-2666-4dd8-a16a-280ae8f78c69" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Image-Style-Transfer/content/momdad.jpg" afterDir="false" />
+    <list default="true" id="6e352f26-ba86-4a3a-b16a-14118374f769" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/StyleTransfer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/StyleTransfer.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/css.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/css.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/css/StyleSheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/css/StyleSheet.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/design.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/design.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/style/output1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/Outputs/output1.jpg" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,20 +18,29 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="730" column="33" selection-start-line="730" selection-start-column="33" selection-end-line="730" selection-end-column="33" />
+            <state relative-caret-position="211">
+              <caret line="154" lean-forward="true" selection-start-line="154" selection-end-line="154" />
               <folding>
-                <element signature="e#106#148#0" expanded="true" />
+                <element signature="e#105#126#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/threading.py">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/tensorflow/python/keras/engine/network.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="863" selection-start-line="863" selection-end-line="863" />
+            <state relative-caret-position="117">
+              <caret line="458" selection-start-line="458" selection-end-line="458" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/439531499/PyQt5/QtWidgets/QMessageBox.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="17" column="10" selection-start-line="17" selection-end-line="18" />
             </state>
           </provider>
         </entry>
@@ -44,8 +48,53 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/css/StyleSheet.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="8" lean-forward="true" selection-start-line="16" selection-end-line="17" selection-end-column="8" />
+            <state relative-caret-position="171">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/compile.batch">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="22" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/keras_applications/imagenet_utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-787">
+              <caret line="156" column="4" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/css.qrc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/threading.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="916" selection-start-line="916" selection-end-line="916" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/PIL/Image.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="110">
+              <caret line="2704" selection-start-line="2704" selection-end-line="2704" />
             </state>
           </provider>
         </entry>
@@ -61,11 +110,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setCombo</find>
-      <find>content_los</find>
-      <find>16</find>
-      <find>content</find>
-      <find>content_lay</find>
       <find>num_content_layers</find>
       <find>preprr</find>
       <find>resNe</find>
@@ -91,6 +135,11 @@
       <find>qp</find>
       <find>savebutton</find>
       <find>exitFunc</find>
+      <find>enable_eager_execution</find>
+      <find>iter</find>
+      <find>setGeometry</find>
+      <find>output</find>
+      <find>256</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -155,12 +204,6 @@
               <item name="StyleTransfer" type="b2602c69:ProjectViewProjectNode" />
               <item name="StyleTransfer" type="462c0819:PsiDirectoryNode" />
               <item name="Image-Style-Transfer" type="462c0819:PsiDirectoryNode" />
-              <item name="content" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="StyleTransfer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="StyleTransfer" type="462c0819:PsiDirectoryNode" />
-              <item name="Image-Style-Transfer" type="462c0819:PsiDirectoryNode" />
               <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -175,16 +218,16 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\MayLev\PycharmProjects\StyleTransfer\Image-Style-Transfer" />
+      <recent name="C:\Users\MayLev\PycharmProjects\StyleTransfer" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\MayLev\PycharmProjects\StyleTransfer\Image-Style-Transfer\Outputs" />
       <recent name="C:\Users\MayLev\PycharmProjects\StyleTransfer\Image-Style-Transfer\style" />
       <recent name="C:\Users\MayLev\PycharmProjects\StyleTransfer\Image-Style-Transfer\content" />
       <recent name="C:\Users\MayLev\PycharmProjects\StyleTransfer\Image-Style-Transfer\logo" />
       <recent name="C:\Users\MayLev\PycharmProjects\StyleTransfer\Image-Style-Transfer\css" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\MayLev\PycharmProjects\StyleTransfer\Image-Style-Transfer" />
-      <recent name="C:\Users\MayLev\PycharmProjects\StyleTransfer" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -199,7 +242,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.Image Style Transfer Using CNN">
+    <configuration name="Image Style Transfer Using CNN shahar" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="StyleTransfer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Image-Style-Transfer" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN shahar.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Image Style Transfer Using CNN" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="StyleTransfer" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -221,9 +285,14 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.Image Style Transfer Using CNN shahar" />
+      <item itemvalue="Python.Image Style Transfer Using CNN" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.Image Style Transfer Using CNN" />
+        <item itemvalue="Python.Image Style Transfer Using CNN shahar" />
       </list>
     </recent_temporary>
   </component>
@@ -336,26 +405,54 @@
       <option name="project" value="LOCAL" />
       <updated>1561720655639</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Merge branch 'master' of https://github.com/KoralZakai/StyleTransfer&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Image-Style-Transfer/Image Style Transfer Using CNN.py&#10;#&#9;Image-Style-Transfer/css.py">
+      <created>1561750721789</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1561750721789</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Merge branch 'master' of https://github.com/KoralZakai/StyleTransfer&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Image-Style-Transfer/Image Style Transfer Using CNN.py&#10;#&#9;Image-Style-Transfer/css.py">
+      <created>1561750822912</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1561750822912</updated>
+    </task>
+    <task id="LOCAL-00017" summary="delete 0.5">
+      <created>1561751899382</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1561751899382</updated>
+    </task>
+    <task id="LOCAL-00018" summary="fix name">
+      <created>1561752303420</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1561752303420</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22247024" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15103339" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49841017" visible="true" weight="0.20949264" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4985119" weight="0.20949264" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3232682" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32242227" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" sideWeight="0.49920508" visible="true" weight="0.32149202" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.3285968" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5007949" side_tool="true" weight="0.32149202" />
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -414,7 +511,10 @@
     <MESSAGE value="Merge branch 'master' of https://github.com/KoralZakai/StyleTransfer&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="added framer, layout and text error if pictures not selected" />
     <MESSAGE value="added tooltips and fixed bug with images global" />
-    <option name="LAST_COMMIT_MESSAGE" value="added tooltips and fixed bug with images global" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/KoralZakai/StyleTransfer&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Image-Style-Transfer/Image Style Transfer Using CNN.py&#10;#&#9;Image-Style-Transfer/css.py" />
+    <MESSAGE value="delete 0.5" />
+    <MESSAGE value="fix name" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix name" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -435,9 +535,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Old files/my_result/result_at_iteration_1.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Old files/my_result/result_at_iteration_0.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -521,11 +618,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/PIL/Image.py" />
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/PIL/Image.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="2704" selection-start-line="2704" selection-end-line="2704" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/compile.batch">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="3" selection-end-column="24" />
+          <caret column="22" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -538,8 +641,20 @@
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/tensorflow/python/ops/math_ops.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/tensorflow/python/keras/applications/resnet50.py" />
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/keras_applications/imagenet_utils.py" />
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/threading.py" />
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/keras_applications/imagenet_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-787">
+          <caret line="156" column="4" selection-start-line="156" selection-start-column="4" selection-end-line="156" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/threading.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="916" selection-start-line="916" selection-end-line="916" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/keras_applications/vgg16.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/tensorflow/python/keras/applications/vgg16.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/tensorflow/_api/v1/keras/applications/vgg16/__init__.py" />
@@ -585,39 +700,30 @@
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/style/candy.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/site-packages/tensorflow/python/framework/ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="5254" column="34" selection-start-line="5254" selection-start-column="12" selection-end-line="5254" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/css/StyleSheet.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="8" lean-forward="true" selection-start-line="16" selection-end-line="17" selection-end-column="8" />
+        <state relative-caret-position="171">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/content/momdad.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/threading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="863" selection-start-line="863" selection-end-line="863" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/content/dogface3.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/site-packages/tensorflow/python/framework/ops.py" />
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="730" column="33" selection-start-line="730" selection-start-column="33" selection-end-line="730" selection-end-column="33" />
+        <state relative-caret-position="211">
+          <caret line="154" lean-forward="true" selection-start-line="154" selection-end-line="154" />
           <folding>
-            <element signature="e#106#148#0" expanded="true" />
+            <element signature="e#105#126#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/threading.py" />
   </component>
 </project>

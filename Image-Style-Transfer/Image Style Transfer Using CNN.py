@@ -30,8 +30,8 @@ global flagFinishGenerate
 flagFinishGenerate=0
 global count
 count=0
-global iter
-iter = 0
+global numOfIterations
+numOfIterations = 0
 
 """MainWindowGui is the main class of the UI,
 all UI parameters and code functions defined here."""
@@ -429,7 +429,7 @@ class OutputImageGui(QWidget):
         self.outputframe.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.outputframe.setText("")
         pixmap = QPixmap(":Pictures/gift.png")
-        pixmap = pixmap.scaled(256, 256)
+        pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
         self.outputframe.setPixmap(pixmap)
         self.outputframe.setScaledContents(True)
         self.outputframe.setObjectName("outputframe")
@@ -490,17 +490,19 @@ class OutputImageGui(QWidget):
         global outputImage
         global exitflag
         exitflag=1
+        global flagContent
+        global flagStyle
         self.savebutton.hide()
 
-        # iter control the number of iteration the algorithm run, the user choose it.
-        global iter
-        iter=0
+        # numOfIterations control the number of iteration the algorithm run, the user choose it.
+        global numOfIterations
+        numOfIterations=0
         if self.comboString == 'Low':
-            iter=10
+            numOfIterations=100
         elif self.comboString == 'Medium':
-            iter=500
+            numOfIterations=500
         else:
-            iter=1000
+            numOfIterations=1000
 
         # resulotion control the output image resulotion, the user choose it.
         resolution = 0
@@ -518,7 +520,7 @@ class OutputImageGui(QWidget):
             modelType = 19
 
         # outputImage get the result from the StyleMakerFunc.
-        outputImage = self.StyleMakerFunc(content_path, style_path, iter, resolution, modelType)
+        outputImage = self.StyleMakerFunc(content_path, style_path, numOfIterations, resolution, modelType)
         pixmap = QtGui.QPixmap(outputImage.toqpixmap())
         pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
         self.outputframe.setPixmap(pixmap)
@@ -531,7 +533,7 @@ class OutputImageGui(QWidget):
         self.homeBtn.setEnabled(True)
 
     """StyleMakerFunc is the main function that running the main algorithm"""
-    def StyleMakerFunc(self, content_path, style_path, iter, resolution, modelType):
+    def StyleMakerFunc(self, content_path, style_path, numOfIterations, resolution, modelType):
         import numpy as np
         from PIL import Image
         import tensorflow as tf
@@ -700,7 +702,7 @@ class OutputImageGui(QWidget):
         """The main method of the code, running the main loop for generating the image."""
         def run_style_transfer(content_path,
                                style_path,
-                               num_iterations=1000,
+                               numOfIterations=1000,
                                content_weight=1e3,
                                style_weight=1e-2):
             # We don't train any layers of our model, so we set their trainable to false.
@@ -736,7 +738,7 @@ class OutputImageGui(QWidget):
             max_vals = 255 - norm_means
 
             # Main loop
-            for i in range(num_iterations):
+            for i in range(numOfIterations):
                 global count
                 count=i
                 self.calc.start()
@@ -754,7 +756,7 @@ class OutputImageGui(QWidget):
 
             return best_img, best_loss
 
-        best, best_loss = run_style_transfer(content_path, style_path, num_iterations=iter)
+        best, best_loss = run_style_transfer(content_path, style_path, numOfIterations=numOfIterations)
         im = Image.fromarray(best)
         return im
 
@@ -767,8 +769,8 @@ class External(QThread):
 
     def run(self):
         global count
-        global iter
-        progressVal =((count + 1) / iter) * 100
+        global numOfIterations
+        progressVal =((count + 1) / numOfIterations) * 100
         self.countChanged.emit(progressVal)
 
 if __name__ == "__main__":
