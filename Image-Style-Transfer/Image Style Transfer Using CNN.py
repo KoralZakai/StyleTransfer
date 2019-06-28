@@ -198,7 +198,7 @@ class TransferImageGui(QWidget):
 
         self.buttonsSub_Frame = QtWidgets.QFrame(self.main_frame)
         self.buttonsSub_Frame.setFixedWidth(self.width)
-        #self.buttonsSub_Frame.setFixedHeight(200)
+        self.buttonsSub_Frame.setFixedHeight(100)
         self.main_layout.addWidget(self.buttonsSub_Frame)
         self.buttonsSub_Layout = QtWidgets.QHBoxLayout(self.buttonsSub_Frame)
         self.buttonsSub_Layout.setAlignment(Qt.AlignCenter|Qt.AlignTop)
@@ -235,9 +235,6 @@ class TransferImageGui(QWidget):
         self.photosSub_Layout.addWidget(self.contentLabel)
         self.contentLabel.setAlignment(Qt.AlignCenter)
 
-        self.styleframe = QtWidgets.QFrame(self.main_frame)
-        self.styleframe.setFixedWidth(self.width)
-        self.main_layout.addWidget(self.styleframe)
         self.styleLabel = QtWidgets.QLabel('', self)
         self.styleLabel.setPixmap(pixmap)
         self.photosSub_Layout.addWidget(self.styleLabel)
@@ -245,6 +242,7 @@ class TransferImageGui(QWidget):
 
         self.details_Frame = QtWidgets.QFrame(self.main_frame)
         self.details_Frame.setFixedWidth(self.width)
+        self.details_Frame.setFixedHeight(60)
         self.main_layout.addWidget(self.details_Frame)
         self.details_Layout = QtWidgets.QHBoxLayout(self.details_Frame)
         self.details_Layout.setAlignment(Qt.AlignCenter | Qt.AlignTop)
