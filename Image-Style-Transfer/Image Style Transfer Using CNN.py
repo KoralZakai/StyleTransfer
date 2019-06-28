@@ -632,7 +632,7 @@ class OutputImageGui(QWidget):
         # get_content_loss function calculate the content loss that is the
         # Mean Squared Error between the two feature representations matrices.
         def get_content_loss(base_content, target):
-            return tf.reduce_mean(0.5*tf.square(base_content - target))
+            return tf.reduce_mean(tf.square(base_content - target))
 
         # Calculate the gram matrix for the style representation.
         def gram_matrix(input_tensor):
