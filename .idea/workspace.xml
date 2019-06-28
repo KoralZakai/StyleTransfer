@@ -13,14 +13,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-34">
-              <caret line="764" column="24" lean-forward="true" selection-start-line="764" selection-start-column="24" selection-end-line="764" selection-end-column="24" />
+            <state relative-caret-position="135">
+              <caret line="524" selection-start-line="524" selection-end-line="524" />
               <folding>
                 <element signature="e#105#126#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/threading.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-206">
+              <caret line="915" selection-start-line="915" selection-end-line="915" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/site-packages/tensorflow/python/framework/ops.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="5186" selection-start-line="5186" selection-end-line="5186" />
             </state>
           </provider>
         </entry>
@@ -45,9 +63,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>16</find>
-      <find>content</find>
-      <find>content_lay</find>
       <find>num_content_layers</find>
       <find>preprr</find>
       <find>resNe</find>
@@ -75,6 +90,9 @@
       <find>exitFunc</find>
       <find>enable_eager_execution</find>
       <find>iter</find>
+      <find>setGeometry</find>
+      <find>output</find>
+      <find>256</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -367,7 +385,14 @@
       <option name="project" value="LOCAL" />
       <updated>1561751899382</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="fix name">
+      <created>1561752303420</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1561752303420</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -447,7 +472,8 @@
     <MESSAGE value="added tooltips and fixed bug with images global" />
     <MESSAGE value="Merge branch 'master' of https://github.com/KoralZakai/StyleTransfer&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;Image-Style-Transfer/Image Style Transfer Using CNN.py&#10;#&#9;Image-Style-Transfer/css.py" />
     <MESSAGE value="delete 0.5" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete 0.5" />
+    <MESSAGE value="fix name" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix name" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -615,13 +641,6 @@
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/style/candy.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/site-packages/tensorflow/python/framework/ops.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="5254" column="34" selection-start-line="5254" selection-start-column="12" selection-end-line="5254" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/css/StyleSheet.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -632,23 +651,30 @@
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/content/momdad.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/threading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="863" selection-start-line="863" selection-end-line="863" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/content/dogface3.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/site-packages/tensorflow/python/framework/ops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="5186" selection-start-line="5186" selection-end-line="5186" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="764" column="24" lean-forward="true" selection-start-line="764" selection-start-column="24" selection-end-line="764" selection-end-column="24" />
+        <state relative-caret-position="135">
+          <caret line="524" selection-start-line="524" selection-end-line="524" />
           <folding>
             <element signature="e#105#126#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/envs/tensorflow/Lib/threading.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-206">
+          <caret line="915" selection-start-line="915" selection-end-line="915" />
         </state>
       </provider>
     </entry>
