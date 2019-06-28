@@ -246,7 +246,6 @@ class TransferImageGui(QWidget):
 
         self.details_Frame = QtWidgets.QFrame(self.main_frame)
         self.details_Frame.setFixedWidth(self.width)
-        #self.error_Frame.setFixedHeight(350)
         self.main_layout.addWidget(self.details_Frame)
         self.details_Layout = QtWidgets.QHBoxLayout(self.details_Frame)
         self.details_Layout.setAlignment(Qt.AlignCenter)
@@ -276,7 +275,6 @@ class TransferImageGui(QWidget):
 
         self.generateBtnSub_Frame = QtWidgets.QFrame(self.main_frame)
         self.generateBtnSub_Frame.setFixedWidth(self.width)
-        self.generateBtnSub_Frame.setFixedHeight(400)
         self.main_layout.addWidget(self.generateBtnSub_Frame)
         self.generateBtnSub_Layout = QtWidgets.QHBoxLayout(self.generateBtnSub_Frame)
         self.generateBtnSub_Layout.setAlignment(Qt.AlignCenter)
