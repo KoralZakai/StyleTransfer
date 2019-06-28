@@ -13,6 +13,12 @@ box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);  }
 	background-repeat: no-repeat, repeat;
 }
 
+QToolTip {
+    color:red;
+    font-size: 18px;
+	font-weight:Bold;
+}
+
 QComboBox {
     color:#000000;
     font-size: 22px;

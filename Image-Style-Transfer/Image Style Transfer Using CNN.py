@@ -17,9 +17,7 @@ import os
 
 # global variables created to control the UI and code parameters.
 global content_path
-content_path = None
 global style_path
-style_path= None
 global outputImage
 global pixmap
 global exitflag
@@ -35,11 +33,11 @@ count=0
 global iter
 iter = 0
 
-"""Main_Window is the main class of the UI,
+"""MainWindowGui is the main class of the UI,
 all UI parameters and code functions defined here."""
-class Main_Window(QWidget):
+class MainWindowGui(QWidget):
     def __init__(self, parent=None):
-        super(Main_Window, self).__init__(parent)
+        super(MainWindowGui, self).__init__(parent)
         # init the initial parameters of this GUI
         user32 = ctypes.windll.user32
         user32.SetProcessDPIAware()
@@ -76,10 +74,11 @@ class Main_Window(QWidget):
 
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;} ")
+        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;} QToolTip {color: black; font-weight: normal;} ")
+        helpBtn.setToolTip('Show help pdf')
         helpBtn.setFixedWidth(68)
         helpBtn.setFixedHeight(68)
-        helpBtn.clicked.connect(self.showHelp)
+        helpBtn.clicked.connect(self.showHelpPdf)
         self.Iconsub_Layout.addWidget(helpBtn)
 
         # the Icon sub frame
@@ -121,11 +120,11 @@ class Main_Window(QWidget):
         self.showMaximized()
 
     def openTransferImageGui(self):
-        transferImage = Transfer_Image_Gui(self)
+        transferImage = TransferImageGui(self)
         transferImage.show()
         self.main_frame.setVisible(False)
 
-    def showHelp(self):
+    def showHelpPdf(self):
         import os
         filename = 'Help.pdf'
         try:
@@ -133,9 +132,9 @@ class Main_Window(QWidget):
         except:
             return
 
-class Transfer_Image_Gui(QWidget):
+class TransferImageGui(QWidget):
     def __init__(self, parent=None):
-        super(Transfer_Image_Gui, self).__init__(parent)
+        super(TransferImageGui, self).__init__(parent)
 
         # init the initial parameters of this GUI
         user32 = ctypes.windll.user32
@@ -179,10 +178,11 @@ class Transfer_Image_Gui(QWidget):
 
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;} ")
+        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;} QToolTip {color: black; font-weight: normal;} ")
+        helpBtn.setToolTip('Show help pdf')
         helpBtn.setFixedWidth(68)
         helpBtn.setFixedHeight(68)
-        helpBtn.clicked.connect(Main_Window.showHelp)
+        helpBtn.clicked.connect(MainWindowGui.showHelpPdf)
         self.Iconsub_Layout.addWidget(helpBtn)
 
         # home button
@@ -244,18 +244,6 @@ class Transfer_Image_Gui(QWidget):
         self.styleframe.setObjectName("styleframe")
         # self.styleframe.hide()
 
-        self.error_Frame = QtWidgets.QFrame(self.main_frame)
-        self.error_Frame.setFixedWidth(self.width)
-        self.error_Frame.setFixedHeight(500)
-        self.main_layout.addWidget(self.error_Frame)
-        self.error_Layout = QtWidgets.QHBoxLayout(self.error_Frame)
-        self.error_Layout.setAlignment(Qt.AlignCenter)
-
-        self.non_content_image_error_text = QtWidgets.QLabel('You should upload two pictures first')
-        self.non_content_image_error_text.setStyleSheet('color:red')
-        self.error_Layout.addWidget(self.non_content_image_error_text)
-        self.non_content_image_error_text.hide()
-
         self.details_Frame = QtWidgets.QFrame(self.main_frame)
         self.details_Frame.setFixedWidth(self.width)
         #self.error_Frame.setFixedHeight(350)
@@ -294,6 +282,7 @@ class Transfer_Image_Gui(QWidget):
         self.generateBtnSub_Layout.setAlignment(Qt.AlignCenter)
 
         self.generateBtn = QtWidgets.QPushButton("generate", self)
+        self.generateBtn.setToolTip('You must upload content and style images first.')
         self.generateBtn.setObjectName("MainGuiButtons")
         self.generateBtn.clicked.connect(self.lunch_thread)
         self.generateBtnSub_Layout.addWidget(self.generateBtn)
@@ -304,12 +293,11 @@ class Transfer_Image_Gui(QWidget):
 
     """lunch_thread control the start of the second thread that running the MainFunc."""
     def lunch_thread(self):
-        if flagStyle == 0 or flagContent == 0:
-            self.non_content_image_error_text.show()
-        else:
-            self.non_content_image_error_text.hide()
-            outputWindow = Gui_output_image_window(self)
+        if flagStyle == 1 and flagContent == 1:
+            outputWindow = OutputImageGui(self)
             outputWindow.setCombo(self.iterationbox.currentText(), self.resolutionbox.currentText() , self.modelBox.currentText())
+           # t = threading.Thread(target=outputWindow.Generate)
+            #t.start()
             outputWindow.show()
             self.main_frame.setVisible(False)
 
@@ -319,7 +307,7 @@ class Transfer_Image_Gui(QWidget):
         """
         close current window and return to home page
         """
-        home = Main_Window(self)
+        home = MainWindowGui(self)
         home.show()
         self.main_frame.setVisible(False)
 
@@ -328,7 +316,7 @@ class Transfer_Image_Gui(QWidget):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
                                                              "Image Files (*.png *.jpg *.jpeg *.bmp)")
         if fileName:
-            #content_path = None
+            global content_path
             content_path = fileName[0]
             pixmap = QtGui.QPixmap(fileName[0])
             pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
@@ -338,14 +326,14 @@ class Transfer_Image_Gui(QWidget):
             flagContent = 1
             global flagStyle
             if (flagContent == 1 and flagStyle == 1):
-                self.non_content_image_error_text.hide()
+                self.generateBtn.setToolTip(None)
 
     """setStyleImage function control on choosing the style image."""
     def setStyleImage(self):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
                                                              "Image Files (*.png *.jpg *.jpeg *.bmp)")
         if fileName:
-            #style_path = None
+            global style_path
             style_path = fileName[0]
             pixmap = QtGui.QPixmap(fileName[0])
             pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
@@ -355,11 +343,11 @@ class Transfer_Image_Gui(QWidget):
             flagStyle = 1
             global flagContent
             if (flagStyle == 1 and flagContent == 1):
-                self.non_content_image_error_text.hide()
+                self.generateBtn.setToolTip(None)
 
-class Gui_output_image_window(QWidget):
+class OutputImageGui(QWidget):
     def __init__(self , parent=None):
-        super(Gui_output_image_window, self).__init__(parent)
+        super(OutputImageGui, self).__init__(parent)
         self.show
         # init the initial parameters of this GUI
         user32 = ctypes.windll.user32
@@ -396,10 +384,11 @@ class Gui_output_image_window(QWidget):
 
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;} ")
+        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;} QToolTip {color: black; font-weight: normal;} ")
+        helpBtn.setToolTip('Show help pdf')
         helpBtn.setFixedWidth(68)
         helpBtn.setFixedHeight(68)
-        helpBtn.clicked.connect(Main_Window.showHelp)
+        helpBtn.clicked.connect(MainWindowGui.showHelpPdf)
         self.Iconsub_Layout.addWidget(helpBtn)
 
         # home button
@@ -409,7 +398,8 @@ class Gui_output_image_window(QWidget):
         self.homeBtn.setFixedHeight(68)
         self.homeBtn.clicked.connect(self.showHome)
         self.Iconsub_Layout.addWidget(self.homeBtn)
-        self.homeBtn.setEnabled(False);
+        self.homeBtn.setEnabled(False)
+        self.homeBtn.setToolTip('Still in Generate process')
 
         # The Button save + output image sub frame
         self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
@@ -477,7 +467,7 @@ class Gui_output_image_window(QWidget):
         """
         close current window and return to home page
         """
-        home = Main_Window(self)
+        home = MainWindowGui(self)
         home.show()
         self.main_frame.setVisible(False)
 
@@ -550,6 +540,7 @@ class Gui_output_image_window(QWidget):
         global flagFinishGenerate
         flagFinishGenerate = 1
         self.homeBtn.setEnabled(True)
+        self.homeBtn.setToolTip(None)
         #self.actionCreate_New.setEnabled(True)
         #self.actionAbout.setEnabled(True)
 
@@ -806,6 +797,6 @@ class External(QThread):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    main = Main_Window()
+    main = MainWindowGui()
     app.aboutToQuit.connect(myExitHandler)  # myExitHandler is a callable
     sys.exit(app.exec_())
