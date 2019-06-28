@@ -1,11 +1,11 @@
 """Image Style Transfer Using Convolutional Neural Network
 code Written in python, Ui made with PyQt5"""
-
+from PIL import Image
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
 import threading
 from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtWidgets import QWidget, QCheckBox
+from PyQt5.QtWidgets import QWidget, QCheckBox, QMessageBox
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt, QFile, QTextStream
 import ctypes
@@ -319,12 +319,19 @@ class TransferImageGui(QWidget):
         if fileName:
             global content_path
             content_path = fileName[0]
-            pixmap = QtGui.QPixmap(fileName[0])
-            pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
-            self.contentframe.setPixmap(pixmap)
-            self.contentframe.setAlignment(QtCore.Qt.AlignCenter)
             global flagContent
             flagContent = 1
+            try:
+                img = Image.open(content_path)  # open the image file
+                img.verify()  # verify that it is, in fact an image
+                pixmap = QtGui.QPixmap(fileName[0])
+                pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
+                self.contentframe.setPixmap(pixmap)
+                self.contentframe.setAlignment(QtCore.Qt.AlignCenter)
+            except (IOError, SyntaxError) as e:
+                flagContent = 0
+                QMessageBox.critical(self, "Error", "Image is corrupted , please upload a good image." )
+
             global flagStyle
             #if (flagContent == 1 and flagStyle == 1):
                 #self.generateBtn.setToolTip(None)
@@ -336,12 +343,20 @@ class TransferImageGui(QWidget):
         if fileName:
             global style_path
             style_path = fileName[0]
-            pixmap = QtGui.QPixmap(fileName[0])
-            pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
-            self.styleframe.setPixmap(pixmap)
-            self.styleframe.setAlignment(QtCore.Qt.AlignCenter)
             global flagStyle
             flagStyle = 1
+            try:
+                img = Image.open(style_path)  # open the image file
+                img.verify()  # verify that it is, in fact an image
+                pixmap = QtGui.QPixmap(fileName[0])
+                pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
+                self.styleframe.setPixmap(pixmap)
+                self.styleframe.setAlignment(QtCore.Qt.AlignCenter)
+            except (IOError, SyntaxError) as e:
+                #print('Bad file:', style_path)  # print out the names of corrupt files
+                flagStyle = 0
+                QMessageBox.critical(self, "Error", "Image is corrupted , please upload a good image." )
+
             global flagContent
             #if (flagStyle == 1 and flagContent == 1):
                 #self.generateBtn.setToolTip(None)
