@@ -147,9 +147,11 @@ class TransferImageGui(QWidget):
 
     def initUI2(self):
         global flagContent
-        flagContent= 0
+        flagContent = 0
         global flagStyle
-        flagStyle= 0
+        flagStyle = 0
+        global flagFinishGenerate
+        flagFinishGenerate = 0
 
         file = QFile(':css/StyleSheet.css')
         file.open(QFile.ReadOnly)
@@ -301,7 +303,8 @@ class TransferImageGui(QWidget):
             t.start()
             outputWindow.show()
             self.main_frame.setVisible(False)
-
+        else:
+            QMessageBox.critical(self, "Error", "You must upload content and style images first.")
 
     # Opens home window
     def showHome(self):
@@ -332,10 +335,6 @@ class TransferImageGui(QWidget):
                 flagContent = 0
                 QMessageBox.critical(self, "Error", "Image is corrupted , please upload a good image." )
 
-            global flagStyle
-            #if (flagContent == 1 and flagStyle == 1):
-                #self.generateBtn.setToolTip(None)
-
     """setStyleImage function control on choosing the style image."""
     def setStyleImage(self):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
@@ -356,10 +355,6 @@ class TransferImageGui(QWidget):
                 #print('Bad file:', style_path)  # print out the names of corrupt files
                 flagStyle = 0
                 QMessageBox.critical(self, "Error", "Image is corrupted , please upload a good image." )
-
-            global flagContent
-            #if (flagStyle == 1 and flagContent == 1):
-                #self.generateBtn.setToolTip(None)
 
 class OutputImageGui(QWidget):
     def __init__(self , parent=None):
@@ -414,7 +409,6 @@ class OutputImageGui(QWidget):
         self.homeBtn.setFixedHeight(68)
         self.homeBtn.clicked.connect(self.showHome)
         self.Iconsub_Layout.addWidget(self.homeBtn)
-        self.homeBtn.setEnabled(False)
         self.homeBtn.setToolTip('Return home screen')
 
         # The Button save + output image sub frame
@@ -479,9 +473,13 @@ class OutputImageGui(QWidget):
         """
         close current window and return to home page
         """
-        home = MainWindowGui(self)
-        home.show()
-        self.main_frame.setVisible(False)
+        global flagFinishGenerate
+        if flagFinishGenerate == 0:
+            QMessageBox.critical(self, "Error", "You can not return home while process is running.")
+        else:
+            home = MainWindowGui(self)
+            home.show()
+            self.main_frame.setVisible(False)
 
     """onCountChanged function control on updating the progressBar."""
     def onCountChanged(self, value):
@@ -492,15 +490,13 @@ class OutputImageGui(QWidget):
         global outputImage
         global exitflag
         exitflag=1
-        global flagContent
-        global flagStyle
         self.savebutton.hide()
 
         # iter control the number of iteration the algorithm run, the user choose it.
         global iter
         iter=0
         if self.comboString == 'Low':
-            iter=100
+            iter=10
         elif self.comboString == 'Medium':
             iter=500
         else:
