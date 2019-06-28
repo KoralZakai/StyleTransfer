@@ -219,41 +219,35 @@ class TransferImageGui(QWidget):
         StyleBtn.setToolTip('Upload style image')
         StyleBtn.clicked.connect(self.setStyleImage)
         self.buttonsSub_Layout.addWidget(StyleBtn)
-        #self.styleframe.show()
+#################
 
-        # The photos sub frame
-        self.photosSubframe = QtWidgets.QFrame(self.main_frame)
-        self.photosSubframe.setFixedWidth(self.width)
-        self.photosSubframe.setFixedHeight(10)
-        self.main_layout.addWidget(self.photosSubframe)
-        self.photosSub_Layout = QtWidgets.QHBoxLayout(self.photosSubframe)
-        self.photosSub_Layout.setAlignment(Qt.AlignCenter)
+        self.contentframe = QtWidgets.QFrame(self.main_frame)
+        self.contentframe.setFixedWidth(self.width)
+        self.main_layout.addWidget(self.contentframe)
 
-        self.contentframe = QtWidgets.QLabel(self.main_frame)
-        self.contentframe.setGeometry(QtCore.QRect(self.width * 3.2 / 10, self.height * 1.7 / 7, 251, 191))
-        self.contentframe.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.photosSub_Layout = QtWidgets.QHBoxLayout(self.contentframe)
+        self.photosSub_Layout.setAlignment(Qt.AlignCenter | Qt.AlignTop)
+
+        self.contentLabel = QtWidgets.QLabel('', self)
         pixmap = QPixmap(":Pictures/imageNeedUpload.png")
         pixmap = pixmap.scaled(256, 256)
-        self.contentframe.setPixmap(pixmap)
-        self.contentframe.setText("")
-        self.contentframe.setScaledContents(True)
-        self.contentframe.setObjectName("contentframe")
-        # self.contentframe.hide()
+        self.contentLabel.setPixmap(pixmap)
+        self.photosSub_Layout.addWidget(self.contentLabel)
+        self.contentLabel.setAlignment(Qt.AlignCenter)
 
-        self.styleframe = QtWidgets.QLabel(self.main_frame)
-        self.styleframe.setGeometry(QtCore.QRect(self.width * 5.1 / 10, self.height * 1.7 / 7, 251, 191))
-        self.styleframe.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.styleframe.setPixmap(pixmap)
-        self.styleframe.setText("")
-        self.styleframe.setScaledContents(True)
-        self.styleframe.setObjectName("styleframe")
-        # self.styleframe.hide()
+        self.styleframe = QtWidgets.QFrame(self.main_frame)
+        self.styleframe.setFixedWidth(self.width)
+        self.main_layout.addWidget(self.styleframe)
+        self.styleLabel = QtWidgets.QLabel('', self)
+        self.styleLabel.setPixmap(pixmap)
+        self.photosSub_Layout.addWidget(self.styleLabel)
+        self.styleLabel.setAlignment(Qt.AlignCenter)
 
         self.details_Frame = QtWidgets.QFrame(self.main_frame)
         self.details_Frame.setFixedWidth(self.width)
         self.main_layout.addWidget(self.details_Frame)
         self.details_Layout = QtWidgets.QHBoxLayout(self.details_Frame)
-        self.details_Layout.setAlignment(Qt.AlignCenter)
+        self.details_Layout.setAlignment(Qt.AlignCenter | Qt.AlignTop)
 
         iterText = QtWidgets.QLabel('Image quality:')
         self.details_Layout.addWidget(iterText)
@@ -329,8 +323,9 @@ class TransferImageGui(QWidget):
                 img.verify()  # verify that it is, in fact an image
                 pixmap = QtGui.QPixmap(fileName[0])
                 pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
-                self.contentframe.setPixmap(pixmap)
-                self.contentframe.setAlignment(QtCore.Qt.AlignCenter)
+                self.contentLabel.setPixmap(pixmap)
+                #self.contentframe.setPixmap(pixmap)
+                #self.contentframe.setAlignment(QtCore.Qt.AlignCenter)
             except (IOError, SyntaxError) as e:
                 flagContent = 0
                 QMessageBox.critical(self, "Error", "Image is corrupted , please upload a good image." )
@@ -349,8 +344,9 @@ class TransferImageGui(QWidget):
                 img.verify()  # verify that it is, in fact an image
                 pixmap = QtGui.QPixmap(fileName[0])
                 pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
-                self.styleframe.setPixmap(pixmap)
-                self.styleframe.setAlignment(QtCore.Qt.AlignCenter)
+                self.styleLabel.setPixmap(pixmap)
+                #self.styleframe.setPixmap(pixmap)
+                #self.styleframe.setAlignment(QtCore.Qt.AlignCenter)
             except (IOError, SyntaxError) as e:
                 #print('Bad file:', style_path)  # print out the names of corrupt files
                 flagStyle = 0
