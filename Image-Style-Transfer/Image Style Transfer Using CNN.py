@@ -74,7 +74,7 @@ class MainWindowGui(QWidget):
 
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;} QToolTip {color: black; font-weight: normal;} ")
+        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;}")
         helpBtn.setToolTip('Show help pdf')
         helpBtn.setFixedWidth(68)
         helpBtn.setFixedHeight(68)
@@ -171,14 +171,14 @@ class TransferImageGui(QWidget):
         # home and help buttons
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(80)
+        self.Iconsub_Frame.setFixedHeight(75)
         self.main_layout.addWidget(self.Iconsub_Frame)
         self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
         self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
 
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;} QToolTip {color: black; font-weight: normal;} ")
+        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;}")
         helpBtn.setToolTip('Show help pdf')
         helpBtn.setFixedWidth(68)
         helpBtn.setFixedHeight(68)
@@ -190,6 +190,7 @@ class TransferImageGui(QWidget):
         homeBtn.setStyleSheet("QPushButton {background: url(:Pictures/home.png) no-repeat transparent;} ")
         homeBtn.setFixedWidth(68)
         homeBtn.setFixedHeight(68)
+        homeBtn.setToolTip('Return home screen')
         homeBtn.clicked.connect(self.showHome)
         self.Iconsub_Layout.addWidget(homeBtn)
 
@@ -205,6 +206,7 @@ class TransferImageGui(QWidget):
         # upload content button
         contentBtn = QtWidgets.QPushButton("Upload content image", self)
         contentBtn.setObjectName("MainGuiButtons")
+        contentBtn.setToolTip('Upload content image')
         contentBtn.clicked.connect(self.setContentImage)
         self.buttonsSub_Layout.addWidget(contentBtn)
         #self.contentframe.show()
@@ -212,6 +214,7 @@ class TransferImageGui(QWidget):
         # upload style
         StyleBtn = QtWidgets.QPushButton("Upload style Image", self)
         StyleBtn.setObjectName("MainGuiButtons")
+        StyleBtn.setToolTip('Upload style image')
         StyleBtn.clicked.connect(self.setStyleImage)
         self.buttonsSub_Layout.addWidget(StyleBtn)
         #self.styleframe.show()
@@ -280,7 +283,7 @@ class TransferImageGui(QWidget):
         self.generateBtnSub_Layout.setAlignment(Qt.AlignCenter)
 
         self.generateBtn = QtWidgets.QPushButton("generate", self)
-        self.generateBtn.setToolTip('You must upload content and style images first.')
+        self.generateBtn.setToolTip('Generate image')
         self.generateBtn.setObjectName("MainGuiButtons")
         self.generateBtn.clicked.connect(self.lunch_thread)
         self.generateBtnSub_Layout.addWidget(self.generateBtn)
@@ -323,8 +326,8 @@ class TransferImageGui(QWidget):
             global flagContent
             flagContent = 1
             global flagStyle
-            if (flagContent == 1 and flagStyle == 1):
-                self.generateBtn.setToolTip(None)
+            #if (flagContent == 1 and flagStyle == 1):
+                #self.generateBtn.setToolTip(None)
 
     """setStyleImage function control on choosing the style image."""
     def setStyleImage(self):
@@ -340,8 +343,8 @@ class TransferImageGui(QWidget):
             global flagStyle
             flagStyle = 1
             global flagContent
-            if (flagStyle == 1 and flagContent == 1):
-                self.generateBtn.setToolTip(None)
+            #if (flagStyle == 1 and flagContent == 1):
+                #self.generateBtn.setToolTip(None)
 
 class OutputImageGui(QWidget):
     def __init__(self , parent=None):
@@ -375,14 +378,14 @@ class OutputImageGui(QWidget):
 
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(80)
+        self.Iconsub_Frame.setFixedHeight(75)
         self.main_layout.addWidget(self.Iconsub_Frame)
         self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
         self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
 
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;} QToolTip {color: black; font-weight: normal;} ")
+        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;}")
         helpBtn.setToolTip('Show help pdf')
         helpBtn.setFixedWidth(68)
         helpBtn.setFixedHeight(68)
@@ -397,7 +400,7 @@ class OutputImageGui(QWidget):
         self.homeBtn.clicked.connect(self.showHome)
         self.Iconsub_Layout.addWidget(self.homeBtn)
         self.homeBtn.setEnabled(False)
-        self.homeBtn.setToolTip('Still in generate process')
+        self.homeBtn.setToolTip('Return home screen')
 
         # The Button save + output image sub frame
         self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
@@ -423,7 +426,6 @@ class OutputImageGui(QWidget):
         self.outputframe.setObjectName("outputframe")
         self.outputframe.setAlignment(Qt.AlignCenter)
         self.Buttonsub_Layout.addWidget(self.outputframe)
-        #self.outputframe.hide()
 
         # The progressBar sub frame
         self.progressBarsub_Frame = QtWidgets.QFrame(self.main_frame)
@@ -440,7 +442,6 @@ class OutputImageGui(QWidget):
         self.progressBar.setAlignment(Qt.AlignCenter)
         self.progressBar.setObjectName("progressBar")
         self.progressBarsub_Layout.addWidget(self.progressBar)
-        #self.progressBar.hide()
 
         # show the window
         self.showMaximized()
@@ -467,10 +468,8 @@ class OutputImageGui(QWidget):
         home.show()
         self.main_frame.setVisible(False)
 
-    """onCountChanged function control on updating the progrssBar."""
+    """onCountChanged function control on updating the progressBar."""
     def onCountChanged(self, value):
-        #if(value==100):
-        #   self.homeBtn.setEnabled(True)
         self.progressBar.setValue(value)
 
     """Generate function is start when the Generate button pushed. it start the main algorithm."""
@@ -480,24 +479,7 @@ class OutputImageGui(QWidget):
         exitflag=1
         global flagContent
         global flagStyle
-        #if (flagContent == 0 or flagStyle == 0):
-            #self.warninglabel.show()
-            #return
-        #self.actionHome.setEnabled(False)
-        #self.actionCreate_New.setEnabled(False)
-        #self.actionAbout.setEnabled(False)
-
-        #self.outputframe.setPixmap(QtGui.QPixmap(":Pictures/gift.png"))
-        #self.outputframe.show()
-
-        #self.savebutton.raise_()
         self.savebutton.hide()
-
-        #self.progressBar.raise_()
-        #self.outputframe.raise_()
-
-        #self.progressBar.setValue(0)
-        #self.progressBar.show()
 
         # iter control the number of iteration the algorithm run, the user choose it.
         global iter
@@ -536,15 +518,6 @@ class OutputImageGui(QWidget):
         global flagFinishGenerate
         flagFinishGenerate = 1
         self.homeBtn.setEnabled(True)
-        self.homeBtn.setToolTip(None)
-
-    """exit function control on exit the application."""
-    def exit(self):
-        if(exitflag == 1):
-            self.exit()
-        else:
-            exit(1)
-
 
     """StyleMakerFunc is the main function that running the main algorithm"""
     def StyleMakerFunc(self, content_path, style_path, iter, resolution, modelType):
@@ -731,7 +704,7 @@ class OutputImageGui(QWidget):
             # Set initial image
             init_image = load_and_process_img(content_path)
             init_image = tfe.Variable(init_image, dtype=tf.float32)
-            # We  use Adam Optimizer
+            # We use Adam Optimizer
             opt = tf.train.AdamOptimizer(learning_rate=5, beta1=0.99, epsilon=1e-1)
 
             # Store our best result
@@ -756,7 +729,7 @@ class OutputImageGui(QWidget):
                 global count
                 count=i
                 self.calc.start()
-                print(i)
+                print("Iteration: {}".format(i))
                 grads, all_loss = compute_grads(cfg)
                 loss, style_score, content_score = all_loss
                 opt.apply_gradients([(grads, init_image)])
@@ -786,7 +759,6 @@ class External(QThread):
         global iter
         progressVal =((count + 1) / iter) * 100
         self.countChanged.emit(progressVal)
-    #exit(1)
 
 if __name__ == "__main__":
     import sys
