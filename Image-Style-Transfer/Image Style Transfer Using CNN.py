@@ -493,7 +493,7 @@ class OutputImageGui(QWidget):
         exitflag=1
         global flagContent
         global flagStyle
-
+        self.savebutton.hide()
         # iter control the number of iteration the algorithm run, the user choose it.
         global iter
         iter=0

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1306c76b-2666-4dd8-a16a-280ae8f78c69" name="Default Changelist" comment="">
+    <list default="true" id="1306c76b-2666-4dd8-a16a-280ae8f78c69" name="Default Changelist" comment="added error when try to upload corrupted image">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/css.py" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/css.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Image-Style-Transfer/css/StyleSheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/Image-Style-Transfer/css/StyleSheet.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,19 +16,25 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="327" column="47" selection-start-line="327" selection-start-column="47" selection-end-line="327" selection-end-column="47" />
+            <state relative-caret-position="211">
+              <caret line="495" column="30" selection-start-line="495" selection-start-column="30" selection-end-line="495" selection-end-column="30" />
               <folding>
                 <element signature="e#105#126#0" expanded="true" />
                 <element signature="e#4714#5066#0" />
-                <element signature="e#5146#12091#0" />
-                <element signature="e#23512#23772#0" />
                 <element signature="e#23828#24429#0" />
                 <element signature="e#25896#26162#0" />
                 <element signature="e#26427#26605#0" />
-                <element signature="e#27899#29266#0" />
                 <element signature="e#29365#29554#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/tensorflow/python/keras/engine/network.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="117">
+              <caret line="458" selection-start-line="458" selection-end-line="458" />
             </state>
           </provider>
         </entry>
@@ -109,8 +113,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>combo</find>
-      <find>comboBox</find>
       <find>non</find>
       <find>non_</find>
       <find>homeBtn</find>
@@ -122,7 +124,6 @@
       <find>16</find>
       <find>content</find>
       <find>content_lay</find>
-      <find>num_content_layers</find>
       <find>preprr</find>
       <find>resNe</find>
       <find>get_feature_representations</find>
@@ -133,12 +134,15 @@
       <find>resNet</find>
       <find>MainFunc</find>
       <find>frame</find>
-      <find>vgg</find>
       <find>deta</find>
       <find>load_img</find>
       <find>open</find>
       <find>setStyleImage</find>
       <find>btn</find>
+      <find>vgg</find>
+      <find>content_layers</find>
+      <find>num_content_layers</find>
+      <find>modelType</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -479,7 +483,14 @@
       <option name="project" value="LOCAL" />
       <updated>1561721988892</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="added error when try to upload corrupted image">
+      <created>1561737438329</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1561737438329</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -491,12 +502,12 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49841017" visible="true" weight="0.3197158" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49841017" weight="0.3197158" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3232682" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3232682" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.3232682" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.3285968" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.3285968" />
@@ -558,7 +569,8 @@
     <MESSAGE value="added framer, layout and text error if pictures not selected" />
     <MESSAGE value="added tooltips and fixed bug with images global" />
     <MESSAGE value="remove height from frame" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove height from frame" />
+    <MESSAGE value="added error when try to upload corrupted image" />
+    <option name="LAST_COMMIT_MESSAGE" value="added error when try to upload corrupted image" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -567,21 +579,6 @@
           <url>file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN shahar.py</url>
           <line>420</line>
           <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py</url>
-          <line>523</line>
-          <option name="timeStamp" value="69" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py</url>
-          <line>666</line>
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py</url>
-          <line>667</line>
-          <option name="timeStamp" value="76" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -770,19 +767,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/tensorflow/python/keras/engine/network.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="458" selection-start-line="458" selection-end-line="458" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Image-Style-Transfer/Image Style Transfer Using CNN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="327" column="47" selection-start-line="327" selection-start-column="47" selection-end-line="327" selection-end-column="47" />
+        <state relative-caret-position="211">
+          <caret line="495" column="30" selection-start-line="495" selection-start-column="30" selection-end-line="495" selection-end-column="30" />
           <folding>
             <element signature="e#105#126#0" expanded="true" />
             <element signature="e#4714#5066#0" />
-            <element signature="e#5146#12091#0" />
-            <element signature="e#23512#23772#0" />
             <element signature="e#23828#24429#0" />
             <element signature="e#25896#26162#0" />
             <element signature="e#26427#26605#0" />
-            <element signature="e#27899#29266#0" />
             <element signature="e#29365#29554#0" />
           </folding>
         </state>
