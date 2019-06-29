@@ -44,7 +44,6 @@ class MainWindowGui(QWidget):
 
         self.initUI()
     def closeEvent(self, QCloseEvent):
-            print("Doing exit !!!!!!!!")
             os._exit(0)
 
     def initUI(self):
