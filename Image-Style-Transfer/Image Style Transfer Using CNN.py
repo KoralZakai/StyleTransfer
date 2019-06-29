@@ -74,7 +74,7 @@ class MainWindowGui(QWidget):
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
         helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;}")
-        helpBtn.setToolTip('Show help pdf')
+        helpBtn.setToolTip('Show help pdf.')
         helpBtn.setFixedWidth(68)
         helpBtn.setFixedHeight(68)
         helpBtn.clicked.connect(self.showHelpPdf)
@@ -105,6 +105,7 @@ class MainWindowGui(QWidget):
         # start to create style button
         StartCreateNewBtn = QtWidgets.QPushButton("Style your image", self)
         StartCreateNewBtn.setObjectName("MainGuiButtons")
+        StartCreateNewBtn.setToolTip('Start image style process.')
         StartCreateNewBtn.clicked.connect(self.openTransferImageGui)
         self.Buttonsub_Layout.addWidget(StartCreateNewBtn)
 
@@ -181,7 +182,7 @@ class TransferImageGui(QWidget):
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
         helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;}")
-        helpBtn.setToolTip('Show help pdf')
+        helpBtn.setToolTip('Show help pdf.')
         helpBtn.setFixedWidth(68)
         helpBtn.setFixedHeight(68)
         helpBtn.clicked.connect(MainWindowGui.showHelpPdf)
@@ -192,7 +193,7 @@ class TransferImageGui(QWidget):
         homeBtn.setStyleSheet("QPushButton {background: url(:Pictures/home.png) no-repeat transparent;} ")
         homeBtn.setFixedWidth(68)
         homeBtn.setFixedHeight(68)
-        homeBtn.setToolTip('Return home screen')
+        homeBtn.setToolTip('Return home screen.')
         homeBtn.clicked.connect(self.showHome)
         self.Iconsub_Layout.addWidget(homeBtn)
 
@@ -208,14 +209,14 @@ class TransferImageGui(QWidget):
         # upload content button
         contentBtn = QtWidgets.QPushButton("Upload content image", self)
         contentBtn.setObjectName("MainGuiButtons")
-        contentBtn.setToolTip('Upload content image')
+        contentBtn.setToolTip('Upload content image.')
         contentBtn.clicked.connect(self.setContentImage)
         self.buttonsSub_Layout.addWidget(contentBtn)
 
         # upload style
         StyleBtn = QtWidgets.QPushButton("Upload style Image", self)
         StyleBtn.setObjectName("MainGuiButtons")
-        StyleBtn.setToolTip('Upload style image')
+        StyleBtn.setToolTip('Upload style image.')
         StyleBtn.clicked.connect(self.setStyleImage)
         self.buttonsSub_Layout.addWidget(StyleBtn)
 
@@ -274,7 +275,7 @@ class TransferImageGui(QWidget):
         self.generateBtnSub_Layout.setAlignment(Qt.AlignCenter)
 
         self.generateBtn = QtWidgets.QPushButton("generate", self)
-        self.generateBtn.setToolTip('Generate image')
+        self.generateBtn.setToolTip('Generate image.')
         self.generateBtn.setObjectName("MainGuiButtons")
         self.generateBtn.clicked.connect(self.lunch_thread)
         self.generateBtnSub_Layout.addWidget(self.generateBtn)
@@ -382,7 +383,7 @@ class OutputImageGui(QWidget):
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
         helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;}")
-        helpBtn.setToolTip('Show help pdf')
+        helpBtn.setToolTip('Show help pdf.')
         helpBtn.setFixedWidth(68)
         helpBtn.setFixedHeight(68)
         helpBtn.clicked.connect(MainWindowGui.showHelpPdf)
@@ -395,7 +396,7 @@ class OutputImageGui(QWidget):
         self.homeBtn.setFixedHeight(68)
         self.homeBtn.clicked.connect(self.showHome)
         self.Iconsub_Layout.addWidget(self.homeBtn)
-        self.homeBtn.setToolTip('Return home screen')
+        self.homeBtn.setToolTip('Return home screen.')
 
         # The output image sub frame
         self.output_sub_frame = QtWidgets.QFrame(self.main_frame)
@@ -442,7 +443,7 @@ class OutputImageGui(QWidget):
         self.savebutton = QtWidgets.QPushButton("Save your image", self)
         self.savebutton.setObjectName("MainGuiButtons")
         self.savebutton.clicked.connect(self.saveimage)
-        self.savebutton.setToolTip('Save ouput image')
+        self.savebutton.setToolTip('Save ouput image.')
         self.Buttonsub_Layout.addWidget(self.savebutton)
 
         # show the window
