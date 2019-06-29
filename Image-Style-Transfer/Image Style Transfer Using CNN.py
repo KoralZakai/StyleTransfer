@@ -47,6 +47,9 @@ class MainWindowGui(QWidget):
         self.height = h
 
         self.initUI()
+    def closeEvent(self, QCloseEvent):
+            print("Doing exit !!!!!!!!")
+            os._exit(0)
 
     def initUI(self):
         file = QFile(':css/StyleSheet.css')
@@ -144,6 +147,7 @@ class TransferImageGui(QWidget):
         self.width = w
         self.height = h
         self.initUI2()
+        self.t = None
 
     def initUI2(self):
         global flagContent
@@ -283,13 +287,16 @@ class TransferImageGui(QWidget):
         # show the window
         self.showMaximized()
 
+
+
+
     """lunch_thread control the start of the second thread that running the MainFunc- StyleMakerFunc."""
     def lunch_thread(self):
         if flagStyle == 1 and flagContent == 1:
             outputWindow = OutputImageGui(self)
             outputWindow.getComboBoxValues(self.iterationbox.currentText(), self.resolutionbox.currentText() , self.modelBox.currentText())
-            t = threading.Thread(target=outputWindow.Generate)
-            t.start()
+            self.t = threading.Thread(target=outputWindow.Generate)
+            self.t.start()
             outputWindow.show()
             self.main_frame.setVisible(False)
         else:
@@ -441,6 +448,7 @@ class OutputImageGui(QWidget):
 
         # show the window
         self.showMaximized()
+
 
     def getComboBoxValues(self, iterString, resString, modelString):
         self.comboString = iterString
@@ -764,5 +772,5 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     main = MainWindowGui()
-    app.aboutToQuit.connect(myExitHandler)  # myExitHandler is a callable
+    #app.aboutToQuit.connect(myExitHandler)  # myExitHandler is a callable
     sys.exit(app.exec_())
