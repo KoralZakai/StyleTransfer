@@ -442,6 +442,7 @@ class OutputImageGui(QWidget):
         self.savebutton = QtWidgets.QPushButton("Save your image", self)
         self.savebutton.setObjectName("MainGuiButtons")
         self.savebutton.clicked.connect(self.saveimage)
+        self.savebutton.setToolTip('Save ouput image')
         self.Buttonsub_Layout.addWidget(self.savebutton)
 
         # show the window
