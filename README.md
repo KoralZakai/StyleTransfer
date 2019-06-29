@@ -1,4 +1,4 @@
-# StyleTransfer
+# Image style transfer
 This is an implementation of image style transfer by using CNN with Tensorflow.
 
 The system extract content and style from an image and combined them together in order to get an artistic image by using neural network. The code written in python3 with PyQt5 for the Gui and worked on pre-trained network with tensorflow.
