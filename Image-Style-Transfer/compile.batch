@@ -1,2 +1,2 @@
 pyrcc5 -o css.py css.qrc
-pyinstaller -F --onefile Image Style Transfer Using CNN.py --add-data css/StyleSheet.css;css --windowed
+pyinstaller -F --onefile ImageStyleTransfer.py --add-data css/StyleSheet.css;css --windowed
