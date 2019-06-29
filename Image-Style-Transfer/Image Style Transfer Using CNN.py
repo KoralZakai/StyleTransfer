@@ -10,7 +10,6 @@ from PyQt5 import QtWidgets
 import ctypes
 
 #don't delete using python files with image and css source
-import design
 import css
 import os
 
@@ -53,7 +52,7 @@ class MainWindowGui(QWidget):
         text = stream.readAll()
         self.setStyleSheet(text)
         self.setWindowTitle(self.title)
-        self.setWindowIcon(QIcon(":Pictures/logo.png"))
+        self.setWindowIcon(QIcon(":css/Icons/logo.png"))
         self.setGeometry(0, 0, self.width, self.height-60)
 
         #Creating main container-frame, parent it to QWindow
@@ -72,7 +71,8 @@ class MainWindowGui(QWidget):
 
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;}")
+        helpBtn.setObjectName("TransparentButtons")
+        helpBtn.setStyleSheet("QPushButton {background: url(:css/Icons/help.png) no-repeat transparent;}")
         helpBtn.setToolTip('Show help pdf.')
         helpBtn.setFixedWidth(68)
         helpBtn.setFixedHeight(68)
@@ -88,7 +88,7 @@ class MainWindowGui(QWidget):
 
         # Setting up the logo
         logo = QtWidgets.QLabel('', self)
-        pixmap = QPixmap(":Pictures/logo.png")
+        pixmap = QPixmap(":css/Icons/logo.png")
         pixmap = pixmap.scaled(260, 260)
         logo.setPixmap(pixmap)
         self.Logosub_Layout.addWidget(logo)
@@ -159,7 +159,7 @@ class TransferImageGui(QWidget):
         text = stream.readAll()
         self.setStyleSheet(text)
         self.setWindowTitle(self.title)
-        self.setWindowIcon(QIcon(":Pictures/logo.png"))
+        self.setWindowIcon(QIcon(":css/Icons/logo.png"))
         self.setGeometry(0, 0, self.width, self.height - 60)
 
         # Creating main container-frame, parent it to QWindow
@@ -180,7 +180,8 @@ class TransferImageGui(QWidget):
 
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;}")
+        helpBtn.setObjectName("TransparentButtons")
+        helpBtn.setStyleSheet("QPushButton {background: url(:css/Icons/help.png) no-repeat transparent;}")
         helpBtn.setToolTip('Show help pdf.')
         helpBtn.setFixedWidth(68)
         helpBtn.setFixedHeight(68)
@@ -189,7 +190,8 @@ class TransferImageGui(QWidget):
 
         # home button
         homeBtn = QtWidgets.QPushButton("", self)
-        homeBtn.setStyleSheet("QPushButton {background: url(:Pictures/home.png) no-repeat transparent;} ")
+        homeBtn.setObjectName("TransparentButtons")
+        homeBtn.setStyleSheet("QPushButton {background: url(:css/Icons/home.png) no-repeat transparent;} ")
         homeBtn.setFixedWidth(68)
         homeBtn.setFixedHeight(68)
         homeBtn.setToolTip('Return home screen.')
@@ -225,7 +227,7 @@ class TransferImageGui(QWidget):
         self.photosSub_Layout = QtWidgets.QHBoxLayout(self.photosframe)
         self.photosSub_Layout.setAlignment(Qt.AlignCenter | Qt.AlignTop)
         self.contentLabel = QtWidgets.QLabel('', self)
-        pixmap = QPixmap(":Pictures/imageNeedUpload.png")
+        pixmap = QPixmap(":css/Icons/imageNeedUpload.png")
         pixmap = pixmap.scaled(256, 256)
         self.contentLabel.setPixmap(pixmap)
         self.photosSub_Layout.addWidget(self.contentLabel)
@@ -273,7 +275,7 @@ class TransferImageGui(QWidget):
         self.generateBtnSub_Layout = QtWidgets.QHBoxLayout(self.generateBtnSub_Frame)
         self.generateBtnSub_Layout.setAlignment(Qt.AlignCenter)
 
-        self.generateBtn = QtWidgets.QPushButton("generate", self)
+        self.generateBtn = QtWidgets.QPushButton("Generate", self)
         self.generateBtn.setToolTip('Generate image.')
         self.generateBtn.setObjectName("MainGuiButtons")
         self.generateBtn.clicked.connect(self.lunch_thread)
@@ -362,7 +364,7 @@ class OutputImageGui(QWidget):
         text = stream.readAll()
         self.setStyleSheet(text)
         self.setWindowTitle(self.title)
-        self.setWindowIcon(QIcon(":Pictures/logo.png"))
+        self.setWindowIcon(QIcon(":css/Icons/logo.png"))
         self.setGeometry(0, 0, self.width, self.height - 60)
 
         # Creating main container-frame, parent it to QWindow
@@ -381,7 +383,8 @@ class OutputImageGui(QWidget):
 
         # help button
         helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setStyleSheet("QPushButton {background: url(:Pictures/help.png) no-repeat transparent;}")
+        helpBtn.setObjectName("TransparentButtons")
+        helpBtn.setStyleSheet("QPushButton {background: url(:css/Icons/help.png) no-repeat transparent;}")
         helpBtn.setToolTip('Show help pdf.')
         helpBtn.setFixedWidth(68)
         helpBtn.setFixedHeight(68)
@@ -390,7 +393,8 @@ class OutputImageGui(QWidget):
 
         # home button
         self.homeBtn = QtWidgets.QPushButton("", self)
-        self.homeBtn.setStyleSheet("QPushButton {background: url(:Pictures/home.png) no-repeat transparent;} ")
+        self.homeBtn.setObjectName("TransparentButtons")
+        self.homeBtn.setStyleSheet("QPushButton {background: url(:css/Icons/home.png) no-repeat transparent;} ")
         self.homeBtn.setFixedWidth(68)
         self.homeBtn.setFixedHeight(68)
         self.homeBtn.clicked.connect(self.showHome)
@@ -407,7 +411,7 @@ class OutputImageGui(QWidget):
         self.outputframe = QtWidgets.QLabel(self.main_frame)
         self.outputframe.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.outputframe.setText("")
-        pixmap = QPixmap(":Pictures/gift.png")
+        pixmap = QPixmap(":css/Icons/gift.png")
         pixmap = pixmap.scaled(256, 256)
         self.outputframe.setPixmap(pixmap)
         self.outputframe.setScaledContents(True)
