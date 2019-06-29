@@ -169,7 +169,7 @@ class TransferImageGui(QWidget):
         # home and help buttons
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(75)
+        self.Iconsub_Frame.setFixedHeight(80)
         self.main_layout.addWidget(self.Iconsub_Frame)
         self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
         self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
@@ -370,7 +370,7 @@ class OutputImageGui(QWidget):
 
         # the Icons sub frame
         self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(75)
+        self.Iconsub_Frame.setFixedHeight(80)
         self.main_layout.addWidget(self.Iconsub_Frame)
         self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
         self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
