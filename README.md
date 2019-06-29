@@ -12,6 +12,7 @@ Example:
 
 
 Application GUI and implementation:
+
 Home Screen:
 
 <img width="949" alt="mainWindow" src="https://user-images.githubusercontent.com/34678172/60384020-bfbffd80-9a81-11e9-9cd4-fdd41a4ec866.PNG">
