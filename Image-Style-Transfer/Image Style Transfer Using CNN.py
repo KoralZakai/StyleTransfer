@@ -219,15 +219,12 @@ class TransferImageGui(QWidget):
         StyleBtn.setToolTip('Upload style image')
         StyleBtn.clicked.connect(self.setStyleImage)
         self.buttonsSub_Layout.addWidget(StyleBtn)
-#################
 
         self.contentframe = QtWidgets.QFrame(self.main_frame)
         self.contentframe.setFixedWidth(self.width)
         self.main_layout.addWidget(self.contentframe)
-
         self.photosSub_Layout = QtWidgets.QHBoxLayout(self.contentframe)
-        self.photosSub_Layout.setAlignment(Qt.AlignCenter | Qt.AlignTop)
-
+        self.photosSub_Layout.setAlignment(Qt.AlignCenter|Qt.AlignTop)
         self.contentLabel = QtWidgets.QLabel('', self)
         pixmap = QPixmap(":Pictures/imageNeedUpload.png")
         pixmap = pixmap.scaled(256, 256)
@@ -321,7 +318,7 @@ class TransferImageGui(QWidget):
                 img = Image.open(content_path)  # open the image file
                 img.verify()  # verify that it is, in fact an image
                 pixmap = QtGui.QPixmap(fileName[0])
-                pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
+                pixmap = pixmap.scaled(256, 256)
                 self.contentLabel.setPixmap(pixmap)
                 #self.contentframe.setPixmap(pixmap)
                 #self.contentframe.setAlignment(QtCore.Qt.AlignCenter)
@@ -342,7 +339,7 @@ class TransferImageGui(QWidget):
                 img = Image.open(style_path)  # open the image file
                 img.verify()  # verify that it is, in fact an image
                 pixmap = QtGui.QPixmap(fileName[0])
-                pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
+                pixmap = pixmap.scaled(256, 256)
                 self.styleLabel.setPixmap(pixmap)
                 #self.styleframe.setPixmap(pixmap)
                 #self.styleframe.setAlignment(QtCore.Qt.AlignCenter)
@@ -513,8 +510,7 @@ class OutputImageGui(QWidget):
             modelType = 16
         elif self.modelString == 'Vgg19':
             modelType = 19
-        #elif self.modelString == 'ResNet':
-            #modelType = 'resNet'
+
         # outputImage get the result from the StyleMakerFunc.
         outputImage = self.StyleMakerFunc(content_path, style_path, numOfIterations, resolution, modelType)
         pixmap = QtGui.QPixmap(outputImage.toqpixmap())
@@ -557,8 +553,8 @@ class OutputImageGui(QWidget):
                         'block5_conv1'
                         ]
 
-        self.num_content_layers = len(content_layers)
-        self.num_style_layers = len(style_layers)
+        num_content_layers = len(content_layers)
+        num_style_layers = len(style_layers)
 
         # load_img function get the path of the image,
         # resize it and broadcast the image array such that it has a batch dimension.
@@ -579,8 +575,6 @@ class OutputImageGui(QWidget):
                 img = tf.keras.applications.vgg16.preprocess_input(img)
             elif modelType == 19:
                 img = tf.keras.applications.vgg19.preprocess_input(img)
-            #elif modelType == 'resNet':
-                #img = tf.keras.applications.resnet50.preprocess_input(img)
             return img
 
         def deprocess_img(processed_img):
@@ -605,29 +599,11 @@ class OutputImageGui(QWidget):
         def get_model():
             import ssl
             ssl._create_default_https_context = ssl._create_unverified_context
-            # Content layer for the feature maps
-            content_layers = ['block5_conv2']
-
-            # Style layer for the feature maps.
-            style_layers = ['block1_conv1',
-                            'block2_conv1',
-                            'block3_conv1',
-                            'block4_conv1',
-                            'block5_conv1'
-                            ]
             # We load pretrained VGG Network, trained on imagenet data
             if modelType == 16:
                 vgg = tf.keras.applications.vgg16.VGG16(include_top=False, weights='imagenet')
             elif modelType == 19:
                 vgg = tf.keras.applications.vgg19.VGG19(include_top=False, weights='imagenet')
-            #elif modelType == 'resNet':
-                #vgg = tf.keras.applications.resnet50.ResNet50(include_top=False, weights='imagenet')
-                #vgg = tf.keras.applications.inception_resnet_v2(weights='imagenet' )
-                #content_layers = ['conv1']
-
-                #style_layers = ['bn2b_branch2a', 'bn3a_branch2c', 'res3a_branch1', 'bn4e_branch2b']
-                #self.num_content_layers = len(content_layers)
-                #self.num_style_layers = len(style_layers)
             vgg.trainable = False
             # Get output layers corresponding to style and content layers
             style_outputs = [vgg.get_layer(name).output for name in style_layers]
@@ -671,8 +647,8 @@ class OutputImageGui(QWidget):
             content_outputs = model(content_image)
 
             # Get the style and content feature representations from our model
-            style_features = [style_layer[0] for style_layer in style_outputs[:self.num_style_layers]]
-            content_features = [content_layer[0] for content_layer in content_outputs[self.num_style_layers:]]
+            style_features = [style_layer[0] for style_layer in style_outputs[:num_style_layers]]
+            content_features = [content_layer[0] for content_layer in content_outputs[num_style_layers:]]
             return style_features, content_features
 
         """This function compute the content, style and total loss.
@@ -684,20 +660,20 @@ class OutputImageGui(QWidget):
             # style representations at our desired layers.
             model_outputs = model(init_image)
 
-            style_output_features = model_outputs[:self.num_style_layers]
-            content_output_features = model_outputs[self.num_style_layers:]
+            style_output_features = model_outputs[:num_style_layers]
+            content_output_features = model_outputs[num_style_layers:]
 
             style_score = 0
             content_score = 0
 
             # calculate the style losses from all layers
             # equally weight each contribution of each loss layer
-            weight_per_style_layer = 1.0 / float(self.num_style_layers)
+            weight_per_style_layer = 1.0 / float(num_style_layers)
             for target_style, comb_style in zip(gram_style_features, style_output_features):
                 style_score += weight_per_style_layer * get_style_loss(comb_style[0], target_style)
 
             # calculate content losses from all layers
-            weight_per_content_layer = 1.0 / float(self.num_content_layers)
+            weight_per_content_layer = 1.0 / float(num_content_layers)
             for target_content, comb_content in zip(content_features, content_output_features):
                 content_score += weight_per_content_layer * get_content_loss(comb_content[0], target_content)
 
