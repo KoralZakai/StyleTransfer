@@ -1,13 +1,12 @@
-"""Image Style Transfer Using Convolutional Neural Network
-code Written in python, Ui made with PyQt5"""
+"""Image Style Transfer by using CNN
+code Written in python, Gui made with PyQt5"""
 from PIL import Image
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtCore import QThread, pyqtSignal, Qt, QFile, QTextStream
 import threading
 from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtWidgets import QWidget, QCheckBox, QMessageBox
+from PyQt5.QtWidgets import QWidget, QMessageBox
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt, QFile, QTextStream
 import ctypes
 
 #don't delete using python files with image and css source
@@ -19,19 +18,16 @@ import os
 global content_path
 global style_path
 global outputImage
-global pixmap
-global exitflag
-exitflag=0
-global flagContent
-flagContent=0
-global flagStyle
-flagStyle=0
+global flagContentImage
+flagContentImage=0
+global flagStyleImage
+flagStyleImage=0
 global flagFinishGenerate
 flagFinishGenerate=0
 global count
 count=0
-global numOfIterations
-numOfIterations = 0
+global number_of_iterations
+number_of_iterations = 0
 
 """MainWindowGui is the main class of the UI,
 all UI parameters and code functions defined here."""
@@ -146,10 +142,10 @@ class TransferImageGui(QWidget):
         self.initUI2()
 
     def initUI2(self):
-        global flagContent
-        flagContent = 0
-        global flagStyle
-        flagStyle = 0
+        global flagContentImage
+        flagContentImage = 0
+        global flagStyleImage
+        flagStyleImage = 0
         global flagFinishGenerate
         flagFinishGenerate = 0
 
@@ -285,7 +281,7 @@ class TransferImageGui(QWidget):
 
     """lunch_thread control the start of the second thread that running the MainFunc- StyleMakerFunc."""
     def lunch_thread(self):
-        if flagStyle == 1 and flagContent == 1:
+        if flagStyleImage == 1 and flagContentImage == 1:
             outputWindow = OutputImageGui(self)
             outputWindow.getComboBoxValues(self.iterationbox.currentText(), self.resolutionbox.currentText() , self.modelBox.currentText())
             t = threading.Thread(target=outputWindow.Generate)
@@ -311,8 +307,8 @@ class TransferImageGui(QWidget):
         if fileName:
             global content_path
             content_path = fileName[0]
-            global flagContent
-            flagContent = 1
+            global flagContentImage
+            flagContentImage = 1
             try:
                 img = Image.open(content_path)  # open the image file
                 img.verify()  # verify that it is, in fact an image
@@ -320,7 +316,7 @@ class TransferImageGui(QWidget):
                 pixmap = pixmap.scaled(256, 256)
                 self.contentLabel.setPixmap(pixmap)
             except (IOError, SyntaxError) as e:
-                flagContent = 0
+                flagContentImage = 0
                 QMessageBox.critical(self, "Error", "Image is corrupted, please upload a good image." )
 
     """setStyleImage function control on choosing the style image."""
@@ -330,8 +326,8 @@ class TransferImageGui(QWidget):
         if fileName:
             global style_path
             style_path = fileName[0]
-            global flagStyle
-            flagStyle = 1
+            global flagStyleImage
+            flagStyleImage = 1
             try:
                 img = Image.open(style_path)  # open the image file
                 img.verify()  # verify that it is, in fact an image
@@ -339,8 +335,7 @@ class TransferImageGui(QWidget):
                 pixmap = pixmap.scaled(256, 256)
                 self.styleLabel.setPixmap(pixmap)
             except (IOError, SyntaxError) as e:
-                #print('Bad file:', style_path)  # print out the names of corrupt files
-                flagStyle = 0
+                flagStyleImage = 0
                 QMessageBox.critical(self, "Error", "Image is corrupted , please upload a good image." )
 
 class OutputImageGui(QWidget):
@@ -398,7 +393,7 @@ class OutputImageGui(QWidget):
         self.Iconsub_Layout.addWidget(self.homeBtn)
         self.homeBtn.setToolTip('Return home screen')
 
-        # The Button save + output image sub frame
+        # The Button save sub frame
         self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
         self.main_layout.addWidget(self.Buttonsub_Frame)
         self.Buttonsub_Layout = QtWidgets.QVBoxLayout(self.Buttonsub_Frame)
@@ -411,8 +406,14 @@ class OutputImageGui(QWidget):
         self.savebutton.clicked.connect(self.saveimage)
         self.Buttonsub_Layout.addWidget(self.savebutton)
 
+        # The output image sub frame
+        self.output_sub_frame = QtWidgets.QFrame(self.main_frame)
+        self.main_layout.addWidget(self.output_sub_frame)
+        self.output_sub_layout = QtWidgets.QVBoxLayout(self.output_sub_frame)
+        self.output_sub_frame.setFixedWidth(self.width)
+        self.output_sub_layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
+
         self.outputframe = QtWidgets.QLabel(self.main_frame)
-        #self.outputframe.setGeometry(QtCore.QRect(850, 300, 251, 191))
         self.outputframe.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.outputframe.setText("")
         pixmap = QPixmap(":Pictures/gift.png")
@@ -421,7 +422,8 @@ class OutputImageGui(QWidget):
         self.outputframe.setScaledContents(True)
         self.outputframe.setObjectName("outputframe")
         self.outputframe.setAlignment(Qt.AlignCenter)
-        self.Buttonsub_Layout.addWidget(self.outputframe)
+        self.output_sub_layout.addWidget(self.outputframe)
+
 
         # The progressBar sub frame
         self.progressBarsub_Frame = QtWidgets.QFrame(self.main_frame)
@@ -475,21 +477,17 @@ class OutputImageGui(QWidget):
     """Generate function is start when the Generate button pushed. it start the main algorithm."""
     def Generate(self):
         global outputImage
-        global exitflag
-        exitflag=1
-        global flagContent
-        global flagStyle
         self.savebutton.hide()
 
-        # numOfIterations control the number of iteration the algorithm run, the user choose it.
-        global numOfIterations
-        numOfIterations=0
+        # number_of_iterations control the number of iteration the algorithm run, the user choose it.
+        global number_of_iterations
+        number_of_iterations=0
         if self.comboString == 'Low':
-            numOfIterations=100
+            number_of_iterations=100
         elif self.comboString == 'Medium':
-            numOfIterations=500
+            number_of_iterations=500
         else:
-            numOfIterations=1000
+            number_of_iterations=1000
 
         # resulotion control the output image resulotion, the user choose it.
         resolution = 0
@@ -507,9 +505,9 @@ class OutputImageGui(QWidget):
             modelType = 19
 
         # outputImage get the result from the StyleMakerFunc.
-        outputImage = self.StyleMakerFunc(content_path, style_path, numOfIterations, resolution, modelType)
+        outputImage = self.StyleMakerFunc(content_path, style_path, number_of_iterations, resolution, modelType)
         pixmap = QtGui.QPixmap(outputImage.toqpixmap())
-        pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
+        pixmap = pixmap.scaledToHeight(250)
         self.outputframe.setPixmap(pixmap)
         self.outputframe.setAlignment(QtCore.Qt.AlignCenter)
         self.outputframe.show()
@@ -519,8 +517,8 @@ class OutputImageGui(QWidget):
         flagFinishGenerate = 1
         self.homeBtn.setEnabled(True)
 
-    """StyleMakerFunc is the main function that running the main algorithm"""
-    def StyleMakerFunc(self, content_path, style_path, numOfIterations, resolution, modelType):
+    """StyleMakerFunc is the main function that running the image style transfer algorithm"""
+    def StyleMakerFunc(self, content_path, style_path, number_of_iterations, resolution, modelType):
         import numpy as np
         from PIL import Image
         import tensorflow as tf
@@ -545,11 +543,10 @@ class OutputImageGui(QWidget):
                         'block2_conv1',
                         'block3_conv1',
                         'block4_conv1',
-                        'block5_conv1'
-                        ]
+                        'block5_conv1']
 
-        num_content_layers = len(content_layers)
-        num_style_layers = len(style_layers)
+        numer_of_content_layers = len(content_layers)
+        numer_of_style_layers = len(style_layers)
 
         # load_img function get the path of the image,
         # resize it and broadcast the image array such that it has a batch dimension.
@@ -642,11 +639,11 @@ class OutputImageGui(QWidget):
             content_outputs = model(content_image)
 
             # Get the style and content feature representations from our model
-            style_features = [style_layer[0] for style_layer in style_outputs[:num_style_layers]]
-            content_features = [content_layer[0] for content_layer in content_outputs[num_style_layers:]]
+            style_features = [style_layer[0] for style_layer in style_outputs[:numer_of_style_layers]]
+            content_features = [content_layer[0] for content_layer in content_outputs[numer_of_style_layers:]]
             return style_features, content_features
 
-        """This function compute the content, style and total loss.
+        """This function compute the content, style and sum the total loss.
             we use model that will give us access to the intermediate layers."""
         def compute_loss(model, loss_weights, init_image, gram_style_features, content_features):
             style_weight, content_weight = loss_weights
@@ -655,20 +652,20 @@ class OutputImageGui(QWidget):
             # style representations at our desired layers.
             model_outputs = model(init_image)
 
-            style_output_features = model_outputs[:num_style_layers]
-            content_output_features = model_outputs[num_style_layers:]
+            style_output_features = model_outputs[:numer_of_style_layers]
+            content_output_features = model_outputs[numer_of_style_layers:]
 
             style_score = 0
             content_score = 0
 
             # calculate the style losses from all layers
             # equally weight each contribution of each loss layer
-            weight_per_style_layer = 1.0 / float(num_style_layers)
+            weight_per_style_layer = 1.0 / float(numer_of_style_layers)
             for target_style, comb_style in zip(gram_style_features, style_output_features):
                 style_score += weight_per_style_layer * get_style_loss(comb_style[0], target_style)
 
             # calculate content losses from all layers
-            weight_per_content_layer = 1.0 / float(num_content_layers)
+            weight_per_content_layer = 1.0 / float(numer_of_content_layers)
             for target_content, comb_content in zip(content_features, content_output_features):
                 content_score += weight_per_content_layer * get_content_loss(comb_content[0], target_content)
 
@@ -689,7 +686,7 @@ class OutputImageGui(QWidget):
         """The main method of the code, running the main loop for generating the image."""
         def run_style_transfer(content_path,
                                style_path,
-                               numOfIterations=1000,
+                               number_of_iterations=1000,
                                content_weight=1e3,
                                style_weight=1e-2):
             # We don't train any layers of our model, so we set their trainable to false.
@@ -725,7 +722,7 @@ class OutputImageGui(QWidget):
             max_vals = 255 - norm_means
 
             # Main loop
-            for i in range(numOfIterations):
+            for i in range(number_of_iterations):
                 global count
                 count=i
                 self.calc.start()
@@ -743,7 +740,7 @@ class OutputImageGui(QWidget):
 
             return best_img, best_loss
 
-        best, best_loss = run_style_transfer(content_path, style_path, numOfIterations=numOfIterations)
+        best, best_loss = run_style_transfer(content_path, style_path, number_of_iterations=number_of_iterations)
         im = Image.fromarray(best)
         return im
 
@@ -756,8 +753,8 @@ class External(QThread):
 
     def run(self):
         global count
-        global numOfIterations
-        progressVal =((count + 1) / numOfIterations) * 100
+        global number_of_iterations
+        progressVal =((count + 1) / number_of_iterations) * 100
         self.countChanged.emit(progressVal)
 
 if __name__ == "__main__":
