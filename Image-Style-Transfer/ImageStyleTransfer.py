@@ -427,7 +427,6 @@ class OutputImageGui(QWidget):
         self.progressBarsub_Layout.setAlignment(Qt.AlignCenter)
 
         self.progressBar = QtWidgets.QProgressBar(self.main_frame)
-        #self.progressBar.setGeometry(QtCore.QRect(0, 0, 256, 31))
         self.progressBar.setFixedWidth(self.width/3)
         self.progressBar.setProperty("value",0)
         self.progressBar.setMaximum(100)
