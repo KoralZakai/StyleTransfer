@@ -215,7 +215,7 @@ class TransferImageGui(QWidget):
         self.buttonsSub_Layout.addWidget(contentBtn)
 
         # upload style
-        StyleBtn = QtWidgets.QPushButton("Upload style Image", self)
+        StyleBtn = QtWidgets.QPushButton("Upload style image", self)
         StyleBtn.setObjectName("MainGuiButtons")
         StyleBtn.setToolTip('Upload style image.')
         StyleBtn.clicked.connect(self.setStyleImage)
