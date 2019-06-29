@@ -283,9 +283,6 @@ class TransferImageGui(QWidget):
         # show the window
         self.showMaximized()
 
-
-
-
     """lunch_thread control the start of the second thread that running the MainFunc- StyleMakerFunc."""
     def lunch_thread(self):
         if flagStyleImage == 1 and flagContentImage == 1:
@@ -400,19 +397,6 @@ class OutputImageGui(QWidget):
         self.Iconsub_Layout.addWidget(self.homeBtn)
         self.homeBtn.setToolTip('Return home screen')
 
-        # The Button save sub frame
-        self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.main_layout.addWidget(self.Buttonsub_Frame)
-        self.Buttonsub_Layout = QtWidgets.QVBoxLayout(self.Buttonsub_Frame)
-        self.Buttonsub_Frame.setFixedWidth(self.width)
-        self.Buttonsub_Layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
-
-        # Save button for the output image
-        self.savebutton = QtWidgets.QPushButton("Save your image", self)
-        self.savebutton.setObjectName("MainGuiButtons")
-        self.savebutton.clicked.connect(self.saveimage)
-        self.Buttonsub_Layout.addWidget(self.savebutton)
-
         # The output image sub frame
         self.output_sub_frame = QtWidgets.QFrame(self.main_frame)
         self.main_layout.addWidget(self.output_sub_frame)
@@ -431,7 +415,6 @@ class OutputImageGui(QWidget):
         self.outputframe.setAlignment(Qt.AlignCenter)
         self.output_sub_layout.addWidget(self.outputframe)
 
-
         # The progressBar sub frame
         self.progressBarsub_Frame = QtWidgets.QFrame(self.main_frame)
         self.main_layout.addWidget(self.progressBarsub_Frame)
@@ -448,9 +431,21 @@ class OutputImageGui(QWidget):
         self.progressBar.setObjectName("progressBar")
         self.progressBarsub_Layout.addWidget(self.progressBar)
 
+        # The Button save sub frame
+        self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
+        self.main_layout.addWidget(self.Buttonsub_Frame)
+        self.Buttonsub_Layout = QtWidgets.QVBoxLayout(self.Buttonsub_Frame)
+        self.Buttonsub_Frame.setFixedWidth(self.width)
+        self.Buttonsub_Layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
+
+        # Save button for the output image
+        self.savebutton = QtWidgets.QPushButton("Save your image", self)
+        self.savebutton.setObjectName("MainGuiButtons")
+        self.savebutton.clicked.connect(self.saveimage)
+        self.Buttonsub_Layout.addWidget(self.savebutton)
+
         # show the window
         self.showMaximized()
-
 
     def getComboBoxValues(self, iterString, resString, modelString):
         self.comboString = iterString
@@ -749,11 +744,8 @@ class OutputImageGui(QWidget):
             return best_img, best_loss
 
         best, best_loss = run_style_transfer(content_path, style_path, number_of_iterations=number_of_iterations)
-        im = Image.fromarray(best)
-        return im
-
-def myExitHandler(self):
-    exit(1)
+        image = Image.fromarray(best)
+        return image
 
 """External class control the thread running the ProgressBar."""
 class External(QThread):
@@ -769,5 +761,4 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     main = MainWindowGui()
-    #app.aboutToQuit.connect(myExitHandler)  # myExitHandler is a callable
     sys.exit(app.exec_())
