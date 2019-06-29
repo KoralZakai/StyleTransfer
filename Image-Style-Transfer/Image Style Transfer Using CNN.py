@@ -211,7 +211,6 @@ class TransferImageGui(QWidget):
         contentBtn.setToolTip('Upload content image')
         contentBtn.clicked.connect(self.setContentImage)
         self.buttonsSub_Layout.addWidget(contentBtn)
-        #self.contentframe.show()
 
         # upload style
         StyleBtn = QtWidgets.QPushButton("Upload style Image", self)
@@ -220,11 +219,11 @@ class TransferImageGui(QWidget):
         StyleBtn.clicked.connect(self.setStyleImage)
         self.buttonsSub_Layout.addWidget(StyleBtn)
 
-        self.contentframe = QtWidgets.QFrame(self.main_frame)
-        self.contentframe.setFixedWidth(self.width)
-        self.main_layout.addWidget(self.contentframe)
-        self.photosSub_Layout = QtWidgets.QHBoxLayout(self.contentframe)
-        self.photosSub_Layout.setAlignment(Qt.AlignCenter|Qt.AlignTop)
+        self.photosframe = QtWidgets.QFrame(self.main_frame)
+        self.photosframe.setFixedWidth(self.width)
+        self.main_layout.addWidget(self.photosframe)
+        self.photosSub_Layout = QtWidgets.QHBoxLayout(self.photosframe)
+        self.photosSub_Layout.setAlignment(Qt.AlignCenter | Qt.AlignTop)
         self.contentLabel = QtWidgets.QLabel('', self)
         pixmap = QPixmap(":Pictures/imageNeedUpload.png")
         pixmap = pixmap.scaled(256, 256)
@@ -320,11 +319,9 @@ class TransferImageGui(QWidget):
                 pixmap = QtGui.QPixmap(fileName[0])
                 pixmap = pixmap.scaled(256, 256)
                 self.contentLabel.setPixmap(pixmap)
-                #self.contentframe.setPixmap(pixmap)
-                #self.contentframe.setAlignment(QtCore.Qt.AlignCenter)
             except (IOError, SyntaxError) as e:
                 flagContent = 0
-                QMessageBox.critical(self, "Error", "Image is corrupted , please upload a good image." )
+                QMessageBox.critical(self, "Error", "Image is corrupted, please upload a good image." )
 
     """setStyleImage function control on choosing the style image."""
     def setStyleImage(self):
@@ -341,8 +338,6 @@ class TransferImageGui(QWidget):
                 pixmap = QtGui.QPixmap(fileName[0])
                 pixmap = pixmap.scaled(256, 256)
                 self.styleLabel.setPixmap(pixmap)
-                #self.styleframe.setPixmap(pixmap)
-                #self.styleframe.setAlignment(QtCore.Qt.AlignCenter)
             except (IOError, SyntaxError) as e:
                 #print('Bad file:', style_path)  # print out the names of corrupt files
                 flagStyle = 0
@@ -421,7 +416,7 @@ class OutputImageGui(QWidget):
         self.outputframe.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.outputframe.setText("")
         pixmap = QPixmap(":Pictures/gift.png")
-        pixmap = pixmap.scaled(256, 256, QtCore.Qt.KeepAspectRatio)
+        pixmap = pixmap.scaled(256, 256)
         self.outputframe.setPixmap(pixmap)
         self.outputframe.setScaledContents(True)
         self.outputframe.setObjectName("outputframe")
