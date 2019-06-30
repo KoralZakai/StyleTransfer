@@ -1,16 +1,25 @@
 """Image Style Transfer Using Convolutional Neural Network
 code Written in python, Ui made with PyQt5"""
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QThread, pyqtSignal
+import logo
+import threading
+
 import skimage
 import skimage.io
 import skimage.transform
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QThread, pyqtSignal
-import threading
-from keras.preprocessing import image
-import tensorflow as tf
-import logo
 
-from keras.preprocessing.image import load_img
+import tensorflow as tf
+import keras
+from keras import layers
+from keras.datasets import mnist
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Flatten
+from keras.layers import Conv2D, MaxPooling2D
+import numpy as np
+
+
 
 # global variables created to control the UI and code parameters.
 global content_path
@@ -29,8 +38,6 @@ global count
 count=0
 global iter
 iter = 0
-DECAY = .9
-EPSILON = 1e-8
 
 """Ui_MainWindow is the main class of the UI,
 all UI parameters and code functions defined here."""
@@ -417,7 +424,7 @@ class Ui_MainWindow(object):
         else:
             resolution = 2048
         # outputImage get the result from the MainFunc.
-        outputImage = self.MainFunc(content_path, style_path, iter, resolution)# here we start to generate
+        outputImage = self.MainFunc(content_path, style_path, iter, resolution)
         pixmap = QtGui.QPixmap(outputImage.toqpixmap())
         pixmap = pixmap.scaled(290, 290, QtCore.Qt.KeepAspectRatio)
         self.outputframe.setPixmap(pixmap)
@@ -482,8 +489,6 @@ class Ui_MainWindow(object):
         num_content_layers = len(content_layers)
         num_style_layers = len(style_layers)
 
-
-
         # load_img function get the path of the image,
         # resize it and broadcast the image array such that it has a batch dimension.
         def load_img(path_to_img):
@@ -496,51 +501,58 @@ class Ui_MainWindow(object):
             img = np.expand_dims(img, axis=0)
             return img
 
-        def get_resnet_model(img_path_):
-            from keras.preprocessing.image import img_to_array
-            from keras.preprocessing import image
-            from keras_applications import imagenet_utils
-            from keras.preprocessing import image
 
-            model = tf.keras.applications.resnet50.ResNet50(weights='imagenet')
-            # load the image
-            img_path = img_path_
-            img = image.load_img(img_path, target_size=(224, 224))
-            x =img_to_array(img)
-            # ensure we have a 4d tensor with single element in the batch dimension,
-            # the preprocess the input for prediction using resnet50
+        def load_img_to(path, height=None, width=None):
+            """Returns a resized numpy array of an image specified by its path.
 
-            x = np.expand_dims(x, axis=0)
-            x = imagenet_utils.preprocess_input(x,'channels_first')
+            Args:
+                path: string representing the file path of the image to load
+                height: int representing the height value to scale image
+                width: int representing width value to scale image
 
-            x = model(x)
-            return x
+            Returns:
+                img: numpy array representing the loaded RGB image
+            """
+
+            # Load image
+           # img = skimage.io.imread(path) / 255.0
+            img = skimage.io.imread(path)
+            if height is not None and width is not None:
+                ny = height
+                nx = width
+            elif height is not None:
+                ny = height
+                nx = img.shape[1] * ny / img.shape[0]
+            elif width is not None:
+                nx = width
+                ny = img.shape[0] * nx / img.shape[1]
+            else:
+                ny = img.shape[0]
+                nx = img.shape[1]
+
+            if len(img.shape) < 3:
+                img = np.dstack((img, img, img))
+
+            return skimage.transform.resize(img, (ny, nx)), [ny, nx, 3]
 
 
 
-        # load_and_process_img is charge on load the image into the vgg16 network.
-        def load_and_process_img(path_to_img ,flag = False, image = None):
-            img = load_img(path_to_img)
+        # load_and_process_img is charge on load the image into the vgg19 network.
+        def load_and_process_img(path_to_img, flag = 0, image= None):
+            if image == None:
+                img = load_img(path_to_img)
+            else:
+                img = image
+            #img = Image.open(path_to_img)
+            #img = img.resize(img,255,255)
 
-            if flag == True:
-                with tf.Session() as sess:
-                    if image == None:
-                        img, _ = load_img_to(path_to_img)
-                        img = tf.convert_to_tensor(img, dtype=tf.float32)
-                        img = tf.expand_dims(img, axis=0)
-                    else:
-                        img = image
-                    # Initialize new generative net
-                    with tf.variable_scope('generator'):
-                        #gen = Generator()
-                        #img = gen.build(tf.convert_to_tensor(img))
-                        img = get_resnet_model(path_to_img)
-
-                        #sess.run(tf.global_variables_initializer())
-                    #saver = tf.train.Saver()
-                    #saver.restore(sess, )
-                    #img = sess.run(img)
-
+            #img ,input_shape = load_img_to(path_to_img, height = resolution, width = resolution)
+            #img = img.reshape([1] + input_shape).astype(np.float32)
+            if flag == 1:
+                size = 40
+                img = tf.pad(img, [[0, 0], [size, size], [size, size], [0, 0]], "REFLECT")
+                cnn = CNN()
+                img= cnn.Build(img)
             img = tf.keras.applications.vgg16.preprocess_input(img)
             return img
 
@@ -561,9 +573,7 @@ class Ui_MainWindow(object):
             x = np.clip(x, 0, 255).astype('uint8')
             return x
 
-
-
-        # get_model function load the VGG16 model and access the intermediate layers.
+        # get_model function load the VGG19 model and access the intermediate layers.
         # Returns: a Keras model that takes image inputs and outputs the style and content intermediate layers.
         def get_model():
             import ssl
@@ -604,9 +614,9 @@ class Ui_MainWindow(object):
             the outputs of the intermediate layers.
             Returns the style and the content features representation."""
         def get_feature_representations(model, content_path, style_path):
-            # Load our images into the VGG16 Network
-            content_image = load_and_process_img(content_path)
-            style_image = load_and_process_img(style_path)
+            # Load our images into the VGG19 Network
+            content_image = load_and_process_img(content_path, flag = 0) # preprocessing
+            style_image = load_and_process_img(style_path, flag = 0)
 
             # compute content and style features
             style_outputs = model(style_image)
@@ -673,10 +683,11 @@ class Ui_MainWindow(object):
             gram_style_features = [gram_matrix(style_feature) for style_feature in style_features]
 
             # Set initial image
-            init_image = load_and_process_img(content_path, flag=True)
+            init_image = load_and_process_img(content_path, flag=1)
+
             init_image = tfe.Variable(init_image, dtype=tf.float32)
             # We  use Adam Optimizer
-            opt = tf.train.AdamOptimizer(learning_rate=0.001, beta1=0.99, epsilon=1e-1)
+            opt = tf.train.AdamOptimizer(learning_rate=5, beta1=0.99, epsilon=1e-1)
 
             # Store our best result
             best_loss, best_img = float('inf'), None
@@ -701,7 +712,6 @@ class Ui_MainWindow(object):
                 count=i
                 self.calc.start()
                 print(i)
-
                 grads, all_loss = compute_grads(cfg)
                 loss, style_score, content_score = all_loss
                 opt.apply_gradients([(grads, init_image)])
@@ -719,6 +729,11 @@ class Ui_MainWindow(object):
         im = Image.fromarray(best)
         return im
 
+
+
+
+
+
 """External class control the thread running the ProgressBar."""
 class External(QThread):
     countChanged = pyqtSignal(int)
@@ -730,270 +745,129 @@ class External(QThread):
         self.countChanged.emit(ii)
 
 
-###################
-#generator
-###################
+class CNN(tf.keras.Model):
 
-import tensorflow as tf
+    def __init__(self, device='cpu:0', checkpoint_directory=None):
+        ''' Define the parameterized layers used during forward-pass, the device
+            where you would like to run the computation on and the checkpoint
+            directory.
 
-# Model hyper-parameters
-DECAY = .9
-EPSILON = 1e-8
+            Args:
 
+                device: string, 'cpu:n' or 'gpu:n' (n can vary). Default, 'cpu:0'.
+                checkpoint_directory: the directory where you would like to save or
+                                      restore a model.
+        '''
+        super(CNN, self).__init__()
+    def Build(self, img):
+        # Initialize layers
 
-class Generator:
-    """Generative model with the architectural specifications suited for artistic style transfer."""
+        #img = tf.layers.Conv2D(32, kernel_size = (9, 9),strides=(1,1), padding='same', activation = None)(img)
 
-    def __init__(self, is_training=True):
-        self.training = is_training
+        filters = get_weights([9,9,3,32])
+        img = tf.nn.conv2d(img, filters, [1, 1, 1, 1], padding='SAME')
+        img = tf.layers.BatchNormalization()(img)
+        img = tf.nn.relu(img)
 
-    def build(self, img):
-        """Constructs the generative network's layers. Normally called after initialization.
+        #img = tf.layers.Conv2D(64, kernel_size = (3, 3),strides=(2,2), padding='same', activation = None)(img)
+        filters = get_weights([3, 3, 32, 64])
+        img = tf.nn.conv2d(img, filters, [1, 2, 2, 1], padding='SAME')
+        img = tf.layers.BatchNormalization()(img)
+        img = tf.nn.relu(img)
 
-        Args:
-            img: 4D tensor representation of image batch
-        """
+        #img = tf.layers.Conv2D(128, kernel_size = (3, 3),strides=(2,2), padding='same', activation = None)(img)
+        filters = get_weights([3, 3, 64, 128])
+        img = tf.nn.conv2d(img, filters, [1, 2, 2, 1], padding='SAME')
+        img = tf.layers.BatchNormalization()(img)
+        img = tf.nn.relu(img)
 
-        self.padded = self._pad(img, 40)
+        img = residual_block(img, 128, _strides=(1, 1))
+        img = residual_block(img, 128, _strides=(1, 1))
+        img = residual_block(img, 128, _strides=(1, 1))
+        img = residual_block(img, 128, _strides=(1, 1))
+        img = residual_block(img, 128, _strides=(1, 1))
 
-        self.conv1 = self._conv_block(self.padded, maps_shape=[9, 9, 3, 32], stride=1, name='conv1')
-        self.conv2 = self._conv_block(self.conv1, maps_shape=[3, 3, 32, 64], stride=2, name='conv2')
-        self.conv3 = self._conv_block(self.conv2, maps_shape=[3, 3, 64, 128], stride=2, name='conv3')
+        #img = tf.layers.Conv2DTranspose(64, kernel_size = (3, 3), strides=(2,2),padding='same', activation = None)(img)
+        filters = get_weights([3, 3, 64, 128])
+        stride =2
+        batch, height, width, channels = img.get_shape().as_list()
+        out_height = height * stride
+        out_width = width * stride
+        out_size = 64
+        out_shape = tf.stack([batch, out_height, out_width, out_size])
+        stride = [1, stride, stride, 1]
 
-        self.resid1 = self._residual_block(self.conv3, maps_shape=[3, 3, 128, 128], stride=1, name='resid1')
-        self.resid2 = self._residual_block(self.resid1, maps_shape=[3, 3, 128, 128], stride=1, name='resid2')
-        self.resid3 = self._residual_block(self.resid2, maps_shape=[3, 3, 128, 128], stride=1, name='resid3')
-        self.resid4 = self._residual_block(self.resid3, maps_shape=[3, 3, 128, 128], stride=1, name='resid4')
-        self.resid5 = self._residual_block(self.resid4, maps_shape=[3, 3, 128, 128], stride=1, name='resid5')
-
-        self.conv4 = self._upsample_block(self.resid5, maps_shape=[3, 3, 64, 128], stride=2, name='conv4')
-        self.conv5 = self._upsample_block(self.conv4, maps_shape=[3, 3, 32, 64], stride=2, name='conv5')
-        self.conv6 = self._conv_block(self.conv5, maps_shape=[9, 9, 32, 3], stride=1, name='conv6', activation=None)
-
-        self.output = tf.nn.sigmoid(self.conv6) #TO-DO: understand why the tanh function not working !!
-        # self.output = tf.nn.tanh(self.conv6)
-        return self.output
-
-    @staticmethod
-    def _get_weights(shape):
-        """Returns a variable for weights with a specified filters shape.
-
-        Args:
-            shape: a list specifying the initialized weights shape
-
-        Returns:
-            weights: tf.Variable representing a set of weights with a normal distribution
-        """
-        #truncated_normal= Outputs random values from a truncated normal distribution.
-        init = tf.truncated_normal(shape, mean=0., stddev=.1)
-        weights = tf.Variable(init, dtype=tf.float32)
-        return weights
-
-    @staticmethod
-    def _instance_normalize(inputs):
-        """Instance normalize inputs to reduce covariate shift and reduce dependency on input contrast to improve results.
-
-        Args:
-            inputs: 4D tensor representing image layer encodings
-
-        Returns:
-            maps: 4D tensor of batch normalized inputs
-        """
-
-        with tf.variable_scope('instance_normalization'):
-            batch, height, width, channels = [_.value for _ in inputs.get_shape()]
-            mu, sigma_sq = tf.nn.moments(inputs, [1, 2], keep_dims=True)
-
-            shift = tf.Variable(tf.constant(.1, shape=[channels]))
-            scale = tf.Variable(tf.ones([channels]))
-            normalized = (inputs - mu) / (sigma_sq + EPSILON) ** .5
-            maps = scale * normalized + shift
-            return maps
-
-    @staticmethod
-    def _pad(inputs, size):
-        """Pads input of the image so the output is the same dimensions even after strided convolution.
-
-        Args:
-            inputs: 4D tensor representing image layer encodings
-            size: int specifying the pad size
-
-        Returns:
-            padded_inputs: 4D tensor of padded inputs
-        """
-
-        padded_inputs = tf.pad(inputs, [[0, 0], [size, size], [size, size], [0, 0]], "REFLECT")
-        return padded_inputs
-
-    @staticmethod
-    def _batch_normalize(inputs, num_maps, is_training):
-        """Batch normalize inputs to reduce covariate shift and improve the efficiency of training.
-
-        Args:
-            inputs: 4D tensor representing image layer encodings
-            num_maps: int representing the number of input feature maps
-            is_training: bool representing whether or not the model is
-                         being trained rather than being used for inference
-
-        Returns:
-            bn_inputs: 4D tensor of batch normalized inputs
-        """
-
-        with tf.variable_scope("batch_normalization"):
-            #   variables for scaling and offsetting our inputs
-            scale = tf.Variable(tf.ones([num_maps], dtype=tf.float32))
-            offset = tf.Variable(tf.zeros([num_maps], dtype=tf.float32))
-
-            # Mean and variances related to our current batch
-            #mean and varience of the input (image) matrix
-            batch_mean, batch_var = tf.nn.moments(inputs, [0, 1, 2])
-
-            # Create an optimizer to maintain a 'moving average'
-            #by maintains moving averages of variables by employing an exponential decay.
-            #Evaluations that use averaged parameters sometimes produce
-            # significantly better results than the final trained values.
-            ema = tf.train.ExponentialMovingAverage(decay=DECAY)
-
-            def ema_retrieve():
-                return ema.average(batch_mean), ema.average(batch_var)
-
-            # If the net is being trained, update the average every training step
-            def ema_update():
-                ema_apply = ema.apply([batch_mean, batch_var])
-
-                # Make sure to compute the new means and variances prior to returning their values
-                with tf.control_dependencies([ema_apply]):
-                    #identity= Return a tensor with the same shape and contents as input.
-                    return tf.identity(batch_mean), tf.identity(batch_var)
-
-            # Retrieve the means and variances and apply the BN transformation
-            # cond will return the first function if the condition is true, or the second function if the condition is false
-            mean, var = tf.cond(tf.equal(is_training, True), ema_update, ema_retrieve)
-            bn_inputs = tf.nn.batch_normalization(inputs, mean, var, offset, scale, EPSILON)
-
-        return bn_inputs
-
-    def _conv_block(self, inputs, maps_shape, stride, name,
-                    norm=True, padding='SAME', activation=tf.nn.relu):
-        """Convolve inputs and return their batch normalized tensor.
-
-        Args:
-            inputs: 4D tensor representing image layer encodings
-            maps_shape: list representing the shape of the layer weights
-            stride: int representing stride length
-            name: string assigned as the tf op names
-            norm: bool representing whether or not to normalize layer inputs
-            padding: string representing padding type
-            activation: tf.nn activation function
-
-        Returns:
-            maps: 4D tensor representing convolved feature maps
-        """
-
-        with tf.variable_scope(name):
-            if name == 'output':
-                activation = tf.nn.sigmoid
-
-            filters = self._get_weights(maps_shape)
-            filter_maps = tf.nn.conv2d(inputs, filters, [1, stride, stride, 1], padding=padding)
-            num_out_maps = maps_shape[3]
-            #bias = constant which help the model to fit better to the given data
-            bias = tf.Variable(tf.constant(.1, shape=[num_out_maps]))
-            #Adds bias to a value
-            filter_maps = tf.nn.bias_add(filter_maps, bias)
-
-            if norm:
-                filter_maps = tf.layers.BatchNormalization()(filter_maps)
-                #filter_maps = self._batch_normalize(filter_maps, maps_shape[3], is_training=True)
-
-            maps = activation(filter_maps) if activation else filter_maps
-            return maps
-
-    def _upsample_block(self, inputs, maps_shape, stride, name):
-        """Upsamples inputs using transposed convolution.
-
-        Args:
-            inputs: 4D tensor representing image layer encodings
-            maps_shape: list representing the shape of the layer weights
-            stride: int representing stride length
-            name: string assigned as the tf op names
-
-        Returns:
-            maps: 4D tensor representing upsampled feature maps
-        """
-
-        with tf.variable_scope(name):
-            filters = self._get_weights(maps_shape)
-
-            # Get dimensions to use for the upsample operator
-            batch, height, width, channels = inputs.get_shape().as_list()
-            out_height = height * stride
-            out_width = width * stride
-            out_size = maps_shape[2]
-            out_shape = tf.stack([batch, out_height, out_width, out_size])
-            stride = [1, stride, stride, 1]
-
-            # Upsample and normalize the biased outputs
-            upsample = tf.nn.conv2d_transpose(inputs, filters, output_shape=out_shape, strides=stride)
-            bias = tf.Variable(tf.constant(.1, shape=[out_size]))
-            upsample = tf.nn.bias_add(upsample, bias)
-            #bn_maps = self._batch_normalize(upsample, maps_shape[2], is_training=True)
-            bn_maps = tf.layers.BatchNormalization()(upsample)
-            maps = tf.nn.relu(bn_maps)
-
-            return maps
-
-    def _residual_block(self, inputs, maps_shape, stride, name):
-        """Residual block comprised of two conv layers and aims to add long short-term memory to the network.
-
-        Args:
-            inputs: 4D tensor representing image layer encodings
-            maps_shape: list representing the shape of the layer weights
-            stride: int representing stride length
-            name: string assigned as the tf op names
-
-        Returns:
-            maps: 4D tensor representing feature maps
-        """
-
-        with tf.variable_scope(name):
-            conv1 = self._conv_block(inputs, maps_shape, stride=stride, padding='VALID', name='c1')
-            conv2 = self._conv_block(conv1, maps_shape, stride=stride, padding='VALID', name='c2', activation=None)
-
-            batch = inputs.get_shape().as_list()[0]
-            patch_height, patch_width, num_filters = conv2.get_shape().as_list()[1:]
-            #tf.stack = Stacks a list of rank-R tensors into one rank-(R+1) tensor
-            out_shape = tf.stack([batch, patch_height, patch_width, num_filters])
-            cropped_inputs = tf.slice(inputs, [0, 1, 1, 0], out_shape)
-            maps = conv2 + cropped_inputs
-
-            return maps
+        img = tf.nn.conv2d_transpose(img, filters, output_shape=out_shape, strides=stride)
+        img = tf.layers.BatchNormalization()(img)
+        img = tf.nn.relu(img)
 
 
-def load_img_to(path):
-    """Returns a numpy array of an image specified by its path.
+        #img = tf.layers.Conv2DTranspose(32, kernel_size = (3, 3), strides=(2,2),padding='same', activation = None)(img)
+        filters = get_weights([3, 3, 32, 64])
+        batch, height, width, channels = img.get_shape().as_list()
+        stride = 2
+        out_height = height * stride
+        out_width = width * stride
+        out_size = 32
+        out_shape = tf.stack([batch, out_height, out_width, out_size])
+        stride = [1, stride, stride, 1]
+
+        img = tf.nn.conv2d_transpose(img, filters, output_shape=out_shape, strides=stride)
+        img = tf.layers.BatchNormalization()(img)
+        img = tf.nn.relu(img)
+
+        #img = tf.layers.Conv2D(3, kernel_size = (9, 9),strides=(1,1), padding='same', activation= None)(img)
+        filters = get_weights([9, 9, 32, 3])
+        img = tf.nn.conv2d(img, filters, [1, 1,1, 1], padding='SAME')
+        img = tf.layers.BatchNormalization()(img)
+
+        #img = tf.tanh(img)*150 + 255./2
+        img = tf.sigmoid(img)
+
+        return img
+
+
+
+def residual_block(y, nb_channels, _strides=(1, 1), _project_shortcut = False):
+    shortcut = y
+
+    # down-sampling is performed with a stride of 2
+    #conv1 = layers.Conv2D(nb_channels, kernel_size=(3, 3), strides=_strides, padding='valid')(y)
+
+    filters = get_weights([3, 3, 128, 128])
+    conv1 = tf.nn.conv2d(y, filters, [1, 1, 1, 1], padding='VALID')
+    conv1 = tf.layers.BatchNormalization()(conv1)
+    conv1 = tf.nn.relu(conv1)
+
+    #conv2 = layers.Conv2D(nb_channels, kernel_size=(3, 3), strides=(1, 1), padding='valid')(conv1)
+    filters = get_weights([3, 3, 128, 128])
+    conv2 = tf.nn.conv2d(conv1, filters, [1, 1, 1, 1], padding='VALID')
+    conv2 = tf.layers.BatchNormalization()(conv2)
+
+
+    batch = y.get_shape().as_list()[0]
+    patch_height, patch_width, num_filters = conv2.get_shape().as_list()[1:]
+    # tf.stack = Stacks a list of rank-R tensors into one rank-(R+1) tensor
+    out_shape = tf.stack([batch, patch_height, patch_width, num_filters])
+    cropped_inputs = tf.slice(y, [0, 1, 1, 0], out_shape)
+    maps = conv2 + cropped_inputs
+
+    return maps
+
+
+def get_weights(shape):
+    """Returns a variable for weights with a specified filters shape.
 
     Args:
-        path: string representing the file path of the image to load
+        shape: a list specifying the initialized weights shape
 
     Returns:
-        resized_img: numpy array representing the loaded RGB image
-        shape: the image shape
+        weights: tf.Variable representing a set of weights with a normal distribution
     """
-
-    # Load image [height, width, depth]
-    img = skimage.io.imread(path) / 255.0
-    assert (0 <= img).all() and (img <= 1.0).all()
-
-    # Crop image from center
-    short_edge = min(img.shape[:2])
-    yy = int((img.shape[0] - short_edge) / 2)
-    xx = int((img.shape[1] - short_edge) / 2)
-    shape = list(img.shape)
-
-    crop_img = img[yy: yy + short_edge, xx: xx + short_edge]
-    resized_img = skimage.transform.resize(crop_img, (shape[0], shape[1]))
-    return resized_img, shape
+    #truncated_normal= Outputs random values from a truncated normal distribution.
+    init = tf.truncated_normal(shape, mean=0., stddev=.1)
+    weights = tf.contrib.eager.Variable(init, dtype=tf.float32)
+    return weights
 
 
 
@@ -1005,4 +879,3 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
-

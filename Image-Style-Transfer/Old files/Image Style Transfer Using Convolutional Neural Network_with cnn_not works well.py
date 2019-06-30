@@ -4,7 +4,7 @@ code Written in python, Ui made with PyQt5"""
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QThread, pyqtSignal
 import threading
-
+import logo
 import skimage
 import skimage.io
 import skimage.transform
