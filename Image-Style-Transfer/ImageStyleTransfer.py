@@ -492,9 +492,9 @@ class OutputImageGui(QWidget):
         if self.comboString == 'Low':
             number_of_iterations=100
         elif self.comboString == 'Medium':
-            number_of_iterations=500
+            number_of_iterations=600
         else:
-            number_of_iterations=1000
+            number_of_iterations=1200
 
         # resulotion control the output image resulotion, the user choose it.
         resolution = 0
@@ -693,7 +693,7 @@ class OutputImageGui(QWidget):
         """The main method of the code, running the main loop for generating the image."""
         def run_style_transfer(content_path,
                                style_path,
-                               number_of_iterations=1000,
+                               number_of_iterations=1200,
                                content_weight=1e3,
                                style_weight=1e-2):
             # We don't train any layers of our model, so we set their trainable to false.
