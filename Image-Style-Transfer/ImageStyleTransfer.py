@@ -493,7 +493,7 @@ class output_imageGui(QWidget):
             home.show()
             self.main_frame.setVisible(False)
 
-    """on_count_changed function control on updating the progressBar."""
+    """on_count_changed function updating the progressBar."""
     def on_count_changed(self, value):
         self.progressBar.setValue(value)
 
@@ -554,9 +554,9 @@ class output_imageGui(QWidget):
         tf.enable_eager_execution()
         print("Eager execution: {}".format(tf.executing_eagerly()))
 
-        # define calc to the external thread.
-        self.calc = External()
-        self.calc.countChanged.connect(self.progressBar.setValue)
+        # define calculation running step to the external thread.
+        self.update_prograssBar_value = external_run_prograssBar()
+        self.update_prograssBar_value.countChanged.connect(self.progressBar.setValue)
 
         # Content layer for the feature maps
         content_layers = ['block5_conv2']
@@ -642,15 +642,15 @@ class output_imageGui(QWidget):
             return gram / tf.cast(n, tf.float32)
 
         # get the style loss by calculate the Mean Squared Error between the two gram matrices.
-        # We scale the loss at a given layer by the size of the feature map and the number of filters
+        # We rescale the loss at a layer that is given by the size of the feature map and the number of filters
         def get_style_loss(base_style, gram_target):
             height, width, channels = base_style.get_shape().as_list()
             gram_style = gram_matrix(base_style)
             return tf.reduce_mean(tf.square(gram_style - gram_target))
 
-        """This function will simply load and preprocess both the content and style
-            images from their path. Then it will feed them through the network to obtain
-            the outputs of the intermediate layers.
+        """This function load and preprocess the content and style images from their path.
+            Then it will feed the images through the network to achieve
+            the outputs of the inner layers.
             Returns the style and the content features representation."""
         def get_feature_representations(model, content_path, style_path):
             # Load our images into the VGG Network
@@ -666,13 +666,13 @@ class output_imageGui(QWidget):
             content_features = [content_layer[0] for content_layer in content_outputs[numer_of_style_layers:]]
             return style_features, content_features
 
-        """This function compute the content, style and sum the total loss.
-            we use model that will give us access to the intermediate layers."""
+        """This function compute the content loss, style loss and sum the total loss.
+            the model we use will give us access to the interim layers."""
         def compute_loss(model, loss_weights, init_image, gram_style_features, content_features):
             style_weight, content_weight = loss_weights
 
-            # Feed our init image through our model. This will give us the content and
-            # style representations at our desired layers.
+            # Feed the original image through our model. This will give us the content and
+            # style representations at the defined layers.
             model_outputs = model(init_image)
 
             style_output_features = model_outputs[:numer_of_style_layers]
@@ -681,13 +681,14 @@ class output_imageGui(QWidget):
             style_score = 0
             content_score = 0
 
-            # calculate the style losses from all layers
-            # equally weight each contribution of each loss layer
+            # calculate and sum the style losses from all the defined layers
+            # weight each contribution of each loss layer equally
             weight_per_style_layer = 1.0 / float(numer_of_style_layers)
             for target_style, comb_style in zip(gram_style_features, style_output_features):
                 style_score += weight_per_style_layer * get_style_loss(comb_style[0], target_style)
 
-            # calculate content losses from all layers
+            # sum the content losses from all layers
+            # weight each contribution of each loss layer equally
             weight_per_content_layer = 1.0 / float(numer_of_content_layers)
             for target_content, comb_content in zip(content_features, content_output_features):
                 content_score += weight_per_content_layer * get_content_loss(comb_content[0], target_content)
@@ -695,7 +696,7 @@ class output_imageGui(QWidget):
             style_score *= style_weight
             content_score *= content_weight
 
-            # Get total loss
+            # Get total loss = content loss+ style loss
             loss = style_score + content_score
             return loss, style_score, content_score
 
@@ -706,7 +707,7 @@ class output_imageGui(QWidget):
             total_loss = all_loss[0]
             return tape.gradient(total_loss, cfg['init_image']), all_loss
 
-        """The main method of the code, running the main loop for generating the image."""
+        """run _style_transfer is the main function in this algorithm, run the main loop of the backpropagation with gradient descent. ."""
         def run_style_transfer(content_path,
                                style_path,
                                number_of_iterations=1200,
@@ -748,7 +749,7 @@ class output_imageGui(QWidget):
             for i in range(number_of_iterations):
                 global count
                 count=i
-                self.calc.start()
+                self.update_prograssBar_value.start()
                 print("Iteration: {}".format(i))
                 grads, all_loss = compute_grads(cfg)
                 loss, style_score, content_score = all_loss
@@ -767,8 +768,8 @@ class output_imageGui(QWidget):
         image = Image.fromarray(best)
         return image
 
-"""External class control the thread running the ProgressBar."""
-class External(QThread):
+"""external_run_prograssBar class control the thread running the ProgressBar."""
+class external_run_prograssBar(QThread):
     countChanged = pyqtSignal(int)
 
     def run(self):
