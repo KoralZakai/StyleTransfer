@@ -13,7 +13,7 @@ import ctypes
 import css
 import os
 
-# global variables for using in the entire code.
+#global variables for using in the entire code.
 global content_path
 global style_path
 global output_image
@@ -42,6 +42,7 @@ class main_window_gui(QWidget):
         self.height = h
         self.initUI()
 
+    #Exit all the program
     def closeEvent(self, QCloseEvent):
             os._exit(0)
 
@@ -124,6 +125,7 @@ class main_window_gui(QWidget):
         transferImage.show()
         self.main_frame.setVisible(False)
 
+    #help- open web browser
     def show_help_pdf(self):
         import os
         import webbrowser
@@ -216,14 +218,14 @@ class TransferImageGui(QWidget):
         contentBtn = QtWidgets.QPushButton("Upload content image", self)
         contentBtn.setObjectName("MainGuiButtons")
         contentBtn.setToolTip('Upload content image.')
-        contentBtn.clicked.connect(self.setContentImage)
+        contentBtn.clicked.connect(self.set_content_image)
         self.buttonsSub_Layout.addWidget(contentBtn)
 
         # upload style
         StyleBtn = QtWidgets.QPushButton("Upload style image", self)
         StyleBtn.setObjectName("MainGuiButtons")
         StyleBtn.setToolTip('Upload style image.')
-        StyleBtn.clicked.connect(self.setStyleImage)
+        StyleBtn.clicked.connect(self.set_style_image)
         self.buttonsSub_Layout.addWidget(StyleBtn)
 
         #framer for the uploaded content and style images
@@ -294,16 +296,18 @@ class TransferImageGui(QWidget):
         # show the window on full screen
         self.showMaximized()
 
-    """start_thread start the second thread that running the Main functions in the program- StyleMakerFunc."""
+    """start_thread start the thread that running the Main functions in the program- StyleMakerFunc."""
     def start_thread(self):
         if flag_style_image == 1 and flag_content_image == 1:
             outputWindow = output_imageGui(self)
             outputWindow.getComboBoxValues(self.iterationbox.currentText(), self.resolutionbox.currentText() , self.modelBox.currentText())
             self.t = threading.Thread(target=outputWindow.generate)
+            #start the thread
             self.t.start()
             outputWindow.show()
             self.main_frame.setVisible(False)
         else:
+            #show error msg
             QMessageBox.critical(self, "Error", "You must upload content and style images first.")
 
     # Opens home window
@@ -315,8 +319,8 @@ class TransferImageGui(QWidget):
         home.show()
         self.main_frame.setVisible(False)
 
-    """setContentImage function choosing the content image form dialog file box and ."""
-    def setContentImage(self):
+    """set_content_image function choosing the content image form dialog file box and ."""
+    def set_content_image(self):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
                                                              "Image Files (*.png *.jpg *.jpeg *.bmp)")
         if fileName:
@@ -337,8 +341,8 @@ class TransferImageGui(QWidget):
                 self.contentLabel.setPixmap(pixmap)
                 QMessageBox.critical(self, "Error", "Image is corrupted, please upload a good image." )
 
-    """setStyleImage function choosing the content image form dialog file box and ."""
-    def setStyleImage(self):
+    """set_style_image function choosing the content image form dialog file box and ."""
+    def set_style_image(self):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
                                                              "Image Files (*.png *.jpg *.jpeg *.bmp)")
         if fileName:
@@ -467,9 +471,10 @@ class output_imageGui(QWidget):
         # show the window
         self.showMaximized()
 
-    def getComboBoxValues(self, iterString, resString, model_string):
-        self.combo_string = iterString
-        self.resolution_string  = resString
+    #get the selected values from the comboBox
+    def getComboBoxValues(self, iteration_string, resolution_string, model_string):
+        self.iteration_string = iteration_string
+        self.resolution_string  = resolution_string
         self.model_string = model_string
 
     """save_image function control the saving of the output image."""
@@ -502,17 +507,17 @@ class output_imageGui(QWidget):
         global output_image
         self.save_button.hide()
 
-        # number_of_iterations control the number of iteration the algorithm run, the user choose it.
+        #number_of_iterations control the number of iteration the algorithm run, the user choose it.
         global number_of_iterations
         number_of_iterations=0
-        if self.combo_string == 'Low':
+        if self.iteration_string == 'Low':
             number_of_iterations=100
-        elif self.combo_string == 'Medium':
+        elif self.iteration_string == 'Medium':
             number_of_iterations=600
         else:
             number_of_iterations=1200
 
-        # resulotion control the output image resulotion, the user choose it.
+        #resulotion control the output image resulotion, the user choose it.
         resolution = 0
         if self.resolution_string == 'Small- 256 px':
             resolution = 256
@@ -521,6 +526,7 @@ class output_imageGui(QWidget):
         elif self.resolution_string  == 'Large- 1024 px':
             resolution = 1024
 
+        #model type
         global modelType
         if self.model_string == 'Vgg16':
             modelType = 16
