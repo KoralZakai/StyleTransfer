@@ -6,6 +6,7 @@ The system extract content and style from an image and combined them together in
 This is a collage project that based on J. Johnson paper and Leon A. Gatys paper, you can find our full project paper on this repository.
 
 For using the application you can or download stylemaker.exe and run it on any machine, or run the python code on python3 environment.
+### NOTE: Please wait, the app takes a few seconds to open. 
 
 Example:
 ![Picture1](https://user-images.githubusercontent.com/34678172/60440185-f54d1e00-9c1c-11e9-9b5e-895dbd47257c.png)
