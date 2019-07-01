@@ -13,7 +13,7 @@ import ctypes
 import css
 import os
 
-# global variables created to control the UI and code parameters.
+# global variables for using in the entire code.
 global content_path
 global style_path
 global outputImage
@@ -28,8 +28,8 @@ count=0
 global number_of_iterations
 number_of_iterations = 0
 
-"""MainWindowGui is the main class of the UI,
-all UI parameters and code functions defined here."""
+"""MainWindowGui is the main class of the GUI,
+all GUI parameters and code functions defined here."""
 class MainWindowGui(QWidget):
     def __init__(self, parent=None):
         super(MainWindowGui, self).__init__(parent)
@@ -55,7 +55,7 @@ class MainWindowGui(QWidget):
         self.setWindowIcon(QIcon(":css/Icons/logo.png"))
         self.setGeometry(0, 0, self.width, self.height-60)
 
-        #Creating main container-frame, parent it to QWindow
+        #Creating main frame,it is a container for the all framers. parent it to QWindow
         self.main_frame = QtWidgets.QFrame(self)
         self.main_frame.setObjectName("MainFrame")
         self.main_frame.setFixedWidth(self.width)
@@ -108,14 +108,14 @@ class MainWindowGui(QWidget):
         StartCreateNewBtn.clicked.connect(self.openTransferImageGui)
         self.Buttonsub_Layout.addWidget(StartCreateNewBtn)
 
-        # Footer layout
+        # credit text label on main layout
         creditsLbl = QtWidgets.QLabel('Created By Koral Zakai & May Steinfeld, '
                                       'Supervisor: Zeev Vladimir Volkovich, '
                                       '03/06/2019')
         creditsLbl.setAlignment(Qt.AlignCenter)
         self.main_layout.addWidget(creditsLbl)
 
-        # show the window
+        # show the window on full screen
         self.showMaximized()
 
     def openTransferImageGui(self):
@@ -221,11 +221,14 @@ class TransferImageGui(QWidget):
         StyleBtn.clicked.connect(self.setStyleImage)
         self.buttonsSub_Layout.addWidget(StyleBtn)
 
+        #framer for the uploaded content and style images
         self.photosframe = QtWidgets.QFrame(self.main_frame)
         self.photosframe.setFixedWidth(self.width)
         self.main_layout.addWidget(self.photosframe)
         self.photosSub_Layout = QtWidgets.QHBoxLayout(self.photosframe)
         self.photosSub_Layout.setAlignment(Qt.AlignCenter | Qt.AlignTop)
+
+        #lable for  the content image
         self.contentLabel = QtWidgets.QLabel('', self)
         pixmap = QPixmap(":css/Icons/imageNeedUpload.png")
         pixmap = pixmap.scaled(256, 256)
@@ -233,6 +236,7 @@ class TransferImageGui(QWidget):
         self.photosSub_Layout.addWidget(self.contentLabel)
         self.contentLabel.setAlignment(Qt.AlignCenter)
 
+        #lable for the style image
         self.styleLabel = QtWidgets.QLabel('', self)
         self.styleLabel.setPixmap(pixmap)
         self.photosSub_Layout.addWidget(self.styleLabel)
@@ -285,7 +289,7 @@ class TransferImageGui(QWidget):
         # show the window
         self.showMaximized()
 
-    """lunch_thread control the start of the second thread that running the MainFunc- StyleMakerFunc."""
+    """lunch_thread start the second thread that running the Main functions in the program- StyleMakerFunc."""
     def lunch_thread(self):
         if flagStyleImage == 1 and flagContentImage == 1:
             outputWindow = OutputImageGui(self)
@@ -306,7 +310,7 @@ class TransferImageGui(QWidget):
         home.show()
         self.main_frame.setVisible(False)
 
-    """setContentImage function control on choosing the content image."""
+    """setContentImage function choosing the content image form dialog file box and ."""
     def setContentImage(self):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
                                                              "Image Files (*.png *.jpg *.jpeg *.bmp)")
@@ -325,7 +329,7 @@ class TransferImageGui(QWidget):
                 flagContentImage = 0
                 QMessageBox.critical(self, "Error", "Image is corrupted, please upload a good image." )
 
-    """setStyleImage function control on choosing the style image."""
+    """setStyleImage function choosing the content image form dialog file box and ."""
     def setStyleImage(self):
         fileName, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Image", "",
                                                              "Image Files (*.png *.jpg *.jpeg *.bmp)")
