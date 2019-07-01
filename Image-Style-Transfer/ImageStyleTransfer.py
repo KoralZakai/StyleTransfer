@@ -40,8 +40,8 @@ class main_window_gui(QWidget):
         self.title = 'Style Maker'
         self.width = w
         self.height = h
-
         self.initUI()
+
     def closeEvent(self, QCloseEvent):
             os._exit(0)
 
@@ -134,6 +134,7 @@ class main_window_gui(QWidget):
             webbrowser.open(filename)  #Go to help file in googleDrive
         except:
             return
+
 # The main Gui, include uploading 2 images and generate Btn .
 class TransferImageGui(QWidget):
     def __init__(self, parent=None):
@@ -283,8 +284,8 @@ class TransferImageGui(QWidget):
         self.generateBtnSub_Layout = QtWidgets.QHBoxLayout(self.generateBtnSub_Frame)
         self.generateBtnSub_Layout.setAlignment(Qt.AlignCenter)
 
-        self.generateBtn = QtWidgets.QPushButton("generate", self)
-        self.generateBtn.setToolTip('generate image.')
+        self.generateBtn = QtWidgets.QPushButton("Generate", self)
+        self.generateBtn.setToolTip('Generate image.')
         self.generateBtn.setObjectName("MainGuiButtons")
         self.generateBtn.clicked.connect(self.start_thread)
         self.generateBtnSub_Layout.addWidget(self.generateBtn)
@@ -351,6 +352,7 @@ class TransferImageGui(QWidget):
             except (IOError, SyntaxError) as e:
                 flag_style_image = 0
                 QMessageBox.critical(self, "Error", "Image is corrupted , please upload a good image." )
+
 # Show generate the images and show the output result
 class output_imageGui(QWidget):
     def __init__(self , parent=None):
