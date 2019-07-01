@@ -16,23 +16,23 @@ import os
 # global variables for using in the entire code.
 global content_path
 global style_path
-global outputImage
-global flagContentImage
-flagContentImage=0
-global flagStyleImage
-flagStyleImage=0
-global flagFinishGenerate
-flagFinishGenerate=0
+global output_image
+global flag_content_image
+flag_content_image=0
+global flag_style_image
+flag_style_image=0
+global flag_finish_generate
+flag_finish_generate=0
 global count
 count=0
 global number_of_iterations
 number_of_iterations = 0
 
-"""MainWindowGui is the main class of the GUI,
+"""main_window_gui is the main class of the GUI,
 all GUI parameters and code functions defined here."""
-class MainWindowGui(QWidget):
+class main_window_gui(QWidget):
     def __init__(self, parent=None):
-        super(MainWindowGui, self).__init__(parent)
+        super(main_window_gui, self).__init__(parent)
         # init the initial parameters of this GUI
         user32 = ctypes.windll.user32
         user32.SetProcessDPIAware()
@@ -63,50 +63,50 @@ class MainWindowGui(QWidget):
         self.main_layout = QtWidgets.QVBoxLayout(self.main_frame)
 
         # the Icons sub frame
-        self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(80)
-        self.main_layout.addWidget(self.Iconsub_Frame)
-        self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
-        self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
+        self.iconsub_frame = QtWidgets.QFrame(self.main_frame)
+        self.iconsub_frame.setFixedHeight(80)
+        self.main_layout.addWidget(self.iconsub_frame)
+        self.iconsub_layout = QtWidgets.QHBoxLayout(self.iconsub_frame)
+        self.iconsub_layout.setAlignment(Qt.AlignLeft)
 
         # help button
-        helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setObjectName("TransparentButtons")
-        helpBtn.setStyleSheet("QPushButton {background: url(:css/Icons/help.png) no-repeat transparent;}")
-        helpBtn.setToolTip('Show help pdf.')
-        helpBtn.setFixedWidth(68)
-        helpBtn.setFixedHeight(68)
-        helpBtn.clicked.connect(self.showHelpPdf)
-        self.Iconsub_Layout.addWidget(helpBtn)
+        help_btn = QtWidgets.QPushButton("", self)
+        help_btn.setObjectName("TransparentButtons")
+        help_btn.setStyleSheet("QPushButton {background: url(:css/Icons/help.png) no-repeat transparent;}")
+        help_btn.setToolTip('Show help pdf.')
+        help_btn.setFixedWidth(68)
+        help_btn.setFixedHeight(68)
+        help_btn.clicked.connect(self.show_help_pdf)
+        self.iconsub_layout.addWidget(help_btn)
 
         # the Icon sub frame
-        self.Logosub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Logosub_Frame.setFixedWidth(self.width)
-        self.main_layout.addWidget(self.Logosub_Frame)
-        self.Logosub_Layout = QtWidgets.QHBoxLayout(self.Logosub_Frame)
-        self.Logosub_Layout.setAlignment(Qt.AlignCenter)
+        self.logo_sub_frame = QtWidgets.QFrame(self.main_frame)
+        self.logo_sub_frame.setFixedWidth(self.width)
+        self.main_layout.addWidget(self.logo_sub_frame)
+        self.logosub_layout = QtWidgets.QHBoxLayout(self.logo_sub_frame)
+        self.logosub_layout.setAlignment(Qt.AlignCenter)
 
         # Setting up the logo
         logo = QtWidgets.QLabel('', self)
         pixmap = QPixmap(":css/Icons/logo.png")
         pixmap = pixmap.scaled(260, 260)
         logo.setPixmap(pixmap)
-        self.Logosub_Layout.addWidget(logo)
+        self.logosub_layout.addWidget(logo)
         logo.setAlignment(Qt.AlignCenter)
 
         # The Button sub frame
-        self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.main_layout.addWidget(self.Buttonsub_Frame)
-        self.Buttonsub_Layout = QtWidgets.QHBoxLayout(self.Buttonsub_Frame)
-        self.Buttonsub_Frame.setFixedWidth(self.width)
-        self.Buttonsub_Layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
+        self.button_sub_frame = QtWidgets.QFrame(self.main_frame)
+        self.main_layout.addWidget(self.button_sub_frame)
+        self.button_sub_layout = QtWidgets.QHBoxLayout(self.button_sub_frame)
+        self.button_sub_frame.setFixedWidth(self.width)
+        self.button_sub_layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
 
         # start to create style button
         StartCreateNewBtn = QtWidgets.QPushButton("Style your image", self)
         StartCreateNewBtn.setObjectName("MainGuiButtons")
         StartCreateNewBtn.setToolTip('Start image style process.')
         StartCreateNewBtn.clicked.connect(self.openTransferImageGui)
-        self.Buttonsub_Layout.addWidget(StartCreateNewBtn)
+        self.button_sub_layout.addWidget(StartCreateNewBtn)
 
         # credit text label on main layout
         creditsLbl = QtWidgets.QLabel('Created By Koral Zakai & May Steinfeld, '
@@ -117,20 +117,20 @@ class MainWindowGui(QWidget):
 
         # show the window on full screen
         self.showMaximized()
-
+#if clicked on "style your image"
     def openTransferImageGui(self):
         transferImage = TransferImageGui(self)
         transferImage.show()
         self.main_frame.setVisible(False)
 
-    def showHelpPdf(self):
+    def show_help_pdf(self):
         import os
         filename = 'Help.pdf'
         try:
             os.startfile(filename)
         except:
             return
-
+# The main Gui, include uploading 2 images and generate Btn .
 class TransferImageGui(QWidget):
     def __init__(self, parent=None):
         super(TransferImageGui, self).__init__(parent)
@@ -146,12 +146,12 @@ class TransferImageGui(QWidget):
         self.t = None
 
     def initUI2(self):
-        global flagContentImage
-        flagContentImage = 0
-        global flagStyleImage
-        flagStyleImage = 0
-        global flagFinishGenerate
-        flagFinishGenerate = 0
+        global flag_content_image
+        flag_content_image = 0
+        global flag_style_image
+        flag_style_image = 0
+        global flag_finish_generate
+        flag_finish_generate = 0
 
         file = QFile(':css/StyleSheet.css')
         file.open(QFile.ReadOnly)
@@ -172,31 +172,31 @@ class TransferImageGui(QWidget):
 
         # home and help buttons
         # the Icons sub frame
-        self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(80)
-        self.main_layout.addWidget(self.Iconsub_Frame)
-        self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
-        self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
+        self.iconsub_frame = QtWidgets.QFrame(self.main_frame)
+        self.iconsub_frame.setFixedHeight(80)
+        self.main_layout.addWidget(self.iconsub_frame)
+        self.iconsub_layout = QtWidgets.QHBoxLayout(self.iconsub_frame)
+        self.iconsub_layout.setAlignment(Qt.AlignLeft)
 
         # help button
-        helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setObjectName("TransparentButtons")
-        helpBtn.setStyleSheet("QPushButton {background: url(:css/Icons/help.png) no-repeat transparent;}")
-        helpBtn.setToolTip('Show help pdf.')
-        helpBtn.setFixedWidth(68)
-        helpBtn.setFixedHeight(68)
-        helpBtn.clicked.connect(MainWindowGui.showHelpPdf)
-        self.Iconsub_Layout.addWidget(helpBtn)
+        help_btn = QtWidgets.QPushButton("", self)
+        help_btn.setObjectName("TransparentButtons")
+        help_btn.setStyleSheet("QPushButton {background: url(:css/Icons/help.png) no-repeat transparent;}")
+        help_btn.setToolTip('Show help pdf.')
+        help_btn.setFixedWidth(68)
+        help_btn.setFixedHeight(68)
+        help_btn.clicked.connect(main_window_gui.show_help_pdf)
+        self.iconsub_layout.addWidget(help_btn)
 
         # home button
-        homeBtn = QtWidgets.QPushButton("", self)
-        homeBtn.setObjectName("TransparentButtons")
-        homeBtn.setStyleSheet("QPushButton {background: url(:css/Icons/home.png) no-repeat transparent;} ")
-        homeBtn.setFixedWidth(68)
-        homeBtn.setFixedHeight(68)
-        homeBtn.setToolTip('Return home screen.')
-        homeBtn.clicked.connect(self.showHome)
-        self.Iconsub_Layout.addWidget(homeBtn)
+        home_btn = QtWidgets.QPushButton("", self)
+        home_btn.setObjectName("TransparentButtons")
+        home_btn.setStyleSheet("QPushButton {background: url(:css/Icons/home.png) no-repeat transparent;} ")
+        home_btn.setFixedWidth(68)
+        home_btn.setFixedHeight(68)
+        home_btn.setToolTip('Return home screen.')
+        home_btn.clicked.connect(self.show_home)
+        self.iconsub_layout.addWidget(home_btn)
 
         self.buttonsSub_Frame = QtWidgets.QFrame(self.main_frame)
         self.buttonsSub_Frame.setFixedWidth(self.width)
@@ -279,22 +279,22 @@ class TransferImageGui(QWidget):
         self.generateBtnSub_Layout = QtWidgets.QHBoxLayout(self.generateBtnSub_Frame)
         self.generateBtnSub_Layout.setAlignment(Qt.AlignCenter)
 
-        self.generateBtn = QtWidgets.QPushButton("Generate", self)
-        self.generateBtn.setToolTip('Generate image.')
+        self.generateBtn = QtWidgets.QPushButton("generate", self)
+        self.generateBtn.setToolTip('generate image.')
         self.generateBtn.setObjectName("MainGuiButtons")
-        self.generateBtn.clicked.connect(self.lunch_thread)
+        self.generateBtn.clicked.connect(self.start_thread)
         self.generateBtnSub_Layout.addWidget(self.generateBtn)
         self.generateBtn.setEnabled(True)
 
-        # show the window
+        # show the window on full screen
         self.showMaximized()
 
-    """lunch_thread start the second thread that running the Main functions in the program- StyleMakerFunc."""
-    def lunch_thread(self):
-        if flagStyleImage == 1 and flagContentImage == 1:
-            outputWindow = OutputImageGui(self)
+    """start_thread start the second thread that running the Main functions in the program- StyleMakerFunc."""
+    def start_thread(self):
+        if flag_style_image == 1 and flag_content_image == 1:
+            outputWindow = output_imageGui(self)
             outputWindow.getComboBoxValues(self.iterationbox.currentText(), self.resolutionbox.currentText() , self.modelBox.currentText())
-            self.t = threading.Thread(target=outputWindow.Generate)
+            self.t = threading.Thread(target=outputWindow.generate)
             self.t.start()
             outputWindow.show()
             self.main_frame.setVisible(False)
@@ -302,11 +302,11 @@ class TransferImageGui(QWidget):
             QMessageBox.critical(self, "Error", "You must upload content and style images first.")
 
     # Opens home window
-    def showHome(self):
+    def show_home(self):
         """
         close current window and return to home page
         """
-        home = MainWindowGui(self)
+        home = main_window_gui(self)
         home.show()
         self.main_frame.setVisible(False)
 
@@ -317,8 +317,8 @@ class TransferImageGui(QWidget):
         if fileName:
             global content_path
             content_path = fileName[0]
-            global flagContentImage
-            flagContentImage = 1
+            global flag_content_image
+            flag_content_image = 1
             try:
                 img = Image.open(content_path)  # open the image file
                 img.verify()  # verify that it is, in fact an image
@@ -326,7 +326,7 @@ class TransferImageGui(QWidget):
                 pixmap = pixmap.scaled(256, 256)
                 self.contentLabel.setPixmap(pixmap)
             except (IOError, SyntaxError) as e:
-                flagContentImage = 0
+                flag_content_image = 0
                 QMessageBox.critical(self, "Error", "Image is corrupted, please upload a good image." )
 
     """setStyleImage function choosing the content image form dialog file box and ."""
@@ -336,8 +336,8 @@ class TransferImageGui(QWidget):
         if fileName:
             global style_path
             style_path = fileName[0]
-            global flagStyleImage
-            flagStyleImage = 1
+            global flag_style_image
+            flag_style_image = 1
             try:
                 img = Image.open(style_path)  # open the image file
                 img.verify()  # verify that it is, in fact an image
@@ -345,12 +345,12 @@ class TransferImageGui(QWidget):
                 pixmap = pixmap.scaled(256, 256)
                 self.styleLabel.setPixmap(pixmap)
             except (IOError, SyntaxError) as e:
-                flagStyleImage = 0
+                flag_style_image = 0
                 QMessageBox.critical(self, "Error", "Image is corrupted , please upload a good image." )
-
-class OutputImageGui(QWidget):
+# Show generate the images and show the output result
+class output_imageGui(QWidget):
     def __init__(self , parent=None):
-        super(OutputImageGui, self).__init__(parent)
+        super(output_imageGui, self).__init__(parent)
         self.show
         # init the initial parameters of this GUI
         user32 = ctypes.windll.user32
@@ -379,31 +379,31 @@ class OutputImageGui(QWidget):
         self.main_layout = QtWidgets.QVBoxLayout(self.main_frame)
 
         # the Icons sub frame
-        self.Iconsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.Iconsub_Frame.setFixedHeight(80)
-        self.main_layout.addWidget(self.Iconsub_Frame)
-        self.Iconsub_Layout = QtWidgets.QHBoxLayout(self.Iconsub_Frame)
-        self.Iconsub_Layout.setAlignment(Qt.AlignLeft)
+        self.iconsub_frame = QtWidgets.QFrame(self.main_frame)
+        self.iconsub_frame.setFixedHeight(80)
+        self.main_layout.addWidget(self.iconsub_frame)
+        self.iconsub_layout = QtWidgets.QHBoxLayout(self.iconsub_frame)
+        self.iconsub_layout.setAlignment(Qt.AlignLeft)
 
         # help button
-        helpBtn = QtWidgets.QPushButton("", self)
-        helpBtn.setObjectName("TransparentButtons")
-        helpBtn.setStyleSheet("QPushButton {background: url(:css/Icons/help.png) no-repeat transparent;}")
-        helpBtn.setToolTip('Show help pdf.')
-        helpBtn.setFixedWidth(68)
-        helpBtn.setFixedHeight(68)
-        helpBtn.clicked.connect(MainWindowGui.showHelpPdf)
-        self.Iconsub_Layout.addWidget(helpBtn)
+        help_btn = QtWidgets.QPushButton("", self)
+        help_btn.setObjectName("TransparentButtons")
+        help_btn.setStyleSheet("QPushButton {background: url(:css/Icons/help.png) no-repeat transparent;}")
+        help_btn.setToolTip('Show help pdf.')
+        help_btn.setFixedWidth(68)
+        help_btn.setFixedHeight(68)
+        help_btn.clicked.connect(main_window_gui.show_help_pdf)
+        self.iconsub_layout.addWidget(help_btn)
 
         # home button
-        self.homeBtn = QtWidgets.QPushButton("", self)
-        self.homeBtn.setObjectName("TransparentButtons")
-        self.homeBtn.setStyleSheet("QPushButton {background: url(:css/Icons/home.png) no-repeat transparent;} ")
-        self.homeBtn.setFixedWidth(68)
-        self.homeBtn.setFixedHeight(68)
-        self.homeBtn.clicked.connect(self.showHome)
-        self.Iconsub_Layout.addWidget(self.homeBtn)
-        self.homeBtn.setToolTip('Return home screen.')
+        self.home_btn = QtWidgets.QPushButton("", self)
+        self.home_btn.setObjectName("TransparentButtons")
+        self.home_btn.setStyleSheet("QPushButton {background: url(:css/Icons/home.png) no-repeat transparent;} ")
+        self.home_btn.setFixedWidth(68)
+        self.home_btn.setFixedHeight(68)
+        self.home_btn.clicked.connect(self.show_home)
+        self.iconsub_layout.addWidget(self.home_btn)
+        self.home_btn.setToolTip('Return home screen.')
 
         # The output image sub frame
         self.output_sub_frame = QtWidgets.QFrame(self.main_frame)
@@ -412,23 +412,23 @@ class OutputImageGui(QWidget):
         self.output_sub_frame.setFixedWidth(self.width)
         self.output_sub_layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
 
-        self.outputframe = QtWidgets.QLabel(self.main_frame)
-        self.outputframe.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.outputframe.setText("")
+        self.output_frame = QtWidgets.QLabel(self.main_frame)
+        self.output_frame.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.output_frame.setText("")
         pixmap = QPixmap(":css/Icons/gift.png")
         pixmap = pixmap.scaled(256, 256)
-        self.outputframe.setPixmap(pixmap)
-        self.outputframe.setScaledContents(True)
-        self.outputframe.setObjectName("outputframe")
-        self.outputframe.setAlignment(Qt.AlignCenter)
-        self.output_sub_layout.addWidget(self.outputframe)
+        self.output_frame.setPixmap(pixmap)
+        self.output_frame.setScaledContents(True)
+        self.output_frame.setObjectName("output_frame")
+        self.output_frame.setAlignment(Qt.AlignCenter)
+        self.output_sub_layout.addWidget(self.output_frame)
 
         # The progressBar sub frame
-        self.progressBarsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.main_layout.addWidget(self.progressBarsub_Frame)
-        self.progressBarsub_Frame.setFixedWidth(self.width)
-        self.progressBarsub_Layout = QtWidgets.QHBoxLayout(self.progressBarsub_Frame)
-        self.progressBarsub_Layout.setAlignment(Qt.AlignCenter)
+        self.progressBar_sub_frame = QtWidgets.QFrame(self.main_frame)
+        self.main_layout.addWidget(self.progressBar_sub_frame)
+        self.progressBar_sub_frame.setFixedWidth(self.width)
+        self.progressBar_sub_layout = QtWidgets.QHBoxLayout(self.progressBar_sub_frame)
+        self.progressBar_sub_layout.setAlignment(Qt.AlignCenter)
 
         self.progressBar = QtWidgets.QProgressBar(self.main_frame)
         self.progressBar.setFixedWidth(self.width/3)
@@ -436,97 +436,97 @@ class OutputImageGui(QWidget):
         self.progressBar.setMaximum(100)
         self.progressBar.setAlignment(Qt.AlignCenter)
         self.progressBar.setObjectName("progressBar")
-        self.progressBarsub_Layout.addWidget(self.progressBar)
+        self.progressBar_sub_layout.addWidget(self.progressBar)
 
         # The Button save sub frame
-        self.Buttonsub_Frame = QtWidgets.QFrame(self.main_frame)
-        self.main_layout.addWidget(self.Buttonsub_Frame)
-        self.Buttonsub_Layout = QtWidgets.QVBoxLayout(self.Buttonsub_Frame)
-        self.Buttonsub_Frame.setFixedWidth(self.width)
-        self.Buttonsub_Layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
+        self.button_sub_frame = QtWidgets.QFrame(self.main_frame)
+        self.main_layout.addWidget(self.button_sub_frame)
+        self.button_sub_layout = QtWidgets.QVBoxLayout(self.button_sub_frame)
+        self.button_sub_frame.setFixedWidth(self.width)
+        self.button_sub_layout.setAlignment(Qt.AlignTop | Qt.AlignCenter)
 
         # Save button for the output image
-        self.savebutton = QtWidgets.QPushButton("Save your image", self)
-        self.savebutton.setObjectName("MainGuiButtons")
-        self.savebutton.clicked.connect(self.saveimage)
-        self.savebutton.setToolTip('Save ouput image.')
-        self.Buttonsub_Layout.addWidget(self.savebutton)
+        self.save_button = QtWidgets.QPushButton("Save your image", self)
+        self.save_button.setObjectName("MainGuiButtons")
+        self.save_button.clicked.connect(self.save_image)
+        self.save_button.setToolTip('Save ouput image.')
+        self.button_sub_layout.addWidget(self.save_button)
 
         # show the window
         self.showMaximized()
 
-    def getComboBoxValues(self, iterString, resString, modelString):
-        self.comboString = iterString
-        self.resolutionString  = resString
-        self.modelString = modelString
+    def getComboBoxValues(self, iterString, resString, model_string):
+        self.combo_string = iterString
+        self.resolution_string  = resString
+        self.model_string = model_string
 
-    """saveimage function control the saving of the output image."""
-    def saveimage(self):
-        global outputImage
-        fileName, _ = QtWidgets.QFileDialog.getSaveFileName(None, "Select Image", "",
+    """save_image function control the saving of the output image."""
+    def save_image(self):
+        global output_image
+        file_name, _ = QtWidgets.QFileDialog.getSaveFileName(None, "Select Image", "",
                                                             "Image Files (*.jpg *.png *.jpeg *.bmp)")
-        if (fileName):
-            outputImage.save(fileName)
+        if (file_name):
+            output_image.save(file_name)
 
     # Opens home window
-    def showHome(self):
+    def show_home(self):
         """
         close current window and return to home page
         """
-        global flagFinishGenerate
-        if flagFinishGenerate == 0:
+        global flag_finish_generate
+        if flag_finish_generate == 0:
             QMessageBox.critical(self, "Error", "You can not return home while process is running.")
         else:
-            home = MainWindowGui(self)
+            home = main_window_gui(self)
             home.show()
             self.main_frame.setVisible(False)
 
-    """onCountChanged function control on updating the progressBar."""
-    def onCountChanged(self, value):
+    """on_count_changed function control on updating the progressBar."""
+    def on_count_changed(self, value):
         self.progressBar.setValue(value)
 
-    """Generate function is start when the Generate button pushed. it start the main algorithm."""
-    def Generate(self):
-        global outputImage
-        self.savebutton.hide()
+    """generate function is start when the generate button pushed. it start the main algorithm."""
+    def generate(self):
+        global output_image
+        self.save_button.hide()
 
         # number_of_iterations control the number of iteration the algorithm run, the user choose it.
         global number_of_iterations
         number_of_iterations=0
-        if self.comboString == 'Low':
+        if self.combo_string == 'Low':
             number_of_iterations=100
-        elif self.comboString == 'Medium':
+        elif self.combo_string == 'Medium':
             number_of_iterations=600
         else:
             number_of_iterations=1200
 
         # resulotion control the output image resulotion, the user choose it.
         resolution = 0
-        if self.resolutionString == 'Small- 256 px':
+        if self.resolution_string == 'Small- 256 px':
             resolution = 256
-        elif self.resolutionString == 'Medium- 512 px':
+        elif self.resolution_string == 'Medium- 512 px':
             resolution = 512
-        elif self.resolutionString  == 'Large- 1024 px':
+        elif self.resolution_string  == 'Large- 1024 px':
             resolution = 1024
 
         global modelType
-        if self.modelString == 'Vgg16':
+        if self.model_string == 'Vgg16':
             modelType = 16
-        elif self.modelString == 'Vgg19':
+        elif self.model_string == 'Vgg19':
             modelType = 19
 
-        # outputImage get the result from the StyleMakerFunc.
-        outputImage = self.StyleMakerFunc(content_path, style_path, number_of_iterations, resolution, modelType)
-        pixmap = QtGui.QPixmap(outputImage.toqpixmap())
+        # output_image get the result from the StyleMakerFunc.
+        output_image = self.StyleMakerFunc(content_path, style_path, number_of_iterations, resolution, modelType)
+        pixmap = QtGui.QPixmap(output_image.toqpixmap())
         pixmap = pixmap.scaledToHeight(250)
-        self.outputframe.setPixmap(pixmap)
-        self.outputframe.setAlignment(QtCore.Qt.AlignCenter)
-        self.outputframe.show()
-        self.savebutton.show()
+        self.output_frame.setPixmap(pixmap)
+        self.output_frame.setAlignment(QtCore.Qt.AlignCenter)
+        self.output_frame.show()
+        self.save_button.show()
 
-        global flagFinishGenerate
-        flagFinishGenerate = 1
-        self.homeBtn.setEnabled(True)
+        global flag_finish_generate
+        flag_finish_generate = 1
+        self.home_btn.setEnabled(True)
 
     """StyleMakerFunc is the main function that running the image style transfer algorithm"""
     def StyleMakerFunc(self, content_path, style_path, number_of_iterations, resolution, modelType):
@@ -768,5 +768,5 @@ class External(QThread):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    main = MainWindowGui()
+    main = main_window_gui()
     sys.exit(app.exec_())
