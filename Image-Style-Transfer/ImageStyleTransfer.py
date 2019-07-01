@@ -117,7 +117,8 @@ class main_window_gui(QWidget):
 
         # show the window on full screen
         self.showMaximized()
-#if clicked on "style your image"
+
+    #if clicked on "style your image"
     def openTransferImageGui(self):
         transferImage = TransferImageGui(self)
         transferImage.show()
