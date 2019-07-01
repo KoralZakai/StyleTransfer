@@ -125,9 +125,12 @@ class MainWindowGui(QWidget):
 
     def showHelpPdf(self):
         import os
-        filename = 'Help.pdf'
+        import webbrowser
+        #filename = 'Help.pdf'
+        filename = 'https://drive.google.com/file/d/15odkIk28GARWVzHkBz2gUJ4T3r7X2YZs/view'
         try:
-            os.startfile(filename)
+            #os.startfile(filename)
+            webbrowser.open(filename)  #Go to help file in googleDrive
         except:
             return
 
