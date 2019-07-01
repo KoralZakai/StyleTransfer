@@ -8,10 +8,10 @@ This is a collage project that based on J. Johnson paper and Leon A. Gatys paper
 For using the application you can or download stylemaker.exe and run it on any machine, or run the python code on python3 environment.
 
 Example:
+![Picture1](https://user-images.githubusercontent.com/34678172/60440185-f54d1e00-9c1c-11e9-9b5e-895dbd47257c.png)
 
 
-
-Application GUI and implementation:
+## Application GUI and implementation:
 
 Home Screen:
 
@@ -31,4 +31,6 @@ Help File:
 
 ![showHelp](https://user-images.githubusercontent.com/34678172/60384158-06622780-9a83-11e9-8d97-8980bb85ebc5.png)
 
-Our Results:
+## Our Results:
+![Picture3](https://user-images.githubusercontent.com/34678172/60440261-22013580-9c1d-11e9-89f9-9004234bb0c0.png)
+![Picture2](https://user-images.githubusercontent.com/34678172/60440282-31807e80-9c1d-11e9-9ef8-0595092b104d.png)
