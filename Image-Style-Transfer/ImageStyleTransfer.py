@@ -332,6 +332,9 @@ class TransferImageGui(QWidget):
                 self.contentLabel.setPixmap(pixmap)
             except (IOError, SyntaxError) as e:
                 flag_content_image = 0
+                pixmap = QPixmap(":css/Icons/imageNeedUpload.png")
+                pixmap = pixmap.scaled(256, 256)
+                self.contentLabel.setPixmap(pixmap)
                 QMessageBox.critical(self, "Error", "Image is corrupted, please upload a good image." )
 
     """setStyleImage function choosing the content image form dialog file box and ."""
@@ -351,6 +354,9 @@ class TransferImageGui(QWidget):
                 self.styleLabel.setPixmap(pixmap)
             except (IOError, SyntaxError) as e:
                 flag_style_image = 0
+                pixmap = QPixmap(":css/Icons/imageNeedUpload.png")
+                pixmap = pixmap.scaled(256, 256)
+                self.styleLabel.setPixmap(pixmap)
                 QMessageBox.critical(self, "Error", "Image is corrupted , please upload a good image." )
 
 # Show generate the images and show the output result
