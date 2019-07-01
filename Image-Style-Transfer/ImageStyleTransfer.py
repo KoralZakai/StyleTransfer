@@ -40,8 +40,8 @@ class main_window_gui(QWidget):
         self.title = 'Style Maker'
         self.width = w
         self.height = h
-
         self.initUI()
+
     def closeEvent(self, QCloseEvent):
             os._exit(0)
 
@@ -117,7 +117,8 @@ class main_window_gui(QWidget):
 
         # show the window on full screen
         self.showMaximized()
-#if clicked on "style your image"
+
+    #if clicked on "style your image"
     def openTransferImageGui(self):
         transferImage = TransferImageGui(self)
         transferImage.show()
@@ -125,11 +126,15 @@ class main_window_gui(QWidget):
 
     def show_help_pdf(self):
         import os
-        filename = 'Help.pdf'
+        import webbrowser
+        #filename = 'Help.pdf'
+        filename = 'https://drive.google.com/file/d/15odkIk28GARWVzHkBz2gUJ4T3r7X2YZs/view'
         try:
-            os.startfile(filename)
+            #os.startfile(filename)
+            webbrowser.open(filename)  #Go to help file in googleDrive
         except:
             return
+
 # The main Gui, include uploading 2 images and generate Btn .
 class TransferImageGui(QWidget):
     def __init__(self, parent=None):
@@ -279,8 +284,8 @@ class TransferImageGui(QWidget):
         self.generateBtnSub_Layout = QtWidgets.QHBoxLayout(self.generateBtnSub_Frame)
         self.generateBtnSub_Layout.setAlignment(Qt.AlignCenter)
 
-        self.generateBtn = QtWidgets.QPushButton("generate", self)
-        self.generateBtn.setToolTip('generate image.')
+        self.generateBtn = QtWidgets.QPushButton("Generate", self)
+        self.generateBtn.setToolTip('Generate image.')
         self.generateBtn.setObjectName("MainGuiButtons")
         self.generateBtn.clicked.connect(self.start_thread)
         self.generateBtnSub_Layout.addWidget(self.generateBtn)
@@ -327,6 +332,9 @@ class TransferImageGui(QWidget):
                 self.contentLabel.setPixmap(pixmap)
             except (IOError, SyntaxError) as e:
                 flag_content_image = 0
+                pixmap = QPixmap(":css/Icons/imageNeedUpload.png")
+                pixmap = pixmap.scaled(256, 256)
+                self.contentLabel.setPixmap(pixmap)
                 QMessageBox.critical(self, "Error", "Image is corrupted, please upload a good image." )
 
     """setStyleImage function choosing the content image form dialog file box and ."""
@@ -346,7 +354,11 @@ class TransferImageGui(QWidget):
                 self.styleLabel.setPixmap(pixmap)
             except (IOError, SyntaxError) as e:
                 flag_style_image = 0
+                pixmap = QPixmap(":css/Icons/imageNeedUpload.png")
+                pixmap = pixmap.scaled(256, 256)
+                self.styleLabel.setPixmap(pixmap)
                 QMessageBox.critical(self, "Error", "Image is corrupted , please upload a good image." )
+
 # Show generate the images and show the output result
 class output_imageGui(QWidget):
     def __init__(self , parent=None):
