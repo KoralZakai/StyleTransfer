@@ -5,7 +5,7 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QThread, pyqtSignal, Qt, QFile, QTextStream
 import threading
 from PyQt5.QtGui import QPixmap, QIcon
-from PyQt5.QtWidgets import QWidget, QMessageBox
+from PyQt5.QtWidgets import QWidget, QMessageBox, QPushButton
 from PyQt5 import QtWidgets
 import ctypes
 
@@ -14,6 +14,8 @@ import css
 import os
 
 # global variables for using in the entire code.
+
+from keras.models import load_model
 global content_path
 global style_path
 global output_image
@@ -108,6 +110,12 @@ class main_window_gui(QWidget):
         StartCreateNewBtn.clicked.connect(self.openTransferImageGui)
         self.button_sub_layout.addWidget(StartCreateNewBtn)
 
+        StartCreateNewBtn = QtWidgets.QPushButton("Style from gallery", self)
+        StartCreateNewBtn.setObjectName("MainGuiButtons")
+        StartCreateNewBtn.setToolTip('Open style gallery.')
+        StartCreateNewBtn.clicked.connect(self.openGalleryGui)
+        self.button_sub_layout.addWidget(StartCreateNewBtn)
+
         # credit text label on main layout
         creditsLbl = QtWidgets.QLabel('Created By Koral Zakai & May Steinfeld, '
                                       'Supervisor: Zeev Vladimir Volkovich, '
@@ -124,6 +132,11 @@ class main_window_gui(QWidget):
         transferImage.show()
         self.main_frame.setVisible(False)
 
+    def openGalleryGui(self):
+        Gallery = GalleryGui(self)
+        Gallery.show()
+        self.main_frame.setVisible(False)
+
     def show_help_pdf(self):
         import os
         import webbrowser
@@ -134,6 +147,168 @@ class main_window_gui(QWidget):
             webbrowser.open(filename)  #Go to help file in googleDrive
         except:
             return
+
+
+class GalleryGui(QWidget):
+    def __init__(self, parent=None):
+        super(GalleryGui, self).__init__(parent)
+
+        # init the initial parameters of this GUI
+        user32 = ctypes.windll.user32
+        user32.SetProcessDPIAware()
+        [w, h] = [user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)]
+        self.title = 'Style from gallery'
+        self.width = w
+        self.height = h
+        self.initUI3()
+        self.t = None
+
+    def initUI3(self):
+        global flag_content_image
+        flag_content_image = 0
+        global flag_style_image
+        flag_style_image = 0
+        global flag_finish_generate
+        flag_finish_generate = 0
+
+        file = QFile(':css/StyleSheet.css')
+        file.open(QFile.ReadOnly)
+        stream = QTextStream(file)
+        text = stream.readAll()
+        self.setStyleSheet(text)
+        self.setWindowTitle(self.title)
+        self.setWindowIcon(QIcon(":css/Icons/logo.png"))
+        self.setGeometry(0, 0, self.width, self.height - 60)
+
+        # Creating main container-frame, parent it to QWindow
+        self.main_frame = QtWidgets.QFrame(self)
+        self.main_frame.setObjectName("MainFrame")
+        self.main_frame.setFixedWidth(self.width)
+        self.main_frame.setFixedHeight(self.height)
+        # the first sub window
+        self.main_layout = QtWidgets.QVBoxLayout(self.main_frame)
+        # home and help buttons
+        # the Icons sub frame
+        self.iconsub_frame = QtWidgets.QFrame(self.main_frame)
+        self.iconsub_frame.setFixedHeight(80)
+        self.main_layout.addWidget(self.iconsub_frame)
+        self.iconsub_layout = QtWidgets.QHBoxLayout(self.iconsub_frame)
+        self.iconsub_layout.setAlignment(Qt.AlignLeft)
+
+        # help button
+        help_btn = QtWidgets.QPushButton("", self)
+        help_btn.setObjectName("TransparentButtons")
+        help_btn.setStyleSheet("QPushButton {background: url(:css/Icons/help.png) no-repeat transparent;}")
+        help_btn.setToolTip('Show help pdf.')
+        help_btn.setFixedWidth(68)
+        help_btn.setFixedHeight(68)
+        help_btn.clicked.connect(main_window_gui.show_help_pdf)
+        self.iconsub_layout.addWidget(help_btn)
+
+        # home button
+        home_btn = QtWidgets.QPushButton("", self)
+        home_btn.setObjectName("TransparentButtons")
+        home_btn.setStyleSheet("QPushButton {background: url(:css/Icons/home.png) no-repeat transparent;} ")
+        home_btn.setFixedWidth(68)
+        home_btn.setFixedHeight(68)
+        home_btn.setToolTip('Return home screen.')
+        home_btn.clicked.connect(self.show_home)
+        self.iconsub_layout.addWidget(home_btn)
+
+        self.buttonsSub_Frame = QtWidgets.QFrame(self.main_frame)
+        self.buttonsSub_Frame.setFixedWidth(self.width)
+        self.buttonsSub_Frame.setFixedHeight(100)
+        self.main_layout.addWidget(self.buttonsSub_Frame)
+        self.buttonsSub_Layout = QtWidgets.QHBoxLayout(self.buttonsSub_Frame)
+        self.buttonsSub_Layout.setAlignment(Qt.AlignCenter|Qt.AlignTop)
+
+        QtCore.QMetaObject.connectSlotsByName(main)
+
+        # upload content button
+        contentBtn = QtWidgets.QPushButton("Upload content image", self)
+        contentBtn.setObjectName("MainGuiButtons")
+        contentBtn.setToolTip('Upload content image.')
+        contentBtn.clicked.connect(TransferImageGui.setContentImage)
+        self.buttonsSub_Layout.addWidget(contentBtn)
+
+
+        #framer for the uploaded content and style images
+        self.photosframe = QtWidgets.QFrame(self.main_frame)
+        self.photosframe.setFixedWidth(self.width)
+        self.main_layout.addWidget(self.photosframe)
+        self.photosSub_Layout = QtWidgets.QHBoxLayout(self.photosframe)
+        self.photosSub_Layout.setAlignment(Qt.AlignCenter | Qt.AlignTop)
+
+        #lable for  the content image
+        self.contentLabel = QtWidgets.QLabel('', self)
+        pixmap = QPixmap(":css/Icons/imageNeedUpload.png")
+        pixmap = pixmap.scaled(256, 256)
+        self.contentLabel.setPixmap(pixmap)
+        self.photosSub_Layout.addWidget(self.contentLabel)
+        self.contentLabel.setAlignment(Qt.AlignCenter)
+
+        self.buttonsStyle_Frame = QtWidgets.QFrame(self.main_frame)
+        self.buttonsStyle_Frame.setFixedWidth(self.width)
+        self.buttonsStyle_Frame.setFixedHeight(100)
+        self.main_layout.addWidget(self.buttonsStyle_Frame)
+        self.buttonsStyle_Layout = QtWidgets.QHBoxLayout(self.buttonsStyle_Frame)
+        self.buttonsStyle_Layout.setAlignment(Qt.AlignCenter | Qt.AlignTop)
+
+        # upload style
+        StyleBtn = QtWidgets.QPushButton("Upload style image", self)
+        StyleBtn.setObjectName("MainGuiButtons")
+        StyleBtn.setToolTip('Upload style image.')
+        #StyleBtn.clicked.connect(self.setStyleImage)
+        self.buttonsStyle_Layout.addWidget(StyleBtn)
+
+        self.photosStyleframe = QtWidgets.QFrame(self.main_frame)
+        self.photosStyleframe.setFixedWidth(self.width)
+        self.main_layout.addWidget(self.photosStyleframe)
+        self.photos_Layout = QtWidgets.QHBoxLayout(self.photosStyleframe)
+        self.photos_Layout.setAlignment(Qt.AlignCenter | Qt.AlignTop)
+
+        self.number = 1
+        self.button = QPushButton()
+        self.button.setFixedSize(256,256)
+        self.button.setIcon(QIcon(QPixmap("images/style/road.jpg")))
+        self.button.setIconSize(QtCore.QSize(500, 256))
+        self.button.clicked.connect(self.styleChoosed())
+        self.photos_Layout.addWidget(self.button)
+
+        self.number = 2
+        self.button = QPushButton()
+        self.button.setFixedSize(256,256)
+        self.button.setIcon(QIcon(QPixmap("images/style/candy.jpg")))
+        self.button.setIconSize(QtCore.QSize(500, 256))
+        self.button.clicked.connect(self.styleChoosed())
+        self.photos_Layout.addWidget(self.button)
+
+        self.number = 3
+        self.button = QPushButton()
+        self.button.setFixedSize(256,256)
+        self.button.setIcon(QIcon(QPixmap("images/style/starry-night.jpg")))
+        self.button.setIconSize(QtCore.QSize(450, 300))
+        self.button.clicked.connect(self.styleChoosed())
+        self.photos_Layout.addWidget(self.button)
+
+
+    #upload check point for the chosen style
+    def styleChoosed(self):
+        if(self.number ==1):
+            filepath = "./checkpoints/" + "  checkPoint" + "_model_weights.h5"
+            model = load_weights(filepath)
+            # Set initial image
+
+
+    # Opens home window
+    def show_home(self):
+        """
+        close current window and return to home page
+        """
+        home = main_window_gui(self)
+        home.show()
+        self.main_frame.setVisible(False)
+
 
 # The main Gui, include uploading 2 images and generate Btn .
 class TransferImageGui(QWidget):
@@ -506,7 +681,7 @@ class output_imageGui(QWidget):
         global number_of_iterations
         number_of_iterations=0
         if self.combo_string == 'Low':
-            number_of_iterations=100
+            number_of_iterations=50
         elif self.combo_string == 'Medium':
             number_of_iterations=600
         else:
@@ -761,11 +936,15 @@ class output_imageGui(QWidget):
                     # Update best loss and best image from total loss.
                     best_loss = loss
                     best_img = deprocess_img(init_image.numpy())
+                    filepath = "./checkpoints/" + "  checkPoint" + "_model_weights.h5"
+                    model.save(filepath)
 
             return best_img, best_loss
 
         best, best_loss = run_style_transfer(content_path, style_path, number_of_iterations=number_of_iterations)
         image = Image.fromarray(best)
+        filepath = "./checkpoints/" + "  checkPoint" + "_model_weights.h5"
+
         return image
 
 """external_run_prograssBar class control the thread running the ProgressBar."""
